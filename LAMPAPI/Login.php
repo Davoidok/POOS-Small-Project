@@ -2,6 +2,7 @@
 
 require 'api.php';
 
+// Expecting {"login":...,"password":...}
 $input = getJsonRequest();
 
 try{
