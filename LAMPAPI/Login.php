@@ -1,9 +1,4 @@
 <?php 
-/*  Get JSON from client (username and password). Put into assoc ['login'=>..., 'password'=>...]
-    Check that username and password are both in a row in DB
-        If so, return with JSON of {success, id, firstName, lastName, and empty error}
-        If not, return with JSON of {failure, id=0, names empty, and error message}        
- */
 
 require 'api.php';
 
@@ -22,7 +17,7 @@ try{
 
     $stmt->execute();
     if($result = $stmt->fetch(PDO::FETCH_ASSOC)){ 
-        returnWithResult($result['ID'], $result['FirstName'], $result['LastName']);
+        returnWithLoginResult($result['ID'], $result['FirstName'], $result['LastName']);
     }
     else{
         returnWithError("Incorrect Login or Password");
@@ -33,6 +28,18 @@ try{
 
 } catch(PDOException $e){
     returnWithError($e->getMessage());
+}
+
+/**
+ * Parse the id and first and last names into JSON and send it as response
+ * @param int $id The unique ID belonging to the user in the database
+ * @param string $firstName First name of user found in the database
+ * @param string $lastName Last name of user found in the database
+ * @return void
+ */
+function returnWithLoginResult(int $id, string $firstName, string $lastName){
+    $json = ['success'=>true, 'id'=>$id, 'firstName'=>$firstName, 'lastName'=>$lastName, 'error'=>""];
+    sendJsonResult(json_encode($json));
 }
 
 ?>

@@ -22,24 +22,21 @@ function sendJsonResult(string $json){
 }
 
 /**
- * Parse the result into JSON and send it as response
- * @param int $id The unique ID belonging to the user in the database
- * @param string $firstName First name of user found in the database
- * @param string $lastName Last name of user found in the database
- * @return void
- */
-function returnWithResult(int $id, string $firstName, string $lastName){
-    $json = ['success'=>true, 'id'=>$id, 'firstName'=>$firstName, 'lastName'=>$lastName, 'error'=>""];
-    sendJsonResult(json_encode($json));
-}
-
-/**
- * Responds with JSON with ID = 0, blank first and last name, and error message
+ * Responds in JSON with success = false and error message
  * @param string $error The error message to be sent to the client
  * @return void
  */
 function returnWithError(string $error){
-    $json = ['success'=>false, 'id'=>0, 'firstName'=>"", 'lastName'=>"", 'error'=>$error];
+    $json = ['success'=>false, 'error'=>$error];
+    sendJsonResult(json_encode($json));
+}
+
+/**
+ * Responds in JSON with success and empty error message
+ * @return void
+ */
+function returnWithSuccess(){
+    $json = ['success'=>true, 'error'=>""];
     sendJsonResult(json_encode($json));
 }
 
