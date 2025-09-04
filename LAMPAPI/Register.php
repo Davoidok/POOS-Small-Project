@@ -20,13 +20,13 @@ try{
 
     $isInDatabase = $stmt->fetch();
 
-    if(empty($fname) || empty($lname))
+    if($fname === '' || $lname === '')
         returnWithError("First and last names cannot be blank");
     elseif(str_contains($login, ' '))
         returnWithError("Username cannot have whitespaces");
-    elseif(empty($login))
+    elseif($login === '')
         returnWithError("Must create a username");
-    elseif(empty($passw))
+    elseif($passw === '')
         returnWithError("Must create a password");
     elseif(trim($passw) === '')
         returnWithError("Password cannot be blank");
@@ -34,9 +34,11 @@ try{
         returnWithError("Username already in use");
     else{
         $stmt = $conn->prepare("INSERT INTO Users (`FirstName`, `LastName`, `Login`, `Password`)
-                                                   VALUES (?, ?, ?, ?)");
-        $stmt->execute([$fname, $lname, $login, $passw]);
-        returnWithSuccess();
+                                                       VALUES (?, ?, ?, ?)");
+        if($stmt->execute([$fname, $lname, $login, $passw])){
+            $userId = $conn->lastInsertId();
+            returnWithLoginResult($userId, $fname, $lname);
+        };
     }
   
     $conn = null;
@@ -45,5 +47,7 @@ try{
 } catch(PDOException $e){
     returnWithError($e->getMessage());
 }
+
+
 
 ?>
