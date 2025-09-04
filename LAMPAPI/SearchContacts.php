@@ -44,22 +44,19 @@ try{
 /**
  * Sends a search result from the database in JSON format.
  * @param array $result An associative array fetched directly from the database.
- * Expectes FirstName, LastName, Phone, Email, and UserID
+ * Expects FirstName, LastName, Phone, Email
  * @return void
  */
 function returnDatabaseSearchResult(array $result){
-    $json = ["success"=>true];
-    foreach($result as &$entry){
-        $entry['firstName'] = $entry['FirstName'];
-        $entry['lastName'] = $entry['LastName'];
-        $entry['phone'] = $entry['Phone'];
-        $entry['email'] = $entry['Email'];
-
-        unset($entry['FirstName'], $entry['LastName'], $entry['Phone'], $entry['Email']);
+    $json = ["success"=>true, "result"=>[], "error"=>""];
+    foreach($result as $entry){
+        $json['result'][] = [
+            'firstName'=>$entry['FirstName'],
+            'lastName'=>$entry['LastName'],
+            'phone'=>$entry['Phone'],
+            'email'=>$entry['Email']
+        ];
     }
-    unset($entry);
-    $json['result'] = $result;
-    $json['error'] = "";
     sendJsonResult(json_encode($json));
 }
 
