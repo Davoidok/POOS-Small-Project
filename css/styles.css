@@ -110,6 +110,17 @@ input[type="text"],input[type="password"]{
     color: #aea8d3;
 }
 
+#welcome-title{
+    display: inline-block;
+    font-size: 2.4em;
+    width: 90%;
+    text-align: center;
+    margin-left: 5%;
+    margin-bottom: 2%;
+    font-family: 'Ubuntu', sans-serif;
+    color: #aea8d3;
+}
+
 #loginResult{
     display: inline-block;
     font-size: 0.8em;
