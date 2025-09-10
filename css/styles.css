@@ -107,7 +107,7 @@ input[type="text"],input[type="password"]{
     margin-left: 5%;
     margin-bottom: 2%;
     font-family: 'Ubuntu', sans-serif;
-    color: #aea8d3;
+    color: #dadfe1;
 }
 
 #welcome-title{
@@ -118,7 +118,7 @@ input[type="text"],input[type="password"]{
     margin-left: 5%;
     margin-bottom: 2%;
     font-family: 'Ubuntu', sans-serif;
-    color: #aea8d3;
+    color: #dadfe1;
 }
 
 #loginResult{
