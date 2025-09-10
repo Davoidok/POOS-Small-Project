@@ -45,13 +45,12 @@ function doLogin()
 				let jsonObject = JSON.parse( xhr.responseText );
 				userId = jsonObject.id;
 		
-				if( userId < 1 )
+				if(!jsonObject.success)
 				{		
-					document.getElementById("loginResult").innerHTML = "User/Password combination incorrect";
+					document.getElementById("loginResult").innerHTML = jsonObject.error;
 					return;
 				}
-		
-                document.getElementById("loginResult").innerHTML = "TEST";
+
 				firstName = jsonObject.firstName;
 				lastName = jsonObject.lastName;
 
@@ -75,6 +74,45 @@ function doRegister()
 	let lastName = document.getElementById("registerLastName").value;
 	let login = document.getElementById("registerName").value;
 	let password = document.getElementById("registerPassword").value;
+
+	document.getElementById("registerResult").innerHTML = "";
+	let tmp = {firstName:firstName,lastName:lastName,login:login,password:password};
+	let jsonPayload = JSON.stringify( tmp );
+	let url = urlBase + '/Register.' + extension;
+
+    let xhr = new XMLHttpRequest();
+	xhr.open("POST", url, true);
+	xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+
+    try
+	{
+		xhr.onreadystatechange = function() 
+		{console.log("ReadyState:", xhr.readyState, "Status:", xhr.status);
+			if (this.readyState == 4 && this.status == 200) 
+			{
+				let jsonObject = JSON.parse( xhr.responseText );
+				userId = jsonObject.id;
+		
+				if(!jsonObject.success)
+				{		
+					document.getElementById("registerResult").innerHTML = jsonObject.error;
+					return;
+				}
+
+				firstName = jsonObject.firstName;
+				lastName = jsonObject.lastName;
+
+				saveCookie();
+	
+				window.location.href = "landingpage.html";
+			}
+		};
+		xhr.send(jsonPayload);
+	}
+	catch(err)
+	{
+		document.getElementById("loginResult").innerHTML = err.message;
+	}
 }
 
 function saveCookie()

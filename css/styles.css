@@ -73,19 +73,19 @@ body
 }
 
 /*Styles for the  */
-#createName
+#registerName
 {
 	font-size: 30px;
 }
-#createFirstName
+#registerFirstName
 {
 	font-size: 30px;
 }
-#createLastName
+#registerLastName
 {
 	font-size: 30px;
 }
-#createPassword
+#registerPassword
 {
 	font-size: 30px;
 }
@@ -111,6 +111,17 @@ input[type="text"],input[type="password"]{
 }
 
 #loginResult{
+    display: inline-block;
+    font-size: 0.8em;
+    width: 90%;
+    text-align: center;
+    margin-left: 5%;
+    margin-bottom: 2%;
+    font-family: 'Ubuntu', sans-serif;
+    color: #95060a;
+}
+
+#registerResult{
     display: inline-block;
     font-size: 0.8em;
     width: 90%;
