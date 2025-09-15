@@ -12,10 +12,11 @@
         <span id="welcome-title">WELCOME</span> <br />
         <br />
 
-        <input type="text" id="searchText" placeholder="Contact to search"/>
-        <button type="button" id="searchContactButton" class="buttons" onclick="searchContact();"> Search Contact </button><br />
-        <span id="contactSearchResult"></span>
-        <p id="contactList">
-        </p><br /><br />
+        <input type="text" id="searchText" placeholder="Contact to search" onkeydown="if(event.key=='Enter') searchContact();"/>
+        <button type="button" id="searchContactButton" class="buttons" onclick="searchContact();")> Search Contact </button><br />
+        <div id="contactBlock">
+          <span id="contactSearchResult"></span>
+          <div id="contactList"></div>
+        </div>
         <button type="button" id="logoutButton" class="buttons" onclick="doLogout();"> Logout </button>
     </body>

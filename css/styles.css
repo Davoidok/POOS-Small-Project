@@ -67,10 +67,6 @@ body
 {
 	font-size: 30px;
 }
-#colorText
-{
-	font-size: 30px;
-}
 
 /*Styles for the  */
 #registerName
@@ -121,26 +117,18 @@ input[type="text"],input[type="password"]{
     color: #dadfe1;
 }
 
-#loginResult{
-    display: inline-block;
-    font-size: 0.8em;
-    width: 90%;
+.errorMessages {
     text-align: center;
-    margin-left: 5%;
-    margin-bottom: 2%;
     font-family: 'Ubuntu', sans-serif;
-    color: #95060a;
+    color: #ff1414;
 }
 
-#registerResult{
-    display: inline-block;
-    font-size: 0.8em;
+#loginError, #registerError{
+    display: block;
+    font-size: 1.6em;
     width: 90%;
     text-align: center;
-    margin-left: 5%;
-    margin-bottom: 2%;
-    font-family: 'Ubuntu', sans-serif;
-    color: #95060a;
+    margin: 0 auto;
 }
 
 #userName{
@@ -155,26 +143,38 @@ input[type="text"],input[type="password"]{
     margin-left: 40%;
 }
 
+#contactBlock {
+    width: 60%;
+    margin: 0 auto;
+}
+
+#contactSearchResult {
+    display: block;
+    text-align: center;
+    font-family: 'Ubuntu', sans-serif;
+    color: #ff87f1;
+    font-size: 1.6em;
+}
+#contactList {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+
+    margin-top: 2%;
+    margin-bottom: 4%;
+    font-size: 1.2em;
+    font-family: 'Ubuntu', sans-serif;
+    color: #ff87f1;
+}
+
+/* * {
+    outline: 2pt solid black;
+} */
+
 select{
     width: 30%;
     margin-left: 35%;
     margin-top: 2%;
     font-size: 0.75em;
     font-family: 'Ubuntu', sans-serif;
-}
-
-#colorSearchResult{
-    display: none;
-}
-
-#colorAddResult{
-    display: inline-block;
-    font-size: 0.8em;
-    width: 90%;
-    text-align: center;
-    margin-left: 5%;
-    margin-top: 2%;
-    margin-bottom: 1%;
-    font-family: 'Ubuntu', sans-serif;
-    color: #95060a;
 }

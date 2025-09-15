@@ -9,10 +9,10 @@
 
     <body>
         <span id="inner-title">PLEASE LOG IN</span> <br />
-        <input type="text" id="loginName" placeholder="Username" /><br />
-        <input type="password" id="loginPassword" placeholder="Password" /><br/>
+        <input type="text" id="loginName" placeholder="Username" onkeydown="if(event.key=='Enter') doLogin();"/><br />
+        <input type="password" id="loginPassword" placeholder="Password" onkeydown="if(event.key=='Enter') doLogin();"/><br/>
         <button type="button" id="loginButton" class="buttons" onclick="doLogin();"> Login </button>
         <button type="button" id="createAccountButton" class="buttons" onclick="goToCreateAccount();"> Create Account</button>
-        <span id="loginResult"></span>
+        <span id="loginError" class="errorMessages"></span>
     </body>
 </html>

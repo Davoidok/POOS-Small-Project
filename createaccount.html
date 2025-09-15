@@ -9,12 +9,12 @@
 
     <body>
         <span id="inner-title">PLEASE CREATE YOUR ACCOUNT</span> <br />
-        <input type="text" id="registerName" placeholder="Username" /><br />
-        <input type="text" id="registerFirstName" placeholder="First Name" /><br />
-        <input type="text" id="registerLastName" placeholder="Last Name" /><br />
-        <input type="password" id="registerPassword" placeholder="Password" /><br/>
+        <input type="text" id="registerFirstName" placeholder="First Name" onkeydown="if(event.key=='Enter') doRegister();"/><br />
+        <input type="text" id="registerLastName" placeholder="Last Name" onkeydown="if(event.key=='Enter') doRegister();"/><br />
+        <input type="text" id="registerName" placeholder="Username" onkeydown="if(event.key=='Enter') doRegister();"/><br />
+        <input type="password" id="registerPassword" placeholder="Password" onkeydown="if(event.key=='Enter') doRegister();"/><br/>
         <button type="button" id="registerAccountButton" class="buttons" onclick="doRegister();"> Create Account </button>
         <button type="button" id="loginButton" class="buttons" onclick="goToLogin();"> Login</button> <br/>
-        <span id="registerResult"></span>
+        <span id="registerError" class="errorMessages"></span>
     </body>
 </html>
