@@ -155,6 +155,44 @@ function readCookie()
 //		document.getElementById("userName").innerHTML = "Logged in as " + firstName + " " + lastName;
 	}
 }
+function createContact()
+{
+	let newFirstName = document.getElementByID("AddContactFirstNameField").value;
+	let newLastName = document.getElementByID("AddContactLastNameField").value;
+	let newPhoneNum = document.getElementByID("AddContactPhoneNumField").value;
+	let newEmail = document.getElementByID("AddContactEmailField").value;
+
+	let tmp = {
+		first_name:newFirstName,
+		last_name:newLastName,
+		contact_phone_num:newPhoneNum,
+		contact_email:newEmail,
+		contact_user_id:userId
+	};
+	let jsonPayload = JSON.stringify(tmp);
+
+	let url = urlBase + '/CreateContact.' + exstension; 
+	
+	let xhr = new XMLHttpRequest();
+	xhr.open("POST", url, true);
+	xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+	try
+	{
+		xhr.onreadystatechange = function() 
+		{
+			if (this.readyState == 4 && this.status == 200) 
+			{
+				document.getElementById("createContactResults").innerHTML = "Contact created!";
+			}
+		};
+		xhr.send(jsonPayload);
+	}
+	catch(err)
+	{
+		document.getElementById("createContactResults").innerHTML = err.message;
+	}
+	
+}
 
 function searchContact()
 {
