@@ -1,5 +1,5 @@
-// const urlBase = 'http://4lokofridays.com/LAMPAPI';
-const urlBase = 'http://localhost:8000/LAMPAPI';
+const urlBase = 'http://4lokofridays.com/LAMPAPI';
+// const urlBase = 'http://localhost:8000/LAMPAPI';
 const extension = 'php';
 
 let userId = 0;
@@ -177,16 +177,20 @@ function searchContact()
 					document.getElementById("contactSearchResult").innerHTML = "Contact(s) has been retrieved";
 					for( let i=0; i < results.length; i++ )
 					{
-						contactList += "<div>"+results[i]['firstName']+"</div>"+
-                                       "<div>"+results[i]['lastName']+"</div>"+
-                                       "<div>"+results[i]['phone']+"</div>"+
-                                       "<div>"+results[i]['email']+"</div>";
+						contactList += getContactHTML(
+                            results[i]['ID'],
+                            results[i]['firstName'],                     
+                            results[i]['lastName'],
+                            results[i]['phone'],
+                            results[i]['email']
+                        );
 					}
 				}
 				else{
 					document.getElementById("contactSearchResult").innerHTML = "No contacts found";
                 }
-                document.getElementById("contactList").innerHTML = contactList;				
+                // console.log(contactList);
+                document.querySelector(".contactList").innerHTML = contactList;				
 			}
 		};
 		xhr.send(jsonPayload);
@@ -195,7 +199,116 @@ function searchContact()
 	{
 		document.getElementById("contactSearchResult").innerHTML = err.message;
 	}
+}
 
+/**
+ * Returns a string of the desired contact formatted as an HTML \<details\> element.
+ * @param {integer} dbId The unique id of the contact from the database. 
+ * @param {string} firstName Stored in HTML as \<h3\> \<span\> element
+ * @param {string} lastName Stored in HTML as \<h3\> \<span\> element
+ * @param {string} phone Stored in HTML as \<span\> element inside \<div class="contactActions"\>
+ *                       container
+ * @param {string} email Stored in HTML as \<span\> element inside \<div class="contactActions"\>
+ *                       container
+ * @returns 
+ */
+function getContactHTML(dbId, firstName, lastName, phone, email)
+{
+    return `
+        <details class="contact" data-id=${dbId}>
+          <summary class="contactName">
+            <h3>
+              <span id="contactFirstName">${firstName}</span> 
+              <span id="contactLastName">${lastName}</span>
+            </h3>
+          </summary>
+          <div class="contactActions">
+            <div class="contactInfo">
+              <span id="contactPhoneNumber">${formatPhoneNumber(phone)}</span>
+              <span id="contactEmail">${email}</span>
+            </div>
+            <button id="updateContactButton" onclick="toggleUpdateContactFields(${dbId})">Update</button>
+            <button id="deleteContactButton" onclick="toggleUpdateContactFields()">Delete</button>
+          </div>
+          <span class="updateContactBlock"></span>
+        </details>
+    `
+}
+
+/**
+ * 
+ * @param {integer} dbId  The unique id of the contact from the database. 
+ */
+function toggleUpdateContactFields(dbId){
+    const updateBlock = document.querySelector(`.contact[data-id="${dbId}"] .updateContactBlock`);
+    if(updateBlock.innerHTML.trim() === ''){
+        updateBlock.innerHTML = `
+            <input class="updateContactInput" data-field="firstName" placeholder="First Name" onkeydown="if(event.key=='Enter') updateContact(${dbId});"/>
+            <input class="updateContactInput" data-field="lastName" placeholder="Last Name" onkeydown="if(event.key=='Enter') updateContact(${dbId});"/>
+            <input class="updateContactInput" data-field="phone" placeholder="Phone Number" onkeydown="if(event.key=='Enter') updateContact(${dbId});"/>
+            <input class="updateContactInput" data-field="email" placeholder="Email" onkeydown="if(event.key=='Enter') updateContact(${dbId});"/>
+        `;
+    }else{
+        updateBlock.innerHTML = '';
+    }
+}
+
+function updateContact(dbId){
+    let update = {'ID': dbId}
+    document.querySelectorAll(`.contact[data-id="${dbId}"] .updateContactInput[data-field]`).forEach(input => {
+        update[input.dataset.field] = input.value;
+    })
+    update['userId'] = userId;
+
+    let jsonPayload = JSON.stringify(update);
+    let url = urlBase + '/UpdateContact.' + extension;
+
+    let xhr = new XMLHttpRequest();
+	xhr.open("POST", url, true);
+	xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+    try
+	{
+		xhr.onreadystatechange = function()
+		{
+			if (this.readyState == 4 && this.status == 200)
+			{
+				let jsonObject = JSON.parse( xhr.responseText );
+                if(jsonObject.success){
+                    document.getElementById("contactSearchResult").innerHTML = "Contact updated successfully!";
+                    if(update['firstName'] !== '')
+                        document.querySelector(`.contact[data-id="${dbId}"] #contactFirstName`).innerHTML = update['firstName']; 
+                    if(update['lastName'] !== '')
+                        document.querySelector(`.contact[data-id="${dbId}"] #contactLastName`).innerHTML = update['lastName'];
+                    if(update['phone'] !== '')
+                        document.querySelector(`.contact[data-id="${dbId}"] #contactPhoneNumber`).innerHTML = formatPhoneNumber(update['phone']);
+                    if(update['email'] !== '')
+                        document.querySelector(`.contact[data-id="${dbId}"] #contactEmail`).innerHTML = update['email'];
+
+                    document.querySelector(`.contact[data-id="${dbId}"] .updateContactBlock`).innerHTML = '';
+                }
+				else{
+					document.getElementById("contactSearchResult").innerHTML = jsonObject.error;
+                }
+			}
+		};
+		xhr.send(jsonPayload);
+	}
+	catch(err)
+	{
+		document.getElementById("contactSearchResult").innerHTML = err.message;
+	}
+}
+
+/**
+ * Returns a 10-digit phone number in the format (XXX)-XXX-XXXX
+ * @param {string} phone 
+ */
+function formatPhoneNumber(phone)
+{
+    let areaCode = phone.slice(0,3);
+    let exchange = phone.slice(3,6);
+    let subscriber = phone.slice(6, 10);
+    return `(${areaCode})-${exchange}-${subscriber}`; 
 }
 
 function doLogout()
