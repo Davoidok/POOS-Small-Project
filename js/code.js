@@ -163,11 +163,11 @@ function createContact()
 	let newEmail = document.getElementByID("AddContactEmailField").value;
 
 	let tmp = {
-		first_name:newFirstName,
-		last_name:newLastName,
-		contact_phone_num:newPhoneNum,
-		contact_email:newEmail,
-		contact_user_id:userId
+		firstName:newFirstName,
+		lastName:newLastName,
+		phone:newPhoneNum,
+		email:newEmail,
+		userId:userId
 	};
 	let jsonPayload = JSON.stringify(tmp);
 
