@@ -30,7 +30,7 @@ try{
                                                 (FirstName, LastName, Phone, Email, UserID)
                                                 VALUES (?, ?, ?, ?, ?)");
         $stmt->execute([$fname, $lname, $phone, $email, $userId]);
-        returnWithSuccess();
+        returnWithId($conn->lastInsertId());
     }
   
     $conn = null;

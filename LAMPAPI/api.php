@@ -67,6 +67,16 @@ function returnWithSuccess(){
 }
 
 /**
+ * Responds in JSON with success, empty error, and the database ID of the new contact
+ * @param mixed $id The database ID of the newly inserted contact entry
+ * @return void
+ */
+function returnWithId($id) {
+    $json = ['success'=>true, 'ID'=>$id, 'error'=>""];
+    sendJsonResult(json_encode($json));
+}   
+
+/**
  * Parse the id and first and last names into JSON and send it as response
  * @param int $id The unique ID belonging to the user in the database
  * @param string $firstName First name of user found in the database

@@ -12,7 +12,11 @@
         <span id="welcome-title">WELCOME</span> <br />
         <br />
 
-        <input type="text" id="searchText" class="inputField" placeholder="Contact to search" onkeydown="if(event.key=='Enter') searchContact();"/>
+        <div class="searchContainer">
+          <input type="text" id="searchText" placeholder="Contact to search" onkeydown="if(event.key=='Enter') searchContact();"/>
+          <img src="imgs/search_contact_placeholder.png" alt="Search" id="searchContactIcon">
+          <img src="imgs/add_contact_placeholder.png" alt="Search" id="addContactIcon">
+        </div>
         <button type="button" id="searchContactButton" class="buttons" onclick="searchContact();")> Search Contact </button><br />
         <div class="contactBlock">
           <span id="contactSearchResult"></span>

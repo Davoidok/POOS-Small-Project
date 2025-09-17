@@ -9,10 +9,10 @@
 
     <body>
         <span id="inner-title">PLEASE CREATE YOUR ACCOUNT</span> <br />
-        <input type="text" class="inputField" placeholder="First Name" onkeydown="if(event.key=='Enter') doRegister();"/><br />
-        <input type="text" class="inputField" placeholder="Last Name" onkeydown="if(event.key=='Enter') doRegister();"/><br />
-        <input type="text" class="inputField" placeholder="Username" onkeydown="if(event.key=='Enter') doRegister();"/><br />
-        <input type="password" class="inputField" placeholder="Password" onkeydown="if(event.key=='Enter') doRegister();"/><br/>
+        <input type="text" id="registerFirstName" class="inputField" placeholder="First Name" onkeydown="if(event.key=='Enter') doRegister();"/><br />
+        <input type="text" id="registerLastName" class="inputField" placeholder="Last Name" onkeydown="if(event.key=='Enter') doRegister();"/><br />
+        <input type="text" id="registerUsername" class="inputField" placeholder="Username" onkeydown="if(event.key=='Enter') doRegister();"/><br />
+        <input type="password" id="registerPassword" class="inputField" placeholder="Password" onkeydown="if(event.key=='Enter') doRegister();"/><br/>
         <button type="button" id="registerAccountButton" class="buttons" onclick="doRegister();"> Create Account </button>
         <button type="button" id="loginButton" class="buttons" onclick="goToLogin();"> Login</button> <br/>
         <span id="registerError" class="errorMessages"></span>

@@ -1,5 +1,5 @@
-const urlBase = 'http://4lokofridays.com/LAMPAPI';
-// const urlBase = 'http://localhost:8000/LAMPAPI';
+// const urlBase = 'http://4lokofridays.com/LAMPAPI';
+const urlBase = 'http://localhost:8000/LAMPAPI';
 const extension = 'php';
 
 let userId = 0;
@@ -71,7 +71,7 @@ function doRegister()
 {
 	let firstName = document.getElementById("registerFirstName").value;
 	let lastName = document.getElementById("registerLastName").value;
-	let login = document.getElementById("registerName").value;
+	let login = document.getElementById("registerUsername").value;
 	let password = document.getElementById("registerPassword").value;
 
 	document.getElementById("registerError").innerHTML = "";
@@ -169,7 +169,6 @@ function searchContact()
 		{
 			if (this.readyState == 4 && this.status == 200)
 			{
-
 				let jsonObject = JSON.parse( xhr.responseText );
 				let results = jsonObject.result;
                 let contactList = "";
@@ -206,9 +205,9 @@ function searchContact()
  * @param {integer} dbId The unique id of the contact from the database. 
  * @param {string} firstName Stored in HTML as \<h3\> \<span\> element
  * @param {string} lastName Stored in HTML as \<h3\> \<span\> element
- * @param {string} phone Stored in HTML as \<span\> element inside \<div class="contactActions"\>
+ * @param {string} phone Stored in HTML as \<span\> element inside \<div class="contactDropdown"\>
  *                       container
- * @param {string} email Stored in HTML as \<span\> element inside \<div class="contactActions"\>
+ * @param {string} email Stored in HTML as \<span\> element inside \<div class="contactDropdown"\>
  *                       container
  * @returns 
  */
@@ -222,7 +221,7 @@ function getContactHTML(dbId, firstName, lastName, phone, email)
               <span id="contactLastName">${lastName}</span>
             </h3>
           </summary>
-          <div class="contactActions">
+          <div class="contactDropdown">
             <div class="contactInfo">
               <span id="contactPhoneNumber">${formatPhoneNumber(phone)}</span>
               <span id="contactEmail">${email}</span>
