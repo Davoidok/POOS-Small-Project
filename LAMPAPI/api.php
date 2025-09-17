@@ -14,10 +14,24 @@ $dbpassword = "WeLoveCOP4331";
  * @return void
  */
 function setCORSHeadersAndHTTPMethod(){
-    header('Access-Control-Allow-Origin: *');
-    header('Access-Control-Allow-Methods: POST, OPTIONS');
-    header('Access-Control-Allow-Headers: Content-Type');
-    header('Content-type: application/json');
+    $allowed = [
+        "http://4lokofridays.com",
+        "http://127.0.0.1:5500" # For testing with Live Server VS Code extension
+    ];
+
+    $origin = $_SERVER['HTTP_ORIGIN'] ?? '';
+
+    if(in_array($origin, $allowed)){
+        header('Access-Control-Allow-Origin: ' . $origin);
+        header('Access-Control-Allow-Methods: POST, OPTIONS');
+        header('Access-Control-Allow-Headers: Content-Type');
+        header('Content-type: application/json');
+    }
+    else{
+        http_response_code(400);
+        returnWithError("Origin not allowed");
+        exit();
+    }
 
     if($_SERVER['REQUEST_METHOD'] === 'OPTIONS'){
         http_response_code(200);
