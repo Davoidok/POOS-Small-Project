@@ -70,8 +70,8 @@ function doLogin()
 
 function doRegister()
 {
-	let firstName = document.getElementById("registerFirstName").value;
-	let lastName = document.getElementById("registerLastName").value;
+	firstName = document.getElementById("registerFirstName").value;
+	lastName = document.getElementById("registerLastName").value;
 	let login = document.getElementById("registerName").value;
 	let password = document.getElementById("registerPassword").value;
 
