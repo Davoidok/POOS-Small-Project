@@ -1,3 +1,7 @@
+* {
+    box-sizing: border-box;
+}
+
 body 
 {
     background-color: #26203d;
@@ -42,60 +46,39 @@ body
 
 .buttons
 {
+    display: block;
     font-size: 30px;
     border-radius: 25px;
-    width: 50%;
-    margin-left: 25%;
+    width: auto;
+    margin: 0 auto;
     font-family: 'Ubuntu', sans-serif;
+    background-color: #eed5ff;
+    color:#151222;
 }
 
 .buttons:hover{
-    background-color: #00d5124f;
-    color: #FFFFFF;
+    background-color: #161223;
+    color: #eed5ff;
     opacity: 50%;
 }
 
-#loginName
-{
-	font-size: 30px;
-}
-#loginPassword
-{
-	font-size: 30px;
-}
-#searchText
-{
-	font-size: 30px;
-}
-#colorText
-{
-	font-size: 30px;
-}
-
 /*Styles for the  */
-#registerName
-{
-	font-size: 30px;
-}
-#registerFirstName
-{
-	font-size: 30px;
-}
-#registerLastName
-{
-	font-size: 30px;
-}
-#registerPassword
-{
-	font-size: 30px;
+.inputField {
+    font-size: 30px;
 }
 
-input[type="text"],input[type="password"]{
+.inputField,
+.buttons {
+    min-width: 300px;
+}
+
+.inputField, input[type="password"]{
+    display: block;
     border-radius: 25px;
     text-align: center;
     width: 80%;
-    margin-left: 10%;
-    margin-bottom: 2%;
+    max-width: 800px;
+    margin: 0 auto;
     font-family: 'Ubuntu', sans-serif;
 }
 
@@ -121,26 +104,18 @@ input[type="text"],input[type="password"]{
     color: #dadfe1;
 }
 
-#loginResult{
-    display: inline-block;
-    font-size: 0.8em;
-    width: 90%;
+.errorMessages {
     text-align: center;
-    margin-left: 5%;
-    margin-bottom: 2%;
     font-family: 'Ubuntu', sans-serif;
-    color: #95060a;
+    color: #ff1414;
 }
 
-#registerResult{
-    display: inline-block;
-    font-size: 0.8em;
+#loginError, #registerError{
+    display: block;
+    font-size: 1.6em;
     width: 90%;
     text-align: center;
-    margin-left: 5%;
-    margin-bottom: 2%;
-    font-family: 'Ubuntu', sans-serif;
-    color: #95060a;
+    margin: 0 auto;
 }
 
 #userName{
@@ -150,9 +125,104 @@ input[type="text"],input[type="password"]{
     text-align: center;
 }
 
-#logoutButton{
-    width: 20%;
-    margin-left: 40%;
+
+.searchContainer {
+    position: relative;
+    max-width: 800px;
+    max-height: 40px;
+    margin: 0 auto;
+    margin-bottom: 10px;
+    display: grid; 
+    grid-template-columns: 1fr 60px 60px;
+}
+#searchText{
+    width: 100%;
+    height: 100%;
+    font-size: 30px;
+    text-align: center;
+    border-radius: 10px;
+}
+#addContactIcon {
+    pointer-events: none;
+    width: 40px;
+    height: auto;
+    object-fit: contain;
+    justify-self: center;
+    pointer-events: auto;
+    cursor: pointer;
+}
+#searchContactIcon {
+    pointer-events: none;
+    width: 40px;
+    height: auto;
+    object-fit: contain;
+    justify-self: center;
+    pointer-events: auto;
+    cursor: pointer;
+}
+
+* {
+    outline: 1pt solid yellow;
+}
+
+
+.contactBlock {
+    max-width: 550px;
+    width: 60%;
+    margin: 0 auto;
+    margin-bottom: 2%;
+    margin-top: 2%;
+}
+#contactSearchResult {
+    display: block;
+    text-align: center;
+    font-family: 'Ubuntu', sans-serif;
+    color: #ff87f1;
+    font-size: 1.6em;
+}
+.contactList {
+    display: block;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+
+    margin-top: 2%;
+    font-size: 1.2em;
+    font-family: 'Ubuntu', sans-serif;
+    color: #151222;
+}
+.contact{
+    border: 1px solid #ff87f1;
+    border-radius: 8px;
+    margin-bottom: 10px;
+    background-color: #eed5ff;
+}
+.contactName {
+    display: flex;
+    padding-left: 10px;
+    padding-right: 10px;
+    cursor: pointer;
+}
+.contactList .contactName::-webkit-details-marker {   
+    display: none;
+}
+.contactDropdown {
+    padding: 5px;
+    padding-top: 20px;
+    background-color: #2a2445;
+    border-bottom: 1px solid #201b34;
+    border-top: 1px solid #ff87f1;
+    border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px;
+}
+.contactInfo {
+    display: flex;
+    margin: -10px 0px 10px 0px;
+    color: #eed5ff;
+    justify-content: space-between;
+    align-items: center;
+}
+.updateContactInput {
+    display: inline-block;
 }
 
 select{
@@ -161,20 +231,4 @@ select{
     margin-top: 2%;
     font-size: 0.75em;
     font-family: 'Ubuntu', sans-serif;
-}
-
-#colorSearchResult{
-    display: none;
-}
-
-#colorAddResult{
-    display: inline-block;
-    font-size: 0.8em;
-    width: 90%;
-    text-align: center;
-    margin-left: 5%;
-    margin-top: 2%;
-    margin-bottom: 1%;
-    font-family: 'Ubuntu', sans-serif;
-    color: #95060a;
 }
