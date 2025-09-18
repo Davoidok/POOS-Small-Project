@@ -161,10 +161,9 @@ body
     cursor: pointer;
 }
 
-* {
+/* * {
     outline: 1pt solid yellow;
-}
-
+} */
 
 .contactBlock {
     max-width: 550px;
