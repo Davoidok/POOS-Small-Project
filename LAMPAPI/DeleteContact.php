@@ -2,6 +2,7 @@
 
 require 'api.php';
 require 'validation.php';
+setCORSHeadersAndHTTPMethod();
 
 // Deletes a Contacts entry based off of database ID
 // Expected {"ID":...}
@@ -9,7 +10,7 @@ require 'validation.php';
 $input = getJsonRequest();
 
 try{
-    $conn = new PDO("mysql:host=localhost;dbname=COP4331", "TheBeast", "WeLoveCOP4331");
+    $conn = new PDO("mysql:host=localhost;dbname=$dbname", $dbuser, $dbpassword);
     $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
     $contactId = $input['ID'];

@@ -2,6 +2,7 @@
 
 require 'api.php';
 require 'validation.php';
+setCORSHeadersAndHTTPMethod();
 
 // Expected {"firstName":..., "lastName":..., "phone":..., "email":..., "userId":...}
 // userId should be stored once the user is logged in 
@@ -9,7 +10,7 @@ require 'validation.php';
 $input = getJsonRequest();
 
 try{
-    $conn = new PDO("mysql:host=localhost;dbname=COP4331", "TheBeast", "WeLoveCOP4331");
+    $conn = new PDO("mysql:host=localhost;dbname=$dbname", $dbuser, $dbpassword);
     $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
     $fname = trim($input['firstName']);
@@ -29,7 +30,7 @@ try{
                                                 (FirstName, LastName, Phone, Email, UserID)
                                                 VALUES (?, ?, ?, ?, ?)");
         $stmt->execute([$fname, $lname, $phone, $email, $userId]);
-        returnWithSuccess();
+        returnWithId($conn->lastInsertId());
     }
   
     $conn = null;

@@ -1,12 +1,13 @@
 <?php
 
 require 'api.php';
+setCORSHeadersAndHTTPMethod();
 
 // Expecting {"firstName":...,"lastName":...,"login":...,"password":...}
 $input = getJsonRequest();
 
 try{
-    $conn = new PDO("mysql:host=localhost;dbname=COP4331", "TheBeast", "WeLoveCOP4331");
+    $conn = new PDO("mysql:host=localhost;dbname=$dbname", $dbuser, $dbpassword);
     $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
     // Trim first and last name so they print nicely
