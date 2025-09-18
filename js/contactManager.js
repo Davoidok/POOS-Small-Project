@@ -193,6 +193,47 @@ function updateContact(dbId){
 	}
 }
 
+function doDeleteContact(dbId)
+{
+	let contactToDelete = {'ID': dbId}
+
+	let contactFirstName = document.querySelector(`.contact[data-id="${dbId}"] #contactFirstName`).innerHTML;
+	let contactLastName = document.querySelector(`.contact[data-id="${dbId}"] #contactLastName`).innerHTML;
+	let contactPhoneNum = document.querySelector(`.contact[data-id="${dbId}"] #contactPhoneNumber`).innerHTML;
+	let contactEmail = document.querySelector(`.contact[data-id="${dbId}"] #contactEmail`).innerHTML;
+
+	if(confirm("Warning! You are about to delete:\n" + contactFirstName + " " + contactLastName + "\nPhone: " + contactPhoneNum + "\nEmail: " + contactEmail + "\nAre you sure you want to do this? This cannot be undone!"))
+	{
+		let jsonPayload = JSON.stringify(contactToDelete);
+		let url = urlBase + '/DeleteContact.' + extension;
+
+		let xhr = new XMLHttpRequest();
+		xhr.open("POST", url, true);
+		xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+		try
+		{
+			xhr.onreadystatechange = function()
+			{
+				if (this.readyState == 4 && this.status == 200)
+				{
+					let jsonObject = JSON.parse( xhr.responseText );
+					if(jsonObject.success){
+						document.querySelector(`.contactList .contact[data-id="${dbId}"]`).remove();
+					}
+					else{
+						console.log("delete failed");
+					}
+				}
+			};
+			xhr.send(jsonPayload);
+		}
+		catch(err)
+		{
+			document.getElementById("contactSearchResult").innerHTML = err.message;
+		}
+	}
+}
+
 /**
  * 
  * @param {integer} dbId  The unique id of the contact from the database. 

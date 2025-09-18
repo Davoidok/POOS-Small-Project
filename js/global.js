@@ -89,7 +89,7 @@ function getContactHTML(dbId, firstName, lastName, phone, email)
               <span id="contactEmail">${email}</span>
             </div>
             <button id="updateContactButton" onclick="toggleUpdateContactFields(${dbId})">Update</button>
-            <button id="deleteContactButton" onclick="toggleUpdateContactFields()">Delete</button>
+            <button id="deleteContactButton" onclick="doDeleteContact(${dbId})">Delete</button>
           </div>
           <span class="updateContactBlock"></span>
         </details>
