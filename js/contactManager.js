@@ -113,6 +113,7 @@ function doRegister()
 	}
 }
 
+
 function saveCookie()
 {
 	let minutes = 20;
@@ -238,6 +239,7 @@ function searchContact()
 	}
 }
 
+
 /**
  * Returns a string of the desired contact formatted as an HTML \<details\> element.
  * @param {integer} dbId The unique id of the contact from the database. 
@@ -290,6 +292,7 @@ function toggleUpdateContactFields(dbId){
     }
 }
 
+
 function updateContact(dbId){
     let update = {'ID': dbId}
     document.querySelectorAll(`.contact[data-id="${dbId}"] .updateContactInput[data-field]`).forEach(input => {
@@ -336,6 +339,7 @@ function updateContact(dbId){
 	}
 }
 
+
 /**
  * Returns a 10-digit phone number in the format (XXX)-XXX-XXXX
  * @param {string} phone 
@@ -355,5 +359,65 @@ function doLogout()
 	lastName = "";
 	document.cookie = "firstName= ; expires = Thu, 01 Jan 1970 00:00:00 GMT";
 	window.location.href = "index.html";
+}
+
+
+function doDeleteContact(dbId)
+{
+	let contactToDelete = {'ID': dbId}
+
+	let contactFirstName = document.querySelector(`.contact[data-id="${dbId}"] #contactFirstName`).innerHTML;
+	let contactLastName = document.querySelector(`.contact[data-id="${dbId}"] #contactLastName`).innerHTML;
+	let contactPhoneNum = document.querySelector(`.contact[data-id="${dbId}"] #contactPhoneNumber`).innerHTML;
+	let contactEmail = document.querySelector(`.contact[data-id="${dbId}"] #contactEmail`).innerHTML;
+
+	if(confirm("Warning! You are about to delete:\n" + contactFirstName + " " + contactLastName + "\nPhone: " + contactPhoneNum + "\nEmail: " + contactEmail + "\nAre you sure you want to do this? This cannot be undone!"))
+	{
+		let jsonPayload = JSON.stringify(contactToDelete);
+		let url = urlBase + '/DeleteContact.' + extension;
+
+		let xhr = new XMLHttpRequest();
+		xhr.open("POST", url, true);
+		xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+		try
+		{
+			xhr.onreadystatechange = function()
+			{
+				if (this.readyState == 4 && this.status == 200)
+				{
+					let jsonObject = JSON.parse( xhr.responseText );
+					if(jsonObject.success){
+						document.querySelector(`.contactList .contact[data-id="${dbId}"]`).remove();
+					}
+					else{
+						console.log("delete failed");
+					}
+				}
+			};
+			xhr.send(jsonPayload);
+		}
+		catch(err)
+		{
+			document.getElementById("contactSearchResult").innerHTML = err.message;
+		}
+	}
+}
+
+/**
+ * 
+ * @param {integer} dbId  The unique id of the contact from the database. 
+ */
+function toggleUpdateContactFields(dbId){
+    const updateBlock = document.querySelector(`.contact[data-id="${dbId}"] .updateContactBlock`);
+    if(updateBlock.innerHTML.trim() === ''){
+        updateBlock.innerHTML = `
+            <input class="updateContactInput" data-field="firstName" placeholder="First Name" onkeydown="if(event.key=='Enter') updateContact(${dbId});"/>
+            <input class="updateContactInput" data-field="lastName" placeholder="Last Name" onkeydown="if(event.key=='Enter') updateContact(${dbId});"/>
+            <input class="updateContactInput" data-field="phone" placeholder="Phone Number" onkeydown="if(event.key=='Enter') updateContact(${dbId});"/>
+            <input class="updateContactInput" data-field="email" placeholder="Email" onkeydown="if(event.key=='Enter') updateContact(${dbId});"/>
+        `;
+    }else{
+        updateBlock.innerHTML = '';
+    }
 }
 

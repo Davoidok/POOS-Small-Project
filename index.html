@@ -2,17 +2,36 @@
 <html>
     <head>
         <title>Login</title>
+        <meta charset="UTF-8">
         <link href="css/styles.css" rel="stylesheet">	
         <link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
-	    <script type="text/javascript" src="js/code.js"></script>
+	    <script type="text/javascript" src="js/global.js"></script>
+      <script type="text/javascript" src="js/frontpage.js"></script>
     </head>
 
-    <body>
-        <span id="inner-title">PLEASE LOG IN</span> <br />
-        <input type="text" id="loginName" class="inputField" placeholder="Username" onkeydown="if(event.key=='Enter') doLogin();"/><br />
-        <input type="password" id="loginPassword" class="inputField" placeholder="Password" onkeydown="if(event.key=='Enter') doLogin();"/><br/>
-        <button type="button" id="loginButton" class="buttons" onclick="doLogin();"> Login </button>
-        <button type="button" id="createAccountButton" class="buttons" onclick="goToCreateAccount();"> Create Account</button>
-        <span id="loginError" class="errorMessages"></span>
+    <body class="loginBody">
+      <div class="loginContainer">
+        <h2>Log in to Contact Manager</h2>
+        <form>
+          <div class="loginGroup">
+            <label for="loginName">Username</label>
+            <input type="text" id="loginName" class="inputField" placeholder="Username" onkeydown="if(event.key=='Enter') doLogin();"/><br />
+            <span class="inputError usernameError"></span>
+          </div>
+          <div class="loginGroup">
+            <label for="loginPassword">Password</label>
+            <input type="password" id="loginPassword" class="inputField" placeholder="Password" onkeydown="if(event.key=='Enter') doLogin();"/><br/>
+            <span class="inputError passwordError"></span>
+          </div>
+          <span class="inputError invalidLoginError"></span>
+          <button type="button" id="loginButton" class="buttons" onclick="doLogin();"> Login </button>
+          <div class="createAccountLink">
+            <span>New to our 4lokofridays?</span><span id="createAccountPrompt" onclick="goToCreateAccount()">Create an account →</span>
+          </div>
+        </form>
+      </div>
+
+      <!-- <button type="button" id="createAccountButton" class="buttons" onclick="goToCreateAccount();"> Create Account</button> -->
+      <!-- <span id="loginError" class="errorMessages"></span> -->
     </body>
 </html>

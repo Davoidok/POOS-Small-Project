@@ -2,19 +2,63 @@
 <html>
     <head>
         <title>Create Account</title>
+        <meta charset="UTF-8">
         <link href="css/styles.css" rel="stylesheet">	
         <link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
-	    <script type="text/javascript" src="js/code.js"></script>
+	    <script type="text/javascript" src="js/global.js"></script>
+      <script type="text/javascript" src="js/frontpage.js"></script>
     </head>
 
-    <body>
-        <span id="inner-title">PLEASE CREATE YOUR ACCOUNT</span> <br />
-        <input type="text" id="registerFirstName" class="inputField" placeholder="First Name" onkeydown="if(event.key=='Enter') doRegister();"/><br />
-        <input type="text" id="registerLastName" class="inputField" placeholder="Last Name" onkeydown="if(event.key=='Enter') doRegister();"/><br />
-        <input type="text" id="registerUsername" class="inputField" placeholder="Username" onkeydown="if(event.key=='Enter') doRegister();"/><br />
-        <input type="password" id="registerPassword" class="inputField" placeholder="Password" onkeydown="if(event.key=='Enter') doRegister();"/><br/>
-        <button type="button" id="registerAccountButton" class="buttons" onclick="doRegister();"> Create Account </button>
-        <button type="button" id="loginButton" class="buttons" onclick="goToLogin();"> Login</button> <br/>
-        <span id="registerError" class="errorMessages"></span>
+    
+    <body class="registerBody">
+      <div class="registerWelcomeBlock">
+        <h1 id="registerWelcome">
+          Welcome to 4lokofridays!
+        </h1>
+      </div>
+      <div class="registerInputBlock">
+        <div class="registerInputTitle">
+          <h2>
+            Sign up for Contact Manager
+          </h2>
+        </div>
+        <div class="registerInputContainer">
+          <label class="registerLabel" id="registerFirstNameLabel">
+            <sup class="requiredSymbol">*</sup>First Name
+          </label>
+          <input type="text" id="registerFirstName" class="inputField" placeholder="First Name" onkeydown="if(event.key=='Enter') doRegister();"/><br />
+          <span class="inputError firstNameError" ></span>
+        </div>
+        <div class="registerInputContainer">
+          <label class="registerLabel" id="registerLastNameLabel">
+            <sup class="requiredSymbol">*</sup>Last Name
+          </label>
+          <input type="text" id="registerLastName" class="inputField" placeholder="Last Name" onkeydown="if(event.key=='Enter') doRegister();"/><br />
+          <span class="inputError lastNameError" ></span>
+        </div>
+        <div class="registerInputContainer">
+          <label class="registerLabel" id="registerUsernameLabel">
+            <sup class="requiredSymbol">*</sup>Username
+          </label>
+          <input type="text" id="registerUsername" class="inputField" placeholder="Username" onkeydown="if(event.key=='Enter') doRegister();"/><br />
+          <span class="inputError usernameError" ></span>
+        </div>
+        <div class="registerInputContainer">
+          <label class="registerLabel" id="registerPasswordLabel">
+            <sup class="requiredSymbol">*</sup>Password
+          </label>
+          <input type="password" id="registerPassword" class="inputField" placeholder="Password" onkeydown="if(event.key=='Enter') doRegister();"/><br />
+          <span class="inputError passwordError" ></span>
+        </div>
+        <div class="registerInputContainer" id="requiredNotice">
+          <sup>*</sup>= required
+        </div>
+        <div class="registerInputContainer registerAccount">
+          <button type="button" id="registerAccountButton" class="buttons" onclick="doRegister();"> Create Account </button>
+        </div>
+        <div class="registerInputContainer loginReturn">
+          <span>Already have an account?</span><span id="loginReturn" onclick="goToLogin()">Sign in →</span>
+        </div>
+      </div>
     </body>
 </html>

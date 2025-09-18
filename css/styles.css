@@ -1,47 +1,12 @@
 * {
     box-sizing: border-box;
+    margin: 0 auto;
+    padding: 0 auto;
 }
 
 body 
 {
     background-color: #26203d;
-}
-
-#title 
-{
-    font-size: 40px;
-    width: 100%;
-    margin: 2% 5%;
-    text-align: center;
-    font-family: 'Ubuntu', sans-serif;
-    color: #FFFFFF;
-}
-
-#loginDiv
-{
-    font-size: 30px;
-    width: 70%;
-    margin-left: 15%;
-    padding: 25px;
-    background-color: #b2b2b2;
-}
-
-#loggedInDiv
-{
-    font-size: 30px;
-    width: 70%;
-    margin-left: 15%;
-    padding: 25px;
-    background-color: #b2b2b2;
-}
-
-#accessUIDiv
-{
-    font-size: 30px;
-    width: 70%;
-    margin-left: 15%;
-    padding: 25px;
-    background-color: #b2b2b2;
 }
 
 .buttons
@@ -53,44 +18,13 @@ body
     margin: 0 auto;
     font-family: 'Ubuntu', sans-serif;
     background-color: #eed5ff;
-    color:#151222;
+    color:#26203d;
 }
 
 .buttons:hover{
-    background-color: #161223;
+    background-color: #26203d;
     color: #eed5ff;
-    opacity: 50%;
-}
-
-/*Styles for the  */
-.inputField {
-    font-size: 30px;
-}
-
-.inputField,
-.buttons {
-    min-width: 300px;
-}
-
-.inputField, input[type="password"]{
-    display: block;
-    border-radius: 25px;
-    text-align: center;
-    width: 80%;
-    max-width: 800px;
-    margin: 0 auto;
-    font-family: 'Ubuntu', sans-serif;
-}
-
-#inner-title{
-    display: inline-block;
-    font-size: 2.4em;
-    width: 90%;
-    text-align: center;
-    margin-left: 5%;
-    margin-bottom: 2%;
-    font-family: 'Ubuntu', sans-serif;
-    color: #dadfe1;
+    opacity: 80%;
 }
 
 #welcome-title{
@@ -102,27 +36,6 @@ body
     margin-bottom: 2%;
     font-family: 'Ubuntu', sans-serif;
     color: #dadfe1;
-}
-
-.errorMessages {
-    text-align: center;
-    font-family: 'Ubuntu', sans-serif;
-    color: #ff1414;
-}
-
-#loginError, #registerError{
-    display: block;
-    font-size: 1.6em;
-    width: 90%;
-    text-align: center;
-    margin: 0 auto;
-}
-
-#userName{
-    display: inline-block;
-    width: 80%;
-    margin-left: 10%;
-    text-align: center;
 }
 
 
@@ -161,9 +74,192 @@ body
     cursor: pointer;
 }
 
-* {
-    outline: 1pt solid yellow;
+.loginBody {
+    font-family: 'Ubuntu', sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0 auto;    
 }
+.loginContainer {
+    background-color:#eed5ff;
+    box-shadow: 0 2px 4px rgba(0,0,0, 0.25);
+    border-radius: 18px;
+    padding: 40px;
+    width: 100%;
+    max-width: 500px;
+    color: #26203d;
+}
+.loginContainer h2 {
+    text-align: center;
+    margin-bottom: 30px;
+    font-size: 2em;
+}
+.loginGroup {
+    margin-bottom: 40px;
+}
+.loginGroup label {
+    display: block;
+    margin-bottom:4px;
+    font-size: 10.5pt;
+    font-weight: 500;
+}
+.loginGroup .inputField {
+    border-radius: 8px;
+    height: 38px;
+    padding-left: 10px;
+    font-size: 11.5pt;
+    text-align: left;
+    width: 100%;
+}
+.invalidLoginError {
+    display: block;
+    text-align: center;
+    margin-bottom: 4px; 
+}
+#loginButton {
+    width: 100%;
+    border-radius: 8px;
+    height: 40px;
+    box-shadow: 0 2px 4px rgba(0,0,0, 0.25);
+    font-size: 16pt;
+    margin-bottom: 10px;
+}
+.createAccountLink {
+    margin-top: 10px;
+    text-align: center;
+}
+.createAccountLink #createAccountPrompt {
+    text-decoration: underline;
+    cursor: pointer;
+    padding: 5px;
+}
+
+
+
+/* * {
+    outline: 1pt solid yellow;
+} */
+.inputField:focus {
+    outline: 2pt solid #3f276e;
+}
+.inputError {
+    color: darkred;
+    max-height:100%;
+    font-weight: 500;
+}
+
+
+.registerBody {
+    display: flex;
+    min-height: 100vh;
+    margin: 0 auto;
+    font-family:'Ubuntu', sans-serif;
+}
+.registerWelcomeBlock {
+    margin: 0 auto;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    color: #eed5ff;
+}
+#registerWelcome {
+    margin-bottom: 20px;
+}
+.registerInputBlock {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: #eed5ff;
+    max-width: 40vw;
+    min-width: 520px;
+}
+.registerInputTitle {
+    color:#26203d;
+    margin-top: 40px;
+}
+.registerInputContainer {
+    max-width: 450px;
+    width: 100%;
+    margin-bottom: 55px;
+}
+.registerInputContainer.registerAccount {
+    margin-bottom: 10px;
+}
+#errorIcon {
+    display: inline-block;
+    height: 18px;
+    width: 18px;
+    vertical-align: middle;
+    margin-top: -5px;
+    filter: brightness(0) saturate(100%) invert(19%) sepia(85%) saturate(7482%) hue-rotate(357deg) brightness(91%) contrast(117%);
+}
+/* * {
+    outline: 1pt solid yellow;
+} */
+.registerLabel {
+    text-align: left;
+    display: block;
+    color:#26203d;
+    font-weight: 500;
+    font-size: 10.5pt;
+    margin-bottom: 4px;
+}
+.registerInputBlock .inputField {
+    border-radius: 8px;
+    height: 38px;
+    padding-left: 10px;
+    font-size: 11.5pt;
+    text-align: left;
+    width: 100%;
+}
+.requiredSymbol {
+    color: red;
+}
+#requiredNotice {
+    text-align: center;
+    color: red;
+    font-weight: 500;
+    font-size: 10.5pt;
+    margin-bottom: 10px;
+}
+#registerAccountButton {
+    width: 100%;
+    border-radius: 8px;
+    height: 40px;
+    box-shadow: 0 2px 4px rgba(0,0,0, 0.25);
+    font-size: 16pt;
+    margin-bottom: 10px;
+}
+.registerInputContainer.loginReturn {
+    text-align:center;
+}
+#loginReturn{
+    text-decoration: underline;
+    cursor: pointer;
+    padding: 5px;
+}
+@media (max-width: 1024px){
+    .registerBody {
+        flex-direction: column;
+    }
+    .registerWelcomeBlock,
+    .registerInputBlock {
+        max-width: 100%;
+        width: 100%;
+        min-height: 140px;
+    }
+}
+
+/* * {
+    outline: 1pt solid yellow;
+} */
+
 
 
 .contactBlock {
