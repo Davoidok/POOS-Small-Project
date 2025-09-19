@@ -5,9 +5,7 @@
         <meta charset="UTF-8">
         <link href="css/styles.css" rel="stylesheet">	
         <link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
-	    <script type="text/javascript" src="js/global.js"></script>
-	    <script type="text/javascript" src="js/contactManager.js"></script>
-      <script type="text/javascript" src="js/landingpage.js"></script>
+	    
     </head>
 
     <body>
@@ -34,12 +32,47 @@
         <div class="searchContainer">
           <input type="text" id="searchText" placeholder="Contact to search" onkeydown="if(event.key=='Enter') searchContact();"/>
           <img src="imgs/search_contact_placeholder.png" alt="Search" id="searchContactIcon">
-          <img src="imgs/add_contact_placeholder.png" alt="Search" id="addContactIcon">
+          <button onclick="toggleCreateContact();">
+            <img src="imgs/add_contact_placeholder.png" alt="Search" id="searchContactIcon">
+          </button>
+            <!-- <a href="#" onclick="createEmptyContact();"><img src="imgs/add_contact_placeholder.png" alt="Search" id="addContactIcon"></a> -->
+          <!-- <button type="button" onclick="createEmptyContact();" id="addContactIcon"/>  -->
         </div>
-        <button type="button" id="searchContactButton" class="buttons" onclick="searchContact();")> Search Contact </button><br />
-        <div class="contactBlock">
+        <button type="button" id="searchContactButton" class="buttons" onclick="searchContactWrapper();"> Search Contact </button><br />
+        <div class="contactBlock" style="display:block">
           <span id="contactSearchResult"></span>
           <div class="contactList"></div>
         </div>
+        <div class="createContactBlock" style="display:none">
+          <h2>Fill in new contact information</h2>
+          <form>
+            <div class="newContactGroup">
+              <label for="newFirstName">First Name</label>
+              <input type="text" id="newFirstName" class="inputField" placeholder="First Name" onkeydown="if(event.key=='Enter') createContact();"/><br />
+              <span class="inputError firstNameError"></span>
+            </div>
+            <div class="newContactGroup">
+              <label for="newLastName">Last Name</label>
+              <input type="text" id="newLastName" class="inputField" placeholder="Last Name" onkeydown="if(event.key=='Enter') createContact();"/><br />
+              <span class="inputError lastNameError"></span>
+            </div>
+            <div class="newContactGroup">
+              <label for="newPhoneNumber">Phone Number</label>
+              <input type="text" id="newPhoneNumber" class="inputField" placeholder="Phone Number" onkeydown="if(event.key=='Enter') createContact();"/><br />
+              <span class="inputError phoneNumberError"></span>
+            </div>
+            <div class="newContactGroup">
+              <label for="newEmail">Email</label>
+              <input type="text" id="newEmail" class="inputField" placeholder="Email" onkeydown="if(event.key=='Enter') createContact();"/><br />
+              <span class="inputError emailError"></span>
+            </div>
+          </form>
+        </div>
+        </div>
         <button type="button" id="logoutButton" class="buttons" onclick="doLogout();"> Logout </button>
+      
+        <script src="js/global.js"></script>
+	      <script src="js/contactManager.js"></script>
+        <script src="js/landingpage.js"></script>
     </body>
+</html>

@@ -1,10 +1,10 @@
 function searchContact()
 {
 	let srch = document.getElementById("searchText").value;
-
+	
 	let tmp = {search:srch,userId:userId};
 	let jsonPayload = JSON.stringify( tmp );
-
+	
 	let url = urlBase + '/SearchContacts.' + extension;
 
 	let xhr = new XMLHttpRequest();
@@ -45,6 +45,96 @@ function searchContact()
 	{
 		document.getElementById("contactSearchResult").innerHTML = err.message;
 	}
+}
+
+function searchContactWrapper()
+{
+	let contactBlock = document.querySelector(".contactBlock");
+	let createContactBlock = document.querySelector(".createContactBlock");
+
+
+	if (contactBlock.style["display"] === "none")
+	{
+		contactBlock.style = "display:block";
+		createContactBlock.style = "display:none";
+		searchContact();
+	}
+	else
+	{
+		searchContact();
+	}
+		
+}
+
+function createContact()
+{
+	let newFirstName = document.getElementById("newFirstName").value;
+	let newLastName = document.getElementById("newLastName").value;
+	let newPhoneNum = document.getElementById("newPhoneNumber").value;
+	let newEmail = document.getElementById("newEmail").value;
+	let err = false;
+	
+	let tmp = {
+		firstName:newFirstName,
+		lastName:newLastName,
+		phone:newPhoneNum,
+		email:newEmail,
+		userId:userId
+	};
+	
+	let jsonPayload = JSON.stringify(tmp);
+	
+	let url = urlBase + '/CreateContact.' + extension; 
+	
+	let xhr = new XMLHttpRequest();
+	xhr.open("POST", url, true);
+	xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+	try
+	{
+		xhr.onreadystatechange = function() 
+		{
+			if (this.readyState == 4 && this.status == 200) 
+			{
+				let jsonObject = JSON.parse( xhr.responseText );
+				let databaseUserId = jsonObject.ID;
+            
+                    if(!jsonObject.success)
+                    {		
+                       // document.getElementById(".newContactGroup .inputError").innerHTML = err.message;
+                        return;
+                    }
+				
+
+			}
+		};
+		xhr.send(jsonPayload);
+		alert("yep");
+	}
+	catch(err)
+	{
+		document.getElementById(".newContactGroup .inputError").innerHTML = err.message;
+	}
+	
+}
+
+function toggleCreateContact()
+{
+
+	let contactBlock = document.querySelector(".contactBlock");
+	let createContactBlock = document.querySelector(".createContactBlock");
+
+	
+	if (contactBlock.style["display"] === "none")
+	{
+		contactBlock.style = "display:block";
+		createContactBlock.style = "display:none";
+	}
+	else
+	{
+		contactBlock.style = "display:none";
+		createContactBlock.style = "display:block";
+	}
+
 }
 
 function updateContact(dbId){
@@ -149,6 +239,7 @@ function updateContact(dbId){
 	}
 }
 
+
 function doDeleteContact(dbId)
 {
 	let contactToDelete = {'ID': dbId}
@@ -207,3 +298,4 @@ function toggleUpdateContactFields(dbId){
         updateBlock.innerHTML = '';
     }
 }
+
