@@ -1,199 +1,50 @@
-// // const urlBase = 'http://4lokofridays.com/LAMPAPI';
-// // const extension = 'php';
-
-// let userId = 0;
-// let firstName = "";
-// let lastName = "";
-
-// function goToCreateAccount()
-// {
-//     window.location.href = 'createaccount.html';
-// }
-
-// function goToLogin() 
-// {
-//     window.location.href = 'index.html';
-// }
-
-function doLogin()
+function searchContact()
 {
-	userId = 0;
-	firstName = "";
-	lastName = "";
+	let srch = document.getElementById("searchText").value;
 	
-	let login = document.getElementById("loginName").value;
-	let password = document.getElementById("loginPassword").value;
-	
-	document.getElementById("loginError").innerHTML = "";
-
-	let tmp = {login:login,password:password};
+	let tmp = {search:srch,userId:userId};
 	let jsonPayload = JSON.stringify( tmp );
 	
-	let url = urlBase + '/Login.' + extension;
+	let url = urlBase + '/SearchContacts.' + extension;
 
 	let xhr = new XMLHttpRequest();
 	xhr.open("POST", url, true);
 	xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
 	try
 	{
-		xhr.onreadystatechange = function() 
-		{console.log("ReadyState:", xhr.readyState, "Status:", xhr.status);
-			if (this.readyState == 4 && this.status == 200) 
+		xhr.onreadystatechange = function()
+		{
+			if (this.readyState == 4 && this.status == 200)
 			{
 				let jsonObject = JSON.parse( xhr.responseText );
-				userId = jsonObject.id;
-		
-				if(!jsonObject.success)
-				{		
-					document.getElementById("loginError").innerHTML = jsonObject.error;
-					return;
+				let results = jsonObject.result;
+                let contactList = "";
+				if(results.length > 0){
+					document.getElementById("contactSearchResult").innerHTML = "Contact(s) has been retrieved";
+					for( let i=0; i < results.length; i++ )
+					{
+						contactList += getContactHTML(
+                            results[i]['ID'],
+                            results[i]['firstName'],                     
+                            results[i]['lastName'],
+                            results[i]['phone'],
+                            results[i]['email']
+                        );
+					}
 				}
-
-				firstName = jsonObject.firstName;
-				lastName = jsonObject.lastName;
-
-				saveCookie();
-	
-				window.location.href = "landingpage.html";
+				else{
+					document.getElementById("contactSearchResult").innerHTML = "No contacts found";
+                }
+                // console.log(contactList);
+                document.querySelector(".contactList").innerHTML = contactList;				
 			}
 		};
 		xhr.send(jsonPayload);
 	}
 	catch(err)
 	{
-		document.getElementById("loginError").innerHTML = err.message;
+		document.getElementById("contactSearchResult").innerHTML = err.message;
 	}
-
-}
-
-function doRegister()
-{
-	firstName = document.getElementById("registerFirstName").value;
-	lastName = document.getElementById("registerLastName").value;
-	let login = document.getElementById("registerUsername").value;
-	let password = document.getElementById("registerPassword").value;
-
-	document.getElementById("registerError").innerHTML = "";
-	let tmp = {firstName:firstName,lastName:lastName,login:login,password:password};
-	let jsonPayload = JSON.stringify( tmp );
-	let url = urlBase + '/Register.' + extension;
-
-    let xhr = new XMLHttpRequest();
-	xhr.open("POST", url, true);
-	xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
-
-    try
-	{
-		xhr.onreadystatechange = function() 
-		{console.log("ReadyState:", xhr.readyState, "Status:", xhr.status);
-			if (this.readyState == 4 && this.status == 200) 
-			{
-				let jsonObject = JSON.parse( xhr.responseText );
-				userId = jsonObject.id;
-		
-				if(!jsonObject.success)
-				{		
-					document.getElementById("registerError").innerHTML = jsonObject.error;
-					return;
-				}
-
-				firstName = jsonObject.firstName;
-				lastName = jsonObject.lastName;
-
-				saveCookie();
-	
-				window.location.href = "landingpage.html";
-			}
-		};
-		xhr.send(jsonPayload);
-	}
-	catch(err)
-	{
-		document.getElementById("registerError").innerHTML = err.message;
-	}
-}
-
-
-// function saveCookie()
-// {
-// 	let minutes = 20;
-// 	let date = new Date();
-// 	date.setTime(date.getTime()+(minutes*60*1000));	
-// 	document.cookie = "firstName=" + firstName + ",lastName=" + lastName + ",userId=" + userId + ";expires=" + date.toGMTString();
-// }
-
-// function readCookie()
-// {
-// 	userId = -1;
-// 	let data = document.cookie;
-// 	let splits = data.split(",");
-// 	for(var i = 0; i < splits.length; i++) 
-// 	{
-// 		let thisOne = splits[i].trim();
-// 		let tokens = thisOne.split("=");
-// 		if( tokens[0] == "firstName" )
-// 		{
-// 			firstName = tokens[1];
-// 		}
-// 		else if( tokens[0] == "lastName" )
-// 		{
-// 			lastName = tokens[1];
-// 		}
-// 		else if( tokens[0] == "userId" )
-// 		{
-// 			userId = parseInt( tokens[1].trim() );
-// 		}
-// 	}
-	
-// 	if( userId < 0 )
-// 	{
-// 		window.location.href = "index.html";
-// 	}
-// }
-
-function toggleCreateContact()
-{
-	// let list = document.getElementsByClassName("contactList");
-	// let newContact = `
-    //     <details class="contact" data-id="0"}>
-    //       <summary class="contactName">
-    //         <h3>
-    //           <span id="contactFirstName">
-	// 		 	<input class="inputField" data-field="firstName" placeholder="First Name" onkeydown="if(event.key=='Enter') "/>
-	// 			<span class="inputError firstNameError
-	// 		  </span> 
-    //           <span id="contactLastName">${lastName}</span>
-    //         </h3>
-    //       </summary>
-    //       <div class="contactDropdown">
-    //         <div class="contactInfo">
-    //           <span id="contactPhoneNumber">${formatPhoneNumber(phone)}</span>
-    //           <span id="contactEmail">${email}</span>
-    //         </div>
-    //         <button id="updateContactButton" onclick="toggleUpdateContactFields(${dbId})">Update</button>
-    //         <button id="deleteContactButton" onclick="doDeleteContact(${dbId})">Delete</button>
-    //       </div>
-    //       <span class="updateContactBlock"></span>
-    //     </details>
-    // `
-
-	let contactBlock = document.querySelector(".contactBlock");
-	let createContactBlock = document.querySelector(".createContactBlock");
-
-
-	if (contactBlock.style["display"] === "none")
-	{
-		contactBlock.style = "display:block";
-		createContactBlock.style = "display:none";
-	}
-	else
-	{
-		contactBlock.style = "display:none";
-		createContactBlock.style = "display:block";
-	}
-
-
-
 }
 
 function searchContactWrapper()
@@ -249,7 +100,7 @@ function createContact()
             
                     if(!jsonObject.success)
                     {		
-                        // document.getElementById(".newContactGroup .inputError").innerHTML = err.message;
+                       // document.getElementById(".newContactGroup .inputError").innerHTML = err.message;
                         return;
                     }
 				
@@ -266,108 +117,25 @@ function createContact()
 	
 }
 
-function searchContact()
+function toggleCreateContact()
 {
-	let srch = document.getElementById("searchText").value;
 
-	let tmp = {search:srch,userId:userId};
-	let jsonPayload = JSON.stringify( tmp );
+	let contactBlock = document.querySelector(".contactBlock");
+	let createContactBlock = document.querySelector(".createContactBlock");
 
-	let url = urlBase + '/SearchContacts.' + extension;
-
-	let xhr = new XMLHttpRequest();
-	xhr.open("POST", url, true);
-	xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
-	try
+	
+	if (contactBlock.style["display"] === "none")
 	{
-		xhr.onreadystatechange = function()
-		{
-			if (this.readyState == 4 && this.status == 200)
-			{
-				let jsonObject = JSON.parse( xhr.responseText );
-				let results = jsonObject.result;
-                let contactList = "";
-				if(results.length > 0){
-					document.getElementById("contactSearchResult").innerHTML = "Contact(s) has been retrieved";
-					for( let i=0; i < results.length; i++ )
-					{
-						contactList += getContactHTML(
-                            results[i]['ID'],
-                            results[i]['firstName'],                     
-                            results[i]['lastName'],
-                            results[i]['phone'],
-                            results[i]['email']
-                        );
-					}
-				}
-				else{
-					document.getElementById("contactSearchResult").innerHTML = "No contacts found";
-                }
-                // console.log(contactList);
-                document.querySelector(".contactList").innerHTML = contactList;				
-			}
-		};
-		xhr.send(jsonPayload);
+		contactBlock.style = "display:block";
+		createContactBlock.style = "display:none";
 	}
-	catch(err)
+	else
 	{
-		document.getElementById("contactSearchResult").innerHTML = err.message;
+		contactBlock.style = "display:none";
+		createContactBlock.style = "display:block";
 	}
+
 }
-
-
-/**
- * Returns a string of the desired contact formatted as an HTML \<details\> element.
- * @param {integer} dbId The unique id of the contact from the database. 
- * @param {string} firstName Stored in HTML as \<h3\> \<span\> element
- * @param {string} lastName Stored in HTML as \<h3\> \<span\> element
- * @param {string} phone Stored in HTML as \<span\> element inside \<div class="contactDropdown"\>
- *                       container
- * @param {string} email Stored in HTML as \<span\> element inside \<div class="contactDropdown"\>
- *                       container
- * @returns 
- */
-// function getContactHTML(dbId, firstName, lastName, phone, email)
-// {
-//     return `
-//         <details class="contact" data-id=${dbId}>
-//           <summary class="contactName">
-//             <h3>
-//               <span id="contactFirstName">${firstName}</span> 
-//               <span id="contactLastName">${lastName}</span>
-//             </h3>
-//           </summary>
-//           <div class="contactDropdown">
-//             <div class="contactInfo">
-//               <span id="contactPhoneNumber">${formatPhoneNumber(phone)}</span>
-//               <span id="contactEmail">${email}</span>
-//             </div>
-//             <button id="updateContactButton" onclick="toggleUpdateContactFields(${dbId})">Update</button>
-//             <button id="deleteContactButton" onclick="toggleUpdateContactFields()">Delete</button>
-//           </div>
-//           <span class="updateContactBlock"></span>
-//         </details>
-//     `
-// }
-
-/**
- * 
- * @param {integer} dbId  The unique id of the contact from the database. 
- */
-function toggleUpdateContactFields(dbId){
-    const updateBlock = document.querySelector(`.contact[data-id="${dbId}"] .updateContactBlock`);
-    if(updateBlock.innerHTML.trim() === ''){
-        updateBlock.innerHTML = `
-            <input class="updateContactInput" data-field="firstName" placeholder="First Name" onkeydown="if(event.key=='Enter') updateContact(${dbId});"/>
-            <input class="updateContactInput" data-field="lastName" placeholder="Last Name" onkeydown="if(event.key=='Enter') updateContact(${dbId});"/>
-            <input class="updateContactInput" data-field="phone" placeholder="Phone Number" onkeydown="if(event.key=='Enter') updateContact(${dbId});"/>
-            <input class="updateContactInput" data-field="email" placeholder="Email" onkeydown="if(event.key=='Enter') updateContact(${dbId});"/>
-        `;
-    }else{
-        updateBlock.innerHTML = '';
-    }
-}
-
 
 function updateContact(dbId){
     let update = {'ID': dbId}
@@ -375,6 +143,62 @@ function updateContact(dbId){
         update[input.dataset.field] = input.value;
     })
     update['userId'] = userId;
+
+    // TODO: add HTML for this so it works
+    // let fnameError = document.querySelector('.updateError.firstNameError');
+    // let lnameError = document.querySelector(".updateError.passwordError");
+    // let phoneError = document.querySelector('.updateError.phoneError');
+    // let emailError = document.querySelector('.updateError.emailError');
+    // let err = false;
+
+    // if(update['fname'].trim() === ''){
+    //     fnameError.innerHTML = 'First name cannot be blank';
+    //     err = true;
+    // }
+    // else{
+    //     fnameError.innerHTML = '';
+    // }
+
+    // if(update['lname'].trim() === ''){
+    //     lnameError.innerHTML = 'Last name cannot be blank';
+    //     err = true;
+    // }
+    // else{
+    //     lnameError.innerHTML = '';
+    // }
+
+    // if(update['phone'].trim() === ''){
+    //     phoneError.innerHTML = 'Phone number cannot be blank';
+    //     err = true;
+    // }
+    // else if(!validPhone(update['phone'])){
+    //     phoneError.innerHTML = 'Invalid phone number format.';
+    //     /* Try:
+    //        e.g. 1002003000 or
+    //        e.g. 100-200-3000    or
+    //        e.g. (100)-200-3000
+    //     */
+    //    err = true;
+    // }
+    // else{
+    //     phoneError.innerHTML = '';
+    // }
+
+    // if(update['email'].trim() === ''){
+    //     emailError.innerHTML = 'Email cannot be blank';
+    //     err = true;
+    // }
+    // else if(!validEmail(update['email'])){
+    //     emailError.innerHTML = 'Email'
+    //     err = true;
+    // }
+    // else{
+    //     emailError.innerHTML = '';
+    // }
+
+    // if(!err){
+    //     Put backend stuff here
+    // }
 
     let jsonPayload = JSON.stringify(update);
     let url = urlBase + '/UpdateContact.' + extension;
@@ -414,28 +238,6 @@ function updateContact(dbId){
 		document.getElementById("contactSearchResult").innerHTML = err.message;
 	}
 }
-
-
-/**
- * Returns a 10-digit phone number in the format (XXX)-XXX-XXXX
- * @param {string} phone 
- */
-// function formatPhoneNumber(phone)
-// {
-//     let areaCode = phone.slice(0,3);
-//     let exchange = phone.slice(3,6);
-//     let subscriber = phone.slice(6, 10);
-//     return `(${areaCode})-${exchange}-${subscriber}`; 
-// }
-
-// function doLogout()
-// {
-// 	userId = 0;
-// 	firstName = "";
-// 	lastName = "";
-// 	document.cookie = "firstName= ; expires = Thu, 01 Jan 1970 00:00:00 GMT";
-// 	window.location.href = "index.html";
-// }
 
 
 function doDeleteContact(dbId)

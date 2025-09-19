@@ -108,3 +108,13 @@ function formatPhoneNumber(phone)
     return `(${areaCode})-${exchange}-${subscriber}`; 
 }
 
+function validEmail(email) {
+    const regex = /^(([\w]+\.)+|[\w]+)+[\w]@([\w\-]+\.)+[A-z]{2,}$/;
+    return regex.test(email);
+}
+
+function validPhone(phone) {
+    const regex = /^(\d{10}|\d{3}-\d{3}-\d{4}|\(\d{3}\)-\d{3}-\d{4})$/;
+    return regex.test(phone);
+}
+
