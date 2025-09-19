@@ -7,14 +7,17 @@ function doLogin()
     let login = document.getElementById("loginName").value;
 	let password = document.getElementById("loginPassword").value;
     
-	let loginError = document.querySelector(".inputError.usernameError");
-    let passwError = document.querySelector(".inputError.passwordError");
+	let loginError = document.querySelector(".errorContainer.usernameError");
+    let passwError = document.querySelector(".errorContainer.passwordError");
     let loginResultError = document.querySelector(".invalidLoginError");
-    let errorIcon = '<img src="imgs/caution.png" id="errorIcon">';
+    const errHTML = (msg) => `
+        <img src="imgs/caution.png" id="errorIcon">
+        <span class="inputError" >${msg}</span>
+    `
     let err = false;
 	
     if(password === ''){
-        passwError.innerHTML = `${errorIcon} Must enter a password`;
+        passwError.innerHTML = errHTML('Must enter a password');
         loginResultError.innerHTML = '';
         err = true;
     }
@@ -22,12 +25,12 @@ function doLogin()
         passwError.innerHTML = "";
     
     if(login === ''){
-        loginError.innerHTML = `${errorIcon} Must enter a username`;
+        loginError.innerHTML = errHTML('Must enter a username');
         loginResultError.innerHTML = '';
         err = true;
     }
     else if(login.trim() === ''){
-        loginError.innerHTML = `${errorIcon} Username cannot be blank`;
+        loginError.innerHTML = errHTML('Username cannot be blank');
         loginResultError.innerHTML = '';
         err = true;
     }
@@ -54,7 +57,7 @@ function doLogin()
             
                     if(!jsonObject.success)
                     {		
-                        loginResultError.innerHTML = `${errorIcon} ${jsonObject.error}`;
+                        loginResultError.innerHTML = errHTML(jsonObject.error);
                         return;
                     }
 
@@ -82,37 +85,40 @@ function doRegister()
 	let login = document.getElementById("registerUsername").value;
 	let password = document.getElementById("registerPassword").value;
 
-    let fnameError = document.querySelector(".inputError.firstNameError");
-    let lnameError = document.querySelector(".inputError.lastNameError");
-    let loginError = document.querySelector(".inputError.usernameError");
-    let passwError = document.querySelector(".inputError.passwordError");
-    let errorIcon = '<img src="imgs/caution.png" id="errorIcon">';
+    let fnameError = document.querySelector(".errorContainer.firstNameError");
+    let lnameError = document.querySelector(".errorContainer.lastNameError");
+    let loginError = document.querySelector(".errorContainer.usernameError");
+    let passwError = document.querySelector(".errorContainer.passwordError");
+    const errHTML = (msg) => `
+        <img src="imgs/caution.png" id="errorIcon">
+        <span class="inputError" >${msg}</span>
+    `
     let err = false;
 
 
     if(firstName=== ''){
-        fnameError.innerHTML = `${errorIcon} Must enter a first name`;
+        fnameError.innerHTML = errHTML('Must enter a first name');
         err = true;
     }
     else
         fnameError.innerHTML = "";
     
     if(lastName === ''){ 
-        lnameError.innerHTML = `${errorIcon} Must enter a last name`;
+        lnameError.innerHTML = errHTML('Must enter a last name');
         err = true;
     }
     else
         lnameError.innerHTML = "";
 
     if(password === '' || password.trim() === ''){
-        passwError.innerHTML = `${errorIcon} Password cannot be blank`;
+        passwError.innerHTML = errHTML('Password cannot be blank');
         err = true;
     }
     else
         passwError.innerHTML = "";
     
     if(login === '' || login.trim() === ''){
-        loginError.innerHTML = `${errorIcon} Username cannot be blank`;
+        loginError.innerHTML = errHTML('Username cannot be blank');
         err = true;
     }
     else
@@ -139,7 +145,7 @@ function doRegister()
             
                     if(!jsonObject.success)
                     {		
-                        loginError.innerHTML = `${errorIcon} ${jsonObject.error}`;
+                        loginError.innerHTML = errHTML(jsonObject.error);
                         return;
                     }
 

@@ -1,12 +1,16 @@
 * {
     box-sizing: border-box;
-    margin: 0 auto;
-    padding: 0 auto;
 }
+@import url('https://fonts.googleapis.com/css2?family=Pirata+One&family=Trade+Winds&family=MedievalSharp&family=Eagle+Lake&family=UnifrakturCook&family=UnifrakturMaguntia&family=Crimson+Text&family=EB+Garamond&family=IM+Fell+English&display=swap');
+/* Pirata One, Trade Winds, Medieval Sharp, Eagle Lake, UnifrakturCook, 
+   UnifrakturMaguntia, Crimson Text, EB Garamond, IM Fell English
+*/
 
 body 
 {
-    background-color: #26203d;
+    /* background-color: #26203d; */
+    background-image: url('../imgs/pirate_ship_background.jpg');
+    background-size: cover;
 }
 
 .buttons
@@ -16,14 +20,15 @@ body
     border-radius: 25px;
     width: auto;
     margin: 0 auto;
-    font-family: 'Ubuntu', sans-serif;
-    background-color: #eed5ff;
-    color:#26203d;
+    font-family: 'Pirata One', sans-serif;
+    background-color: #36241a;
+    color:#ffceb2;
+    border-color: #ffceb2; 
 }
 
 .buttons:hover{
-    background-color: #26203d;
-    color: #eed5ff;
+    background-color: #7b2e04;
+    color: #fdb287;
     opacity: 80%;
 }
 
@@ -37,7 +42,6 @@ body
     font-family: 'Ubuntu', sans-serif;
     color: #dadfe1;
 }
-
 
 .searchContainer {
     position: relative;
@@ -75,27 +79,61 @@ body
     cursor: pointer;
 }
 
+.headerContainer {
+    font-family: 'Trade Winds', cursive;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    text-shadow: 4px 6px 6px rgba(0,0,0, 0.6);
+    letter-spacing: 2px;
+}
+.headerContainer.registerHeaderContainer {
+    color: #2b2c2b;
+    text-shadow: none;
+    font-weight: 700;
+}
+.headerContainer #upperLoginHead {
+    font-size: 18pt;
+}
+.headerContainer #lowerLoginHead {
+    font-size: 48pt;
+}
+.headerContainer #upperRegisterHead {
+    font-size: 18pt;
+}
+.headerContainer #lowerRegisterHead {
+    font-size: 64pt;
+}
+
+
 .loginBody {
-    font-family: 'Ubuntu', sans-serif;
+    font-family: 'Pirata One', cursive;
+    letter-spacing: 1px;
     display: flex;
     justify-content: center;
     align-items: center;
     min-height: 100vh;
     margin: 0 auto;    
+    text-shadow: 4px 6px 6px rgba(0,0,0, 0.4);
 }
 .loginContainer {
-    background-color:#eed5ff;
+    background-color:#523829EE;
     box-shadow: 0 2px 4px rgba(0,0,0, 0.25);
+    backdrop-filter: blur(5px);
     border-radius: 18px;
     padding: 40px;
     width: 100%;
     max-width: 500px;
-    color: #26203d;
+    color: #ffceb2;
+    box-shadow: 4px 4px 6px rgba(0,0,0, 0.4);
+    outline: 1pt solid #d68454;
 }
 .loginContainer h2 {
     text-align: center;
+    letter-spacing: 4px;
     margin-bottom: 30px;
-    font-size: 2em;
+    font-size: 4em;
 }
 .loginGroup {
     margin-bottom: 40px;
@@ -103,7 +141,7 @@ body
 .loginGroup label {
     display: block;
     margin-bottom:4px;
-    font-size: 10.5pt;
+    font-size: 14pt;
     font-weight: 500;
 }
 .loginGroup .inputField {
@@ -113,19 +151,22 @@ body
     font-size: 11.5pt;
     text-align: left;
     width: 100%;
+    background-color: #ffceb2;
+    border-color: #ffceb2;
+    color: #2b2c2b;
 }
-.invalidLoginError {
-    display: block;
-    text-align: center;
-    margin-bottom: 4px; 
+.errorContainer.invalidLoginError {
+    justify-content: center;
 }
-#loginButton {
+#loginButton,
+#registerAccountButton {
     width: 100%;
     border-radius: 8px;
     height: 40px;
     box-shadow: 0 2px 4px rgba(0,0,0, 0.25);
     font-size: 16pt;
     margin-bottom: 10px;
+    letter-spacing: 1px;
 }
 .createAccountLink {
     margin-top: 10px;
@@ -138,106 +179,100 @@ body
 }
 
 
-
-/* * {
-    outline: 1pt solid yellow;
-} */
 .inputField:focus {
-    outline: 2pt solid #3f276e;
+    outline: 2pt solid #ffceb2;
 }
-.inputError {
-    color: darkred;
+.errorContainer {
+    color: #FF6900;
     max-height:100%;
+    width: 100%;
     font-weight: 500;
+    filter: brightness(0) saturate(100%) invert(47%) sepia(95%) saturate(2500%) hue-rotate(356deg) brightness(101%) contrast(101%);
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    text-align: left;
+    gap: 5px;
+    text-shadow: none;
 }
-
+#errorIcon {
+    height: 1em;
+    width: auto;
+}
 
 .registerBody {
     display: flex;
     min-height: 100vh;
     margin: 0 auto;
-    font-family:'Ubuntu', sans-serif;
+    font-family:'Pirata One', sans-serif;
+    letter-spacing: 1px;
 }
-.registerWelcomeBlock {
-    margin: 0 auto;
+.headerContainer.registerHeaderContainer {
+    margin-top: 40px;
     flex: 1;
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: flex-start;
+    align-items: center;
     text-align: center;
-    color: #eed5ff;
 }
 #registerWelcome {
     margin-bottom: 20px;
 }
-.registerInputBlock {
+.registerInputContainer {
     display: flex;
     flex: 1;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background-color: #eed5ff;
+    background-color: rgba(82,56,41,0.9);
+    backdrop-filter: blur(7px);
+    color: #ffceb2;
     max-width: 40vw;
     min-width: 520px;
 }
 .registerInputTitle {
-    color:#26203d;
-    margin-top: 40px;
+    margin: 40px 20px 20px 40px;
+    font-size: 20pt;
+    text-align: center;
 }
-.registerInputContainer {
+.registerInputBlock {
     max-width: 450px;
     width: 100%;
     margin-bottom: 55px;
 }
-.registerInputContainer.registerAccount {
+.registerInputBlock.registerAccount {
     margin-bottom: 10px;
 }
-#errorIcon {
-    display: inline-block;
-    height: 18px;
-    width: 18px;
-    vertical-align: middle;
-    margin-top: -5px;
-    filter: brightness(0) saturate(100%) invert(19%) sepia(85%) saturate(7482%) hue-rotate(357deg) brightness(91%) contrast(117%);
-}
-/* * {
-    outline: 1pt solid yellow;
-} */
 .registerLabel {
     text-align: left;
     display: block;
-    color:#26203d;
     font-weight: 500;
-    font-size: 10.5pt;
+    font-size: 14pt;
     margin-bottom: 4px;
 }
-.registerInputBlock .inputField {
+.registerInputContainer .inputField {
     border-radius: 8px;
     height: 38px;
     padding-left: 10px;
     font-size: 11.5pt;
     text-align: left;
     width: 100%;
+    background-color: #ffceb2;
+    border-color: #ffceb2;
+    color: #2b2c2b;
 }
 .requiredSymbol {
-    color: red;
+    color: #fe7f35;
 }
-#requiredNotice {
+.requiredNotice {
     text-align: center;
-    color: red;
+    color: #ff8640;
     font-weight: 500;
     font-size: 10.5pt;
     margin-bottom: 10px;
 }
-#registerAccountButton {
-    width: 100%;
-    border-radius: 8px;
-    height: 40px;
-    box-shadow: 0 2px 4px rgba(0,0,0, 0.25);
-    font-size: 16pt;
-    margin-bottom: 10px;
-}
-.registerInputContainer.loginReturn {
+.registerInputBlock.loginReturn {
     text-align:center;
 }
 #loginReturn{
@@ -245,22 +280,31 @@ body
     cursor: pointer;
     padding: 5px;
 }
-@media (max-width: 1024px){
+@media (max-width: 1080px){
     .registerBody {
         flex-direction: column;
     }
-    .registerWelcomeBlock,
-    .registerInputBlock {
+    .registerInputContainer {
         max-width: 100%;
         width: 100%;
         min-height: 140px;
+        max-height: 100%;
+        flex: 1;
+    }
+    .headerContainer.registerHeaderContainer {
+        background: none;
+        align-items: center;
+        margin-top: 10px;
+        margin-bottom: 0px;
+        max-height: 160px;
     }
 }
 
-/* * {
-    outline: 1pt solid yellow;
-} */
-
+.landingPageBody  {
+    display: flex; 
+    flex-direction: column;
+    min-height: 100vh;
+}
 
 
 .contactBlock {

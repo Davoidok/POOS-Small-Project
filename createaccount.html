@@ -5,60 +5,70 @@
         <meta charset="UTF-8">
         <link href="css/styles.css" rel="stylesheet">	
         <link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Pirata+One" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Trade+Winds" rel="stylesheet">
 	    <script type="text/javascript" src="js/global.js"></script>
       <script type="text/javascript" src="js/frontpage.js"></script>
     </head>
 
     
     <body class="registerBody">
-      <div class="registerWelcomeBlock">
-        <h1 id="registerWelcome">
-          Welcome to 4lokofridays!
-        </h1>
+      <div class="headerContainer registerHeaderContainer">
+        <span id="upperRegisterHead">Are ya' ready ta plunder the</span>
+        <span id="lowerRegisterHead">Cap'n's Log?</span>
       </div>
-      <div class="registerInputBlock">
+      <div class="registerInputContainer">
+
         <div class="registerInputTitle">
           <h2>
-            Sign up for Contact Manager
+            Ahoy, matey! Sign up here ta join the crew!
           </h2>
         </div>
-        <div class="registerInputContainer">
+
+        <div class="registerInputBlock">
           <label class="registerLabel" id="registerFirstNameLabel">
-            <sup class="requiredSymbol">*</sup>First Name
+            <sup class="requiredNotice requiredSymbol">*</sup>Yer Mate Name
           </label>
           <input type="text" id="registerFirstName" class="inputField" placeholder="First Name" onkeydown="if(event.key=='Enter') doRegister();"/><br />
-          <span class="inputError firstNameError" ></span>
+          <div class="errorContainer firstNameError"></div>
         </div>
-        <div class="registerInputContainer">
+        
+        <div class="registerInputBlock">
           <label class="registerLabel" id="registerLastNameLabel">
-            <sup class="requiredSymbol">*</sup>Last Name
+            <sup class="requiredNotice requiredSymbol">*</sup>Yer Last Name
           </label>
           <input type="text" id="registerLastName" class="inputField" placeholder="Last Name" onkeydown="if(event.key=='Enter') doRegister();"/><br />
-          <span class="inputError lastNameError" ></span>
+          <div class="errorContainer lastNameError"></div>
         </div>
-        <div class="registerInputContainer">
+
+        <div class="registerInputBlock">
           <label class="registerLabel" id="registerUsernameLabel">
-            <sup class="requiredSymbol">*</sup>Username
+            <sup class="requiredNotice requiredSymbol">*</sup>Yer Username
           </label>
           <input type="text" id="registerUsername" class="inputField" placeholder="Username" onkeydown="if(event.key=='Enter') doRegister();"/><br />
-          <span class="inputError usernameError" ></span>
+          <div class="errorContainer usernameError"></div>
         </div>
-        <div class="registerInputContainer">
+
+        <div class="registerInputBlock">
           <label class="registerLabel" id="registerPasswordLabel">
-            <sup class="requiredSymbol">*</sup>Password
+            <sup class="requiredNotice requiredSymbol">*</sup>Yer Secret Key
           </label>
           <input type="password" id="registerPassword" class="inputField" placeholder="Password" onkeydown="if(event.key=='Enter') doRegister();"/><br />
-          <span class="inputError passwordError" ></span>
+          <div class="errorContainer passwordError"></div>
         </div>
-        <div class="registerInputContainer" id="requiredNotice">
+
+        <div class="registerInputBlock requiredNotice">
           <sup>*</sup>= required
         </div>
-        <div class="registerInputContainer registerAccount">
+
+        <div class="registerInputBlock registerAccount">
           <button type="button" id="registerAccountButton" class="buttons" onclick="doRegister();"> Create Account </button>
         </div>
-        <div class="registerInputContainer loginReturn">
+
+        <div class="registerInputBlock loginReturn">
           <span>Already have an account?</span><span id="loginReturn" onclick="goToLogin()">Sign in →</span>
         </div>
+        
       </div>
     </body>
 </html>
