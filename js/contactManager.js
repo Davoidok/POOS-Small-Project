@@ -1,19 +1,19 @@
-const urlBase = 'http://4lokofridays.com/LAMPAPI';
-const extension = 'php';
+// // const urlBase = 'http://4lokofridays.com/LAMPAPI';
+// // const extension = 'php';
 
-let userId = 0;
-let firstName = "";
-let lastName = "";
+// let userId = 0;
+// let firstName = "";
+// let lastName = "";
 
-function goToCreateAccount()
-{
-    window.location.href = 'createaccount.html';
-}
+// function goToCreateAccount()
+// {
+//     window.location.href = 'createaccount.html';
+// }
 
-function goToLogin()
-{
-    window.location.href = 'index.html';
-}
+// function goToLogin() 
+// {
+//     window.location.href = 'index.html';
+// }
 
 function doLogin()
 {
@@ -114,50 +114,115 @@ function doRegister()
 }
 
 
-function saveCookie()
+// function saveCookie()
+// {
+// 	let minutes = 20;
+// 	let date = new Date();
+// 	date.setTime(date.getTime()+(minutes*60*1000));	
+// 	document.cookie = "firstName=" + firstName + ",lastName=" + lastName + ",userId=" + userId + ";expires=" + date.toGMTString();
+// }
+
+// function readCookie()
+// {
+// 	userId = -1;
+// 	let data = document.cookie;
+// 	let splits = data.split(",");
+// 	for(var i = 0; i < splits.length; i++) 
+// 	{
+// 		let thisOne = splits[i].trim();
+// 		let tokens = thisOne.split("=");
+// 		if( tokens[0] == "firstName" )
+// 		{
+// 			firstName = tokens[1];
+// 		}
+// 		else if( tokens[0] == "lastName" )
+// 		{
+// 			lastName = tokens[1];
+// 		}
+// 		else if( tokens[0] == "userId" )
+// 		{
+// 			userId = parseInt( tokens[1].trim() );
+// 		}
+// 	}
+	
+// 	if( userId < 0 )
+// 	{
+// 		window.location.href = "index.html";
+// 	}
+// }
+
+function toggleCreateContact()
 {
-	let minutes = 20;
-	let date = new Date();
-	date.setTime(date.getTime()+(minutes*60*1000));	
-	document.cookie = "firstName=" + firstName + ",lastName=" + lastName + ",userId=" + userId + ";expires=" + date.toGMTString();
+	// let list = document.getElementsByClassName("contactList");
+	// let newContact = `
+    //     <details class="contact" data-id="0"}>
+    //       <summary class="contactName">
+    //         <h3>
+    //           <span id="contactFirstName">
+	// 		 	<input class="inputField" data-field="firstName" placeholder="First Name" onkeydown="if(event.key=='Enter') "/>
+	// 			<span class="inputError firstNameError
+	// 		  </span> 
+    //           <span id="contactLastName">${lastName}</span>
+    //         </h3>
+    //       </summary>
+    //       <div class="contactDropdown">
+    //         <div class="contactInfo">
+    //           <span id="contactPhoneNumber">${formatPhoneNumber(phone)}</span>
+    //           <span id="contactEmail">${email}</span>
+    //         </div>
+    //         <button id="updateContactButton" onclick="toggleUpdateContactFields(${dbId})">Update</button>
+    //         <button id="deleteContactButton" onclick="doDeleteContact(${dbId})">Delete</button>
+    //       </div>
+    //       <span class="updateContactBlock"></span>
+    //     </details>
+    // `
+
+	let contactBlock = document.querySelector(".contactBlock");
+	let createContactBlock = document.querySelector(".createContactBlock");
+
+
+	if (contactBlock.style["display"] === "none")
+	{
+		contactBlock.style = "display:block";
+		createContactBlock.style = "display:none";
+	}
+	else
+	{
+		contactBlock.style = "display:none";
+		createContactBlock.style = "display:block";
+	}
+
+
+
 }
 
-function readCookie()
+function searchContactWrapper()
 {
-	userId = -1;
-	let data = document.cookie;
-	let splits = data.split(",");
-	for(var i = 0; i < splits.length; i++) 
+	let contactBlock = document.querySelector(".contactBlock");
+	let createContactBlock = document.querySelector(".createContactBlock");
+
+
+	if (contactBlock.style["display"] === "none")
 	{
-		let thisOne = splits[i].trim();
-		let tokens = thisOne.split("=");
-		if( tokens[0] == "firstName" )
-		{
-			firstName = tokens[1];
-		}
-		else if( tokens[0] == "lastName" )
-		{
-			lastName = tokens[1];
-		}
-		else if( tokens[0] == "userId" )
-		{
-			userId = parseInt( tokens[1].trim() );
-		}
+		contactBlock.style = "display:block";
+		createContactBlock.style = "display:none";
+		searchContact();
 	}
-	
-	if( userId < 0 )
+	else
 	{
-		window.location.href = "index.html";
+		searchContact();
 	}
+		
 }
 
 function createContact()
 {
-	let newFirstName = document.getElementByID("AddContactFirstNameField").value;
-	let newLastName = document.getElementByID("AddContactLastNameField").value;
-	let newPhoneNum = document.getElementByID("AddContactPhoneNumField").value;
-	let newEmail = document.getElementByID("AddContactEmailField").value;
-
+	let newFirstName = document.getElementById("newFirstName").value;
+	let newLastName = document.getElementById("newLastName").value;
+	let newPhoneNum = document.getElementById("newPhoneNumber").value;
+	let newEmail = document.getElementById("newEmail").value;
+	let err = false;
+	
 	let tmp = {
 		firstName:newFirstName,
 		lastName:newLastName,
@@ -165,9 +230,10 @@ function createContact()
 		email:newEmail,
 		userId:userId
 	};
+	
 	let jsonPayload = JSON.stringify(tmp);
-
-	let url = urlBase + '/CreateContact.' + exstension; 
+	
+	let url = urlBase + '/CreateContact.' + extension; 
 	
 	let xhr = new XMLHttpRequest();
 	xhr.open("POST", url, true);
@@ -178,14 +244,24 @@ function createContact()
 		{
 			if (this.readyState == 4 && this.status == 200) 
 			{
-				document.getElementById("createContactResults").innerHTML = "Contact created!";
+				let jsonObject = JSON.parse( xhr.responseText );
+				let databaseUserId = jsonObject.ID;
+            
+                    if(!jsonObject.success)
+                    {		
+                        // document.getElementById(".newContactGroup .inputError").innerHTML = err.message;
+                        return;
+                    }
+				
+
 			}
 		};
 		xhr.send(jsonPayload);
+		alert("yep");
 	}
 	catch(err)
 	{
-		document.getElementById("createContactResults").innerHTML = err.message;
+		document.getElementById(".newContactGroup .inputError").innerHTML = err.message;
 	}
 	
 }
@@ -251,28 +327,28 @@ function searchContact()
  *                       container
  * @returns 
  */
-function getContactHTML(dbId, firstName, lastName, phone, email)
-{
-    return `
-        <details class="contact" data-id=${dbId}>
-          <summary class="contactName">
-            <h3>
-              <span id="contactFirstName">${firstName}</span> 
-              <span id="contactLastName">${lastName}</span>
-            </h3>
-          </summary>
-          <div class="contactDropdown">
-            <div class="contactInfo">
-              <span id="contactPhoneNumber">${formatPhoneNumber(phone)}</span>
-              <span id="contactEmail">${email}</span>
-            </div>
-            <button id="updateContactButton" onclick="toggleUpdateContactFields(${dbId})">Update</button>
-            <button id="deleteContactButton" onclick="toggleUpdateContactFields()">Delete</button>
-          </div>
-          <span class="updateContactBlock"></span>
-        </details>
-    `
-}
+// function getContactHTML(dbId, firstName, lastName, phone, email)
+// {
+//     return `
+//         <details class="contact" data-id=${dbId}>
+//           <summary class="contactName">
+//             <h3>
+//               <span id="contactFirstName">${firstName}</span> 
+//               <span id="contactLastName">${lastName}</span>
+//             </h3>
+//           </summary>
+//           <div class="contactDropdown">
+//             <div class="contactInfo">
+//               <span id="contactPhoneNumber">${formatPhoneNumber(phone)}</span>
+//               <span id="contactEmail">${email}</span>
+//             </div>
+//             <button id="updateContactButton" onclick="toggleUpdateContactFields(${dbId})">Update</button>
+//             <button id="deleteContactButton" onclick="toggleUpdateContactFields()">Delete</button>
+//           </div>
+//           <span class="updateContactBlock"></span>
+//         </details>
+//     `
+// }
 
 /**
  * 
@@ -344,22 +420,22 @@ function updateContact(dbId){
  * Returns a 10-digit phone number in the format (XXX)-XXX-XXXX
  * @param {string} phone 
  */
-function formatPhoneNumber(phone)
-{
-    let areaCode = phone.slice(0,3);
-    let exchange = phone.slice(3,6);
-    let subscriber = phone.slice(6, 10);
-    return `(${areaCode})-${exchange}-${subscriber}`; 
-}
+// function formatPhoneNumber(phone)
+// {
+//     let areaCode = phone.slice(0,3);
+//     let exchange = phone.slice(3,6);
+//     let subscriber = phone.slice(6, 10);
+//     return `(${areaCode})-${exchange}-${subscriber}`; 
+// }
 
-function doLogout()
-{
-	userId = 0;
-	firstName = "";
-	lastName = "";
-	document.cookie = "firstName= ; expires = Thu, 01 Jan 1970 00:00:00 GMT";
-	window.location.href = "index.html";
-}
+// function doLogout()
+// {
+// 	userId = 0;
+// 	firstName = "";
+// 	lastName = "";
+// 	document.cookie = "firstName= ; expires = Thu, 01 Jan 1970 00:00:00 GMT";
+// 	window.location.href = "index.html";
+// }
 
 
 function doDeleteContact(dbId)
