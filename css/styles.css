@@ -1,14 +1,10 @@
 * {
     box-sizing: border-box;
 }
-@import url('https://fonts.googleapis.com/css2?family=Pirata+One&family=Trade+Winds&family=MedievalSharp&family=Eagle+Lake&family=UnifrakturCook&family=UnifrakturMaguntia&family=Crimson+Text&family=EB+Garamond&family=IM+Fell+English&display=swap');
-/* Pirata One, Trade Winds, Medieval Sharp, Eagle Lake, UnifrakturCook, 
-   UnifrakturMaguntia, Crimson Text, EB Garamond, IM Fell English
-*/
 
 body 
 {
-    /* background-color: #26203d; */
+    /* background: none; */
     background-image: url('../imgs/pirate_ship_background.jpg');
     background-size: cover;
 }
@@ -40,12 +36,21 @@ body
     margin-left: 5%;
     margin-bottom: 2%;
     font-family: 'Ubuntu', sans-serif;
-    color: #dadfe1;
+    color: #212524;
 }
 
-.searchContainer {
+
+#searchContactContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.searchInput {
     position: relative;
+    width: 100%;
     max-width: 800px;
+    /* min-width: 400px; */
     max-height: 40px;
     margin: 0 auto;
     margin-bottom: 10px;
@@ -54,7 +59,7 @@ body
 }
 #searchText{
     width: 100%;
-    height: 100%;
+    height: 40px;
     font-size: 30px;
     text-align: center;
     border-radius: 10px;
@@ -70,13 +75,73 @@ body
     cursor: pointer;
 }
 #searchContactIcon {
-    pointer-events: none;
     width: 40px;
     height: auto;
     object-fit: contain;
     justify-self: center;
-    pointer-events: auto;
     cursor: pointer;
+}
+.contactBlock {
+    max-width: 550px;
+    width: 60%;
+    margin: 0 auto;
+    margin-bottom: 2%;
+    margin-top: 2%;
+}
+#contactSearchResult {
+    display: block;
+    text-align: center;
+    font-family: 'Ubuntu', sans-serif;
+    color: #ff87f1;
+    font-size: 1.6em;
+}
+.contactList {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    max-width: 600px;
+    width: 100%;
+    margin-right: 40px; 
+    margin-left: 40px;
+
+    margin-top: 2%;
+    font-size: 1.2em;
+    font-family: 'Ubuntu', sans-serif;
+    color: #151222;
+}
+.contact{
+    border: 1px solid #ff87f1;
+    border-radius: 8px;
+    margin-bottom: 10px;
+    background-color: #eed5ff;
+}
+.contactName {
+    display: flex;
+    padding-left: 10px;
+    padding-right: 10px;
+    cursor: pointer;
+}
+.contactList .contactName::-webkit-details-marker {   
+    display: none;
+}
+.contactDropdown {
+    padding: 5px;
+    padding-top: 20px;
+    background-color: #2a2445;
+    border-bottom: 1px solid #201b34;
+    border-top: 1px solid #ff87f1;
+    border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px;
+}
+.contactInfo {
+    display: flex;
+    margin: -10px 0px 10px 0px;
+    color: #eed5ff;
+    justify-content: space-between;
+    align-items: center;
+}
+.updateContactInput {
+    display: inline-block;
 }
 
 .headerContainer {
@@ -89,7 +154,7 @@ body
     letter-spacing: 2px;
 }
 .headerContainer.registerHeaderContainer {
-    color: #2b2c2b;
+    color: #212524;
     text-shadow: none;
     font-weight: 700;
 }
@@ -187,7 +252,6 @@ body
     max-height:100%;
     width: 100%;
     font-weight: 500;
-    filter: brightness(0) saturate(100%) invert(47%) sepia(95%) saturate(2500%) hue-rotate(356deg) brightness(101%) contrast(101%);
     display: flex;
     justify-content: flex-start;
     align-items: center;
@@ -198,6 +262,7 @@ body
 #errorIcon {
     height: 1em;
     width: auto;
+    filter: brightness(0) saturate(100%) invert(47%) sepia(95%) saturate(2500%) hue-rotate(356deg) brightness(101%) contrast(101%);
 }
 
 .registerBody {
@@ -301,115 +366,62 @@ body
 }
 
 .landingPageBody  {
-    display: flex; 
-    flex-direction: column;
-    min-height: 100vh;
-}
+    background-image: url('../imgs/pirate_ship_background.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: top center;
+    background-size: 100% auto;
+    background-color:#212524;
 
-
-.contactBlock {
-    max-width: 550px;
-    width: 60%;
     margin: 0 auto;
-    margin-bottom: 2%;
-    margin-top: 2%;
-}
-#contactSearchResult {
-    display: block;
-    text-align: center;
-    font-family: 'Ubuntu', sans-serif;
-    color: #ff87f1;
-    font-size: 1.6em;
-}
-.contactList {
-    display: block;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 10px;
-
-    margin-top: 2%;
-    font-size: 1.2em;
-    font-family: 'Ubuntu', sans-serif;
-    color: #151222;
-}
-.contact{
-    border: 1px solid #ff87f1;
-    border-radius: 8px;
-    margin-bottom: 10px;
-    background-color: #eed5ff;
-}
-.contactName {
-    display: flex;
-    padding-left: 10px;
-    padding-right: 10px;
-    cursor: pointer;
-}
-.contactList .contactName::-webkit-details-marker {   
-    display: none;
-}
-.contactDropdown {
-    padding: 5px;
-    padding-top: 20px;
-    background-color: #2a2445;
-    border-bottom: 1px solid #201b34;
-    border-top: 1px solid #ff87f1;
-    border-bottom-left-radius: 8px;
-    border-bottom-right-radius: 8px;
-}
-.contactInfo {
-    display: flex;
-    margin: -10px 0px 10px 0px;
-    color: #eed5ff;
-    justify-content: space-between;
-    align-items: center;
-}
-.updateContactInput {
-    display: inline-block;
 }
 
 
 
-select{
-    width: 30%;
-    margin-left: 35%;
-    margin-top: 2%;
-    font-size: 0.75em;
-    font-family: 'Ubuntu', sans-serif;
-}
 
 .navbar{
+    font-family: 'IM Fell English SC', serif;
     display: flex;
-    justify-content: space-between;
     align-items: center;
-    background: lightgreen;
-    padding: 10px;
-    font-size: 18px;
+    background: #523829EE;
+    color: #ffceb2;
+    padding: 5px 0;
+    font-size: 24px;
+    font-weight: bold;
+    margin: 0 auto;
+    width: 100%;
+}
+.navbar a{
+    cursor: pointer;
+    padding: 15px 10px;
+    text-decoration: none;
 }
 
 .navbar .center {
-    flex: 1;
     display: flex;
     justify-content: center;
     align-items: center;
 }
-
-.navbar .left a {
-    padding: 10px 15px;
-    text-decoration: none;
-}
-
-.navbar .left a:hover {
-    background-color: gray;
-}
-
 .navbar .right {
-    margin-left: auto;
+    display: flex;
+    justify-content: center;
+}
+.navbar .left {
+    display: flex;
+    justify-content: center;
 }
 
-.navbar .right a.logout{
-    color: black;
-    padding: 10px 15px;
-    text-decoration: none;
-    /* font-weight: bold; */
+.navbar .left,
+.navbar .right {
+    flex: 1 1 0;
+}
+.navbar .center {
+    flex: 0 0 auto;
+}
+
+
+.navbar .left a:hover, .navbar .center a:hover {
+    background-color: gray;
 }
 
 .navbar .right a.logout:hover {

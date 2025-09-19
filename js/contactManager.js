@@ -1,50 +1,63 @@
+function switchContext(containerName){
+    document.querySelectorAll('.frontpageContainer').forEach(container => {
+        container.style.display = (container.id === containerName) ? "" : "none";
+    });
+
+    localStorage.setItem('lastPage', containerName);
+}
+
 function searchContact()
 {
 	let srch = document.getElementById("searchText").value;
-	
-	let tmp = {search:srch,userId:userId};
-	let jsonPayload = JSON.stringify( tmp );
-	
-	let url = urlBase + '/SearchContacts.' + extension;
 
-	let xhr = new XMLHttpRequest();
-	xhr.open("POST", url, true);
-	xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
-	try
-	{
-		xhr.onreadystatechange = function()
-		{
-			if (this.readyState == 4 && this.status == 200)
-			{
-				let jsonObject = JSON.parse( xhr.responseText );
-				let results = jsonObject.result;
-                let contactList = "";
-				if(results.length > 0){
-					document.getElementById("contactSearchResult").innerHTML = "Contact(s) has been retrieved";
-					for( let i=0; i < results.length; i++ )
-					{
-						contactList += getContactHTML(
-                            results[i]['ID'],
-                            results[i]['firstName'],                     
-                            results[i]['lastName'],
-                            results[i]['phone'],
-                            results[i]['email']
-                        );
-					}
-				}
-				else{
-					document.getElementById("contactSearchResult").innerHTML = "No contacts found";
+    if(srch.trim() === ''){
+        document.getElementById("contactSearchResult").innerHTML = "Arrr, ye forgot to type somethin', ye scallywag!";
+    }
+    else{
+        let tmp = {search:srch,userId:userId};
+        let jsonPayload = JSON.stringify( tmp );
+        
+        let url = urlBase + '/SearchContacts.' + extension;
+
+        let xhr = new XMLHttpRequest();
+        xhr.open("POST", url, true);
+        xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+        try
+        {
+            xhr.onreadystatechange = function()
+            {
+                if (this.readyState == 4 && this.status == 200)
+                {
+                    let jsonObject = JSON.parse( xhr.responseText );
+                    let results = jsonObject.result;
+                    let contactList = "";
+                    if(results.length > 0){
+                        document.getElementById("contactSearchResult").innerHTML = "Contact(s) has been retrieved";
+                        for( let i=0; i < results.length; i++ )
+                        {
+                            contactList += getContactHTML(
+                                results[i]['ID'],
+                                results[i]['firstName'],                     
+                                results[i]['lastName'],
+                                results[i]['phone'],
+                                results[i]['email']
+                            );
+                        }
+                    }
+                    else{
+                        document.getElementById("contactSearchResult").innerHTML = "No contacts found";
+                    }
+                    // console.log(contactList);
+                    document.querySelector(".contactList").innerHTML = contactList;				
                 }
-                // console.log(contactList);
-                document.querySelector(".contactList").innerHTML = contactList;				
-			}
-		};
-		xhr.send(jsonPayload);
-	}
-	catch(err)
-	{
-		document.getElementById("contactSearchResult").innerHTML = err.message;
-	}
+            };
+            xhr.send(jsonPayload);
+        }
+        catch(err)
+        {
+            document.getElementById("contactSearchResult").innerHTML = err.message;
+        }
+    }
 }
 
 function searchContactWrapper()
@@ -119,21 +132,20 @@ function createContact()
 
 function toggleCreateContact()
 {
-
-	let contactBlock = document.querySelector(".contactBlock");
-	let createContactBlock = document.querySelector(".createContactBlock");
+	// let contactBlock = document.querySelector(".contactBlock");
+	// let createContactBlock = document.querySelector(".createContactBlock");
 
 	
-	if (contactBlock.style["display"] === "none")
-	{
-		contactBlock.style = "display:block";
-		createContactBlock.style = "display:none";
-	}
-	else
-	{
-		contactBlock.style = "display:none";
-		createContactBlock.style = "display:block";
-	}
+	// if (contactBlock.style["display"] === "none")
+	// {
+	// 	contactBlock.style = "display:block";
+	// 	createContactBlock.style = "display:none";
+	// }
+	// else
+	// {
+	// 	contactBlock.style = "display:none";
+	// 	createContactBlock.style = "display:block";
+	// }
 
 }
 

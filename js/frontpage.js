@@ -67,6 +67,7 @@ function doLogin()
                     saveCookie();
         
                     window.location.href = "landingpage.html";
+                    sessionStorage.setItem('loggedIn', '1');
                 }
             };
             xhr.send(jsonPayload);
@@ -154,6 +155,7 @@ function doRegister()
 
                     saveCookie();
         
+                    sessionStorage.setItem('loggedIn', '1');
                     window.location.href = "landingpage.html";
                 }
             };

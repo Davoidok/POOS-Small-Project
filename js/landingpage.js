@@ -13,4 +13,20 @@ function showWelcomeMessage() {
     }
 }
 
+document.addEventListener("DOMContentLoaded", () => {
+    const lastPage = localStorage.getItem('lastPage');
+    const loggedIn = sessionStorage.getItem('loggedIn');
+
+    let pageToStart;
+    if(loggedIn) {
+        pageToStart = 'homeContainer';
+        sessionStorage.removeItem('loggedIn');
+    }
+    else {
+        pageToStart = lastPage;
+    }
+
+    switchContext(pageToStart);
+});
+
 window.addEventListener("DOMContentLoaded", showWelcomeMessage);

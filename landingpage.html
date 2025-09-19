@@ -1,10 +1,11 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Landing Page</title>
+        <title>The Cap'n's Logs</title>
         <meta charset="UTF-8">
         <link href="css/styles.css" rel="stylesheet">	
         <link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css?family=IM+Fell+English+SC" rel="stylesheet">
         <script src="js/global.js"></script>
 	      <script src="js/contactManager.js"></script>
         <script src="js/landingpage.js"></script>
@@ -15,12 +16,14 @@
       <!-- html for nav bar -->
       <div class="navbar">
         <div class="left">
-          <a>Home</a>
-          <a>About</a>
+          <a >Home</a>
+          <a >About</a>
         </div>
 
-        <div class="center">
-
+        <div class="center"> 
+          <a onclick="switchContext('contactListContainer')">List</a>
+          <a onclick="switchContext('searchContactContainer')">Search</a>
+          <a onclick="switchContext('createContactContainer')">Add</a>
         </div>
 
         <div class="right">
@@ -28,24 +31,33 @@
         </div>
       </div>
 
-        <span id="welcome-title">WELCOME</span> <br />
-        <br />
+      <div class="frontpageContainer" id="homeContainer">
+        <span id="welcome-title">WELCOME</span>
+      </div>
 
-        <div class="searchContainer">
+      <!-- Don't forget to undo style here -->
+      <div class="frontpageContainer" id="contactListContainer">
+        <h1 class="listHeader">
+          Don't let me Cap'n know I'm lettin' ye in on his secrets...
+        </h1>
+        <!-- <div class="contactList"></div> -->
+      </div>
+
+      <div class="frontpageContainer" id="searchContactContainer">
+        <h1 class="searchHeader">
+          Oy, who're we lookin' fer?
+        </h1>
+        <div class="searchInput">
           <input type="text" id="searchText" placeholder="Contact to search" onkeydown="if(event.key=='Enter') searchContact();"/>
-          <img src="imgs/search_contact_placeholder.png" alt="Search" id="searchContactIcon">
-          <button onclick="toggleCreateContact();">
-            <img src="imgs/add_contact_placeholder.png" alt="Search" id="searchContactIcon">
-          </button>
-            <!-- <a href="#" onclick="createEmptyContact();"><img src="imgs/add_contact_placeholder.png" alt="Search" id="addContactIcon"></a> -->
-          <!-- <button type="button" onclick="createEmptyContact();" id="addContactIcon"/>  -->
+          <img id="searchContactIcon" src="imgs/search_contact_spyglass.png" alt="Search" onclick="searchContact()">
         </div>
-        <button type="button" id="searchContactButton" class="buttons" onclick="searchContactWrapper();"> Search Contact </button><br />
-        <div class="contactBlock" style="display:block">
-          <span id="contactSearchResult"></span>
-          <div class="contactList"></div>
-        </div>
-        <div class="createContactBlock" style="display:none">
+        <span id="contactSearchResult"></span>
+        <div class="contactList"></div>
+      </div>
+      
+      <div class="frontpageContainer" id="createContactContainer">
+        <img src="imgs/add_contact.png" onclick="createContact()" alt="Search" id="searchContactIcon">
+        <div class="createContactBlock">
           <h2>Fill in new contact information</h2>
           <form>
             <div class="newContactGroup">
@@ -70,8 +82,9 @@
             </div>
           </form>
         </div>
-        </div>
-        <button type="button" id="logoutButton" class="buttons" onclick="doLogout();"> Logout </button>
-      
+      </div>
+
+      <div class="frontpageContainer" id="aboutContainer">
+      </div>
     </body>
 </html>
