@@ -328,3 +328,43 @@ select{
     font-size: 0.75em;
     font-family: 'Ubuntu', sans-serif;
 }
+
+.navbar{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: lightgreen;
+    padding: 10px;
+    font-size: 18px;
+}
+
+.navbar .center {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.navbar .left a {
+    padding: 10px 15px;
+    text-decoration: none;
+}
+
+.navbar .left a:hover {
+    background-color: gray;
+}
+
+.navbar .right {
+    margin-left: auto;
+}
+
+.navbar .right a.logout{
+    color: black;
+    padding: 10px 15px;
+    text-decoration: none;
+    /* font-weight: bold; */
+}
+
+.navbar .right a.logout:hover {
+    background-color: #c0392b;
+}
