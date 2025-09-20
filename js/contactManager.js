@@ -93,10 +93,23 @@ function createContact()
 	let newPhoneNum = document.getElementById("newPhoneNumber");
 	let newEmail = document.getElementById("newEmail");
 
+    const errHTML = (msg) => `
+        <img src="imgs/caution.png" id="errorIcon">
+        <span class="inputError" >${msg}</span>
+    `
+    
+	let firstNameError = document.querySelector(".errorContainer.firstNameError");
+    let lastNameError = document.querySelector(".errorContainer.lastNameError");
+    let phoneNumError = document.querySelector(".errorContainer.phoneError");
+	let emailError = document.querySelector(".errorContainer.emailError");
+
     let result = validateContact(newFirstName.value, newLastName.value, newPhoneNum.value, newEmail.value);
     
     result.errors.forEach(err => {
-        document.querySelector(`.newContactGroup .${err.field}Error`).innerHTML = err.err;
+        if(err.err !== '')
+            document.querySelector(`.errorContainer.${err.field}Error`).innerHTML = errHTML(err.err);
+        else
+            document.querySelector(`.errorContainer.${err.field}Error`).innerHTML = "";
     });
 
     if(!result.hasError){

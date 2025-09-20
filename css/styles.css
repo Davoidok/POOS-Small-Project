@@ -40,6 +40,7 @@ body
 }
 
 #searchContactContainer,
+#createContactContainer,
 .contactListContainer {
     display: flex;
     flex-direction: column;
@@ -76,7 +77,8 @@ body
     font-family: 'IM Fell DW Pica'; 
     border-bottom: 1pt solid #212524;
 }
-#searchText{
+#searchText
+{
     width: 80%;
     height: 40px;    
     font-size: 30px;
@@ -84,8 +86,49 @@ body
     background-color: #f0c4a9;
     border-color: #f0c4a9;
 }
+.inputField.addContactText
+{
+    text-align: left;
+    background-color: #f0c4a9;
+    border-color: #f0c4a9;
+}
+.newContactGroup{
+    margin-bottom: 40px;
+}
+.newContactGroup .errorContainer{
+    color: #ff2600;
+    font-family: 'Pirata One';
+    letter-spacing: 1px;
+}
+.newContactGroup .errorContainer #errorIcon {
+    height: 1em;
+    width: auto;
+    filter: brightness(0) saturate(100%) invert(18%) sepia(92%) saturate(7484%) hue-rotate(2deg) brightness(103%) contrast(102%);
+}
+.newContactGroup label{
+    letter-spacing: 1px;
+    font-family: 'Pirata One';
+    font-size: 14pt;
+}
+.createContactBlock.contactListContainer{
+    margin-top: 80px;
+    padding-left: 100px;
+    padding-right: 100px;
+}
+.createContactBlock h2{
+    letter-spacing: 2px;
+    text-align: center;
+    font-family: 'Pirata One';
+    color: #212524;
+}
+.createContactBlock form{
+    margin-top: 20px;
+}
 #searchText:focus {
     outline: 3pt inset #f0c4a9;
+}
+.inputField.addContactText:focus {
+    outline: 2pt inset #f0c4a9;
 }
 #addContactIcon {
     background-image: url('../imgs/add_contact_placeholder.png');
@@ -262,6 +305,7 @@ body
     justify-content: center;
 }
 #loginButton,
+#addContactButton,
 #registerAccountButton {
     width: 100%;
     border-radius: 8px;

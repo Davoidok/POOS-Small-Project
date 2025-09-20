@@ -7,6 +7,7 @@
         <link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
         <link href="https://fonts.googleapis.com/css?family=IM+Fell+English+SC" rel="stylesheet">
         <link href="https://fonts.googleapis.com/css?family=IM+Fell+DW+Pica" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Pirata+One" rel="stylesheet">
         <link href="https://fonts.googleapis.com/css?family=Rock+Salt" rel="stylesheet">
         <link href="https://fonts.googleapis.com/css?family=Trade+Winds" rel="stylesheet">
         <link href="https://fonts.googleapis.com/css?family=Seaweed+Script" rel="stylesheet">
@@ -61,30 +62,30 @@
       </div>
       
       <div class="frontpageContainer" id="createContactContainer">
-        <img src="imgs/add_contact.png" onclick="createContact()" alt="Search" id="searchContactIcon">
-        <div class="createContactBlock">
-          <h2>Fill in new contact information</h2>
+        <div class="createContactBlock contactListContainer">
+          <h2>Arrr sailor, yer trying to add a new scallywag to our crew?</h2>
           <form>
             <div class="newContactGroup">
               <label for="newFirstName">First Name</label>
-              <input type="text" id="newFirstName" class="inputField" placeholder="First Name" onkeydown="if(event.key=='Enter') createContact();"/><br />
-              <span class="inputError firstNameError"></span>
+              <input type="text" id="newFirstName" class="inputField addContactText" placeholder="First Name" onkeydown="if(event.key=='Enter') createContact();"/><br />
+              <div class="errorContainer firstNameError"></div>
             </div>
             <div class="newContactGroup">
               <label for="newLastName">Last Name</label>
-              <input type="text" id="newLastName" class="inputField" placeholder="Last Name" onkeydown="if(event.key=='Enter') createContact();"/><br />
-              <span class="inputError lastNameError"></span>
+              <input type="text" id="newLastName" class="inputField addContactText" placeholder="Last Name" onkeydown="if(event.key=='Enter') createContact();"/><br />
+              <div class="errorContainer lastNameError"></div>
             </div>
             <div class="newContactGroup">
               <label for="newPhoneNumber">Phone Number</label>
-              <input type="text" id="newPhoneNumber" class="inputField" placeholder="XXX-XXX-XXXX" onkeydown="if(event.key=='Enter') createContact();"/><br />
-              <span class="inputError phoneError"></span>
+              <input type="text" id="newPhoneNumber" class="inputField addContactText" placeholder="XXX-XXX-XXXX" onkeydown="if(event.key=='Enter') createContact();"/><br />
+              <div class="errorContainer phoneError"></div>
             </div>
             <div class="newContactGroup">
               <label for="newEmail">Email</label>
-              <input type="text" id="newEmail" class="inputField" placeholder="user@gmail.com" onkeydown="if(event.key=='Enter') createContact();"/><br />
-              <span class="inputError emailError"></span>
+              <input type="text" id="newEmail" class="inputField addContactText" placeholder="user@gmail.com" onkeydown="if(event.key=='Enter') createContact();"/><br />
+              <div class="errorContainer emailError"></div>
             </div>
+            <button type="button" id="addContactButton" class="buttons" onclick="createContact();"> Add Yer Matey </button>
           </form>
         </div>
       </div>
