@@ -14,11 +14,19 @@ try{
     $search = trim($input['search']);
     $userId = $input['userId'];
 
-    $stmt = $conn->prepare("SELECT * FROM `Contacts` WHERE (`FirstName` LIKE :search OR
-                                                            `LastName` LIKE :search OR
-                                                            CONCAT(`FirstName`,' ',`LastName`) LIKE :search OR
-                                                            `Phone` LIKE :search OR
-                                                            `Email` LIKE :search) AND `UserID`=:userId");
+    $stmt = $conn->prepare("SELECT *,
+                                                       (`FirstName` LIKE :search) AS matchesFirstName,
+                                                       (`LastName`  LIKE :search) AS matchesLastName,
+                                                       (CONCAT(`FirstName`,' ',`LastName`) LIKE :search) AS matchesFirstLastName,
+                                                       (`Phone`     LIKE :search) AS matchesPhone,
+                                                       (`Email`     LIKE :search) AS matchesEmail
+                                                        FROM `Contacts` 
+                                                        WHERE (`FirstName` LIKE :search 
+                                                          OR `LastName` LIKE :search 
+                                                          OR CONCAT(`FirstName`,' ',`LastName`) LIKE :search 
+                                                          OR `Phone` LIKE :search 
+                                                          OR `Email` LIKE :search) 
+                                                         AND `UserID`=:userId");
     $stmt->bindValue(":search", '%' . $search . '%');
     $stmt->bindValue(":userId", $userId);
     $stmt->execute();
@@ -46,7 +54,11 @@ function returnDatabaseSearchResult(array $result){
             'firstName'=>$entry['FirstName'],
             'lastName'=>$entry['LastName'],
             'phone'=>$entry['Phone'],
-            'email'=>$entry['Email']
+            'email'=>$entry['Email'],
+            'matchesFirstName'=>$entry['matchesFirstName'] == "1" ? true : false,
+            'matchesLastName'=>$entry['matchesLastName']  == "1" ? true : false,
+            'matchesPhone'=>$entry['matchesPhone']  == "1" ? true : false,
+            'matchesEmail'=>$entry['matchesEmail']  == "1" ? true : false
         ];
     }
     sendJsonResult(json_encode($json));

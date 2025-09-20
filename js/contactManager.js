@@ -29,13 +29,13 @@ function searchContact(callSrc = "HTML")
         searchResult.innerHTML = "Arrr, ye forgot to type somethin', ye scallywag!";
     }
     else if(callSrc === 'debounce' && srch.trim() === ''){
-        searchResult.innerHTML = 'No mateys found...';
+        searchResult.innerHTML = '';
         document.querySelector(".contactList").innerHTML = "";
     }
     else{
         let tmp = {search:srch,userId:userId};
         let jsonPayload = JSON.stringify( tmp );
-        
+
         let url = urlBase + '/SearchContacts.' + extension;
 
         let xhr = new XMLHttpRequest();
@@ -48,18 +48,26 @@ function searchContact(callSrc = "HTML")
                 if (this.readyState == 4 && this.status == 200)
                 {
                     let jsonObject = JSON.parse( xhr.responseText );
-                    let results = jsonObject.result;
+                    let results = jsonObject.result.reverse();
                     let contactList = "";
                     if(results.length > 0){
                         searchResult.innerHTML = "Found yer mateys!";
-                        for( let i=0; i < results.length; i++ )
+                        for( let i= 0; i < results.length; i++ )
                         {
+                            matches = [
+                                results[i].matchesFirstName,
+                                results[i].matchesLastName,
+                                results[i].matchesPhone,
+                                results[i].matchesEmail,
+                            ]
                             contactList += getContactHTML(
                                 results[i]['ID'],
                                 results[i]['firstName'],                     
                                 results[i]['lastName'],
                                 results[i]['phone'],
-                                results[i]['email']
+                                results[i]['email'],
+                                matches,
+                                srch
                             );
                         }
                     }

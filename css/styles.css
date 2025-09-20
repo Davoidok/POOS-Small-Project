@@ -39,32 +39,55 @@ body
     color: #212524;
 }
 
-
-#searchContactContainer {
+#searchContactContainer,
+.contactListContainer {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
 }
-.searchInput {
-    position: relative;
+.contactListContainer {
+    max-width: 700px;
     width: 100%;
-    max-width: 800px;
-    /* min-width: 400px; */
-    max-height: 40px;
-    margin: 0 auto;
-    margin-bottom: 10px;
-    display: grid; 
-    grid-template-columns: 1fr;
+    max-height: 700px;
+    height: 100%;
+    min-height:600px;
+    justify-content: flex-start;
+    padding: 10px;
+    padding-bottom: 50px;
+
+    background-image:
+        repeating-linear-gradient(0deg, rgba(0,0,0,.03) 0 1px, transparent 1px 5px),
+        radial-gradient(120% 100% at 50% 10%, transparent 55%, rgba(0,0,0,.08) 100%);
+    background-blend-mode: multiply, normal;
+
+    background-color: #ffceb2;
+    border-radius: 8px;
+}
+.searchInputContainer {
+    width: 90%;
+    padding-top: 40px;
+    padding-bottom: 20px;
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    font-family: 'IM Fell DW Pica'; 
+    border-bottom: 1pt solid #212524;
 }
 #searchText{
-    width: 100%;
-    height: 40px;
+    width: 80%;
+    height: 40px;    
     font-size: 30px;
     text-align: center;
-    border-radius: 10px;
+    background-color: #f0c4a9;
+    border-color: #f0c4a9;
 }
-/* #addContactIcon {
+#searchText:focus {
+    outline: 3pt inset #f0c4a9;
+}
+#addContactIcon {
     background-image: url('../imgs/add_contact_placeholder.png');
     pointer-events: none;
     width: 40px;
@@ -80,69 +103,76 @@ body
     object-fit: contain;
     justify-self: center;
     cursor: pointer;
-} */
-.contactBlock {
-    max-width: 550px;
-    width: 60%;
-    margin: 0 auto;
-    margin-bottom: 2%;
-    margin-top: 2%;
 }
 #contactSearchResult {
     display: block;
     text-align: center;
     font-family: 'Ubuntu', sans-serif;
-    color: #ff87f1;
+    color: #212524;
     font-size: 1.6em;
 }
 .contactList {
+    flex: 1;
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    /* justify-content: center; */
+    overflow-y: auto;
+    overflow-x: visible;
+
     max-width: 600px;
     width: 100%;
     margin-right: 40px; 
     margin-left: 40px;
+    padding: 20px; 
 
-    margin-top: 2%;
     font-size: 1.2em;
-    font-family: 'Ubuntu', sans-serif;
-    color: #151222;
+    font-family: 'IM Fell DW Pica', sans-serif;
+    color: #212524;
 }
-.contact{
-    border: 1px solid #ff87f1;
-    border-radius: 8px;
-    margin-bottom: 10px;
-    background-color: #eed5ff;
-}
-.contactName {
+.contactHeader {
     display: flex;
+    justify-content:space-between;
     padding-left: 10px;
     padding-right: 10px;
     cursor: pointer;
 }
-/* .contactList .contactName::-webkit-details-marker {   
-    display: none;
-} */
+.contactHeader #searchMatches{
+    display: flex;
+    flex-direction: column;
+    color: #c47a50;
+}
 .contactDropdown {
-    padding: 5px;
-    padding-top: 20px;
-    background-color: #2a2445;
-    border-bottom: 1px solid #201b34;
-    border-top: 1px solid #ff87f1;
-    border-bottom-left-radius: 8px;
-    border-bottom-right-radius: 8px;
+    /* max-height: 0;
+    opacity: 0;
+    overflow: hidden; */
+    transition:
+        max-height 220ms ease,
+        opacity 180ms ease;
+    will-change: max-height, opacity;
+}
+.contact{
+    border-bottom: 1px solid #212524;
+    margin-bottom: 10px;
+    /* background-color: #ffceb2; */
+}
+.contactList .contact:last-child{
+    border: none;
+}
+.contact[open]{
+    border-bottom-width: 2px;
+    border-bottom-style:dashed;
 }
 .contactInfo {
     display: flex;
     margin: -10px 0px 10px 0px;
-    color: #eed5ff;
+    color: #212524;
     justify-content: space-between;
     align-items: center;
 }
 .updateContactInput {
     display: inline-block;
 }
+
 
 .headerContainer {
     font-family: 'Trade Winds', cursive;
@@ -158,6 +188,9 @@ body
     text-shadow: none;
     font-weight: 700;
 }
+.loginContainerHeader {
+    color: rgb(241, 229, 53);
+}
 .headerContainer #upperLoginHead {
     font-size: 18pt;
 }
@@ -171,7 +204,23 @@ body
     font-size: 64pt;
 }
 
-
+.inputField {
+    background-color: #ffceb2;
+    border-color: #ffceb2;
+    color: #2b2c2b;
+    width: 100%;
+    text-align: left;
+    font-family: 'IM Fell DW Pica';
+    letter-spacing: 1px;
+    font-weight: 700;
+    font-size: 14pt;
+    border-radius: 8px;
+    height: 38px;
+    padding-left: 10px;
+}
+.inputField:focus {
+    outline: 2pt solid #FFF001FF;
+}
 .loginBody {
     font-family: 'Pirata One', cursive;
     letter-spacing: 1px;
@@ -209,17 +258,6 @@ body
     font-size: 14pt;
     font-weight: 500;
 }
-.loginGroup .inputField {
-    border-radius: 8px;
-    height: 38px;
-    padding-left: 10px;
-    font-size: 11.5pt;
-    text-align: left;
-    width: 100%;
-    background-color: #ffceb2;
-    border-color: #ffceb2;
-    color: #2b2c2b;
-}
 .errorContainer.invalidLoginError {
     justify-content: center;
 }
@@ -244,9 +282,7 @@ body
 }
 
 
-.inputField:focus {
-    outline: 2pt solid #ffceb2;
-}
+
 .errorContainer {
     color: #FF6900;
     max-height:100%;
@@ -300,6 +336,8 @@ body
     margin: 40px 20px 20px 40px;
     font-size: 20pt;
     text-align: center;
+    color: #FEE600FF;
+    text-shadow: 4px 4px 6px rgba(0,0,0, 0.4);
 }
 .registerInputBlock {
     max-width: 450px;
@@ -315,17 +353,6 @@ body
     font-weight: 500;
     font-size: 14pt;
     margin-bottom: 4px;
-}
-.registerInputContainer .inputField {
-    border-radius: 8px;
-    height: 38px;
-    padding-left: 10px;
-    font-size: 11.5pt;
-    text-align: left;
-    width: 100%;
-    background-color: #ffceb2;
-    border-color: #ffceb2;
-    color: #2b2c2b;
 }
 .requiredSymbol {
     color: #fe7f35;

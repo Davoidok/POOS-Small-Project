@@ -71,33 +71,109 @@ function readCookie()
  *                       container
  * @param {string} email Stored in HTML as \<span\> element inside \<div class="contactDropdown"\>
  *                       container
+ * @param {array} matches (optional) A boolean array of the contact fields that matched a
+ *                        search query. e.g. [false, false, true, false] corresponds to 
+ *                        a match in the phone number only
+ * @param {string} search (optional) The search query that produced the matches
  * @returns 
  */
-function getContactHTML(dbId, firstName, lastName, phone, email)
+function getContactHTML(dbId, firstName, lastName, phone, email, matches = [], search = "")
 {
+    let contactInfoMatch = '';
+    if(matches.length == 4){
+        // Tried to do partial bolding, but found it to be too complicated for time
+        // if(matches[0] === true) { // firstName
+        //     firstName = partialHTMLBold(firstName, search); 
+        // }
+        // if(matches[1] === true) { // lastName
+        //     lastName = partialHTMLBold(lastName, search);
+        // }
+        // if(matches[2] === true) { // phone
+        //     phoneMatch = `<span id="phoneSearchMatch">${partialHTMLBold(phone, search)}</span>`;
+        // }
+
+        
+        if(matches[3] === true) { // email
+            contactInfoMatch = `<span id="emailSearchMatch">${email}</span>`
+        }
+        if(matches[2] === true) { // phone
+            contactInfoMatch = `<span id="phoneSearchMatch">${formatPhoneNumber(stripPhoneNumber(phone))}</span>`;
+        }
+    }
+
     return `
         <details class="contact" data-id=${dbId}>
-          <summary class="contactName">
-            <h3>
-              <span id="contactFirstName">${firstName}</span> 
-              <span id="contactLastName">${lastName}</span>
-            </h3>
-          </summary>
-          <div class="contactDropdown">
-            <div class="contactInfo">
-              <span id="contactPhoneNumber">${formatPhoneNumber(phone)}</span>
-              <span id="contactEmail">${email}</span>
+            <summary class="contactHeader">
+                <h3 id="firstLastName">
+                    <span id="contactFirstName">${firstName}</span> 
+                    <span id="contactLastName">${lastName}</span>
+                </h3>
+                <h5 id="searchMatches">
+                    ${contactInfoMatch}
+                </h5>
+            </summary>
+            <div class="contactDropdown">
+                <div class="contactInfo">
+                    <span id="contactPhoneNumber">${formatPhoneNumber(phone)}</span>
+                    <span id="contactEmail">${email}</span>
+                </div>
+                <div class="contactActions">
+                    <button id="updateContactButton" onclick="toggleUpdateContactFields(${dbId})">Update</button>
+                    <button id="deleteContactButton" onclick="doDeleteContact(${dbId})">Delete</button>
+                </div>
             </div>
-            <button id="updateContactButton" onclick="toggleUpdateContactFields(${dbId})">Update</button>
-            <button id="deleteContactButton" onclick="doDeleteContact(${dbId})">Delete</button>
-          </div>
-          <span class="updateContactBlock"></span>
+            <span class="updateContactBlock"></span>
         </details>
     `
 }
 
+/** TODO: Probably remove. The logic is a little overcomplicated for the time constraint
+ * Formats a string in HTML so that the first occurrence of 'substr' is bolded with \<strong\>.
+ * This is case-insensitive.
+ * @param {string} str The whole string to be bolded
+ * @param {string} substr The first occurrence of the substring in 'str' to bold
+ * @param {boolean} isPhoneNumber Set to true if 'str' and 'substr' are part of a phone number
+ * @returns 'str' with the first occurrence of 'substr' wrapped in the \<strong\> element
+ */
+// function partialHTMLBold(str, substr, isPhoneNumber=false) {
+//     let tempstr = str.trim().toLowerCase();
+//     let tempsubstr = substrtrim().toLowerCase();
+
+//     if(isPhoneNumber){
+//         let phone = stripPhoneNumber(tempstr);
+//         let phoneSubstr = stripPhoneNumber(tempsubstr);
+//         const start = phone.indexOf(phoneSubstr);
+//         const end = phoneSubstr.length + start;
+//         const width = phone.length - end;
+
+//         if(start == -1 || !phoneSubstr)
+//             return phone;
+//         else{
+//             let areaCode;
+//             let exchange;
+//             let subscriber;
+//             if(start <= 2 && end >= 3){
+//                 areaCode = `${phone.slice(0, start)}<strong>${phone.slice(start, 3)}</strong>${phone.slice(end, 3)}`;
+//             }
+//             if()
+                
+//         }
+//     }
+
+//     const start = tempstr.indexOf(tempsubstr);
+//     if(start == -1 || !substr){
+//         return str;
+//     }
+//     else{
+//         const end = substr.length + start;
+
+//         const bolded = `<strong>${str.slice(start, end)}</strong>`;
+//         return `${str.slice(0,start)}${bolded}${str.slice(end)}`;
+//     }
+// }
+
 /**
- * Returns a 10-digit phone number in the format (XXX) XXX-XXXX
+ * Returns a 10-digit phone number in the format XXX-XXX-XXXX
  * @param {string} phone 
  */
 function formatPhoneNumber(phone)

@@ -1,11 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <title>The Cap'n's Logs</title>
+        <title>The Cap'n's Log</title>
         <meta charset="UTF-8">
         <link href="css/styles.css" rel="stylesheet">	
         <link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
         <link href="https://fonts.googleapis.com/css?family=IM+Fell+English+SC" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css?family=IM+Fell+DW+Pica" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css?family=Rock+Salt" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css?family=Trade+Winds" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css?family=Seaweed+Script" rel="stylesheet">
         <script src="js/global.js"></script>
 	      <script src="js/contactManager.js"></script>
         <script src="js/landingpage.js"></script>
@@ -47,12 +51,13 @@
         <h1 class="searchHeader">
           Oy, who're we lookin' fer?
         </h1>
-        <div class="searchInput">
-          <input type="text" id="searchText" placeholder="Contact to search" onkeydown="if(event.key=='Enter') searchContact(); else responsiveSearch();"/>
-          <!-- <img id="searchContactIcon" src="imgs/search_contact_spyglass.png" alt="Search" onclick="searchContact()"> -->
+        <div class="contactListContainer">
+          <div class="searchInputContainer">
+            <span id="contactSearchResult"></span>
+            <input type="text" id="searchText" class="inputField" placeholder="Contact to search" onkeydown="if(event.key=='Enter') searchContact(); else responsiveSearch();"/>
+          </div>
+          <div class="contactList"></div>
         </div>
-        <span id="contactSearchResult"></span>
-        <div class="contactList"></div>
       </div>
       
       <div class="frontpageContainer" id="createContactContainer">
