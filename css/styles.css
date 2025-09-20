@@ -55,7 +55,7 @@ body
     margin: 0 auto;
     margin-bottom: 10px;
     display: grid; 
-    grid-template-columns: 1fr 60px 60px;
+    grid-template-columns: 1fr;
 }
 #searchText{
     width: 100%;
@@ -64,7 +64,7 @@ body
     text-align: center;
     border-radius: 10px;
 }
-#addContactIcon {
+/* #addContactIcon {
     background-image: url('../imgs/add_contact_placeholder.png');
     pointer-events: none;
     width: 40px;
@@ -80,7 +80,7 @@ body
     object-fit: contain;
     justify-self: center;
     cursor: pointer;
-}
+} */
 .contactBlock {
     max-width: 550px;
     width: 60%;

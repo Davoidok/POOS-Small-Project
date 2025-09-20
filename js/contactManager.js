@@ -6,12 +6,31 @@ function switchContext(containerName){
     localStorage.setItem('lastPage', containerName);
 }
 
-function searchContact()
+// This is passed to landingpage.html instead as a kind of wrapper
+const responsiveSearch = debouncedSearch(searchContact, 300);
+
+function debouncedSearch(searchFunc, delay){
+    let timeoutId;
+
+    return function(...args) {
+        clearTimeout(timeoutId)
+        timeoutId = setTimeout(() => {
+            searchFunc.call(this, "debounce")
+        }, delay);
+    };
+}
+
+function searchContact(callSrc = "HTML")
 {
 	let srch = document.getElementById("searchText").value;
+    let searchResult = document.getElementById("contactSearchResult"); 
 
-    if(srch.trim() === ''){
-        document.getElementById("contactSearchResult").innerHTML = "Arrr, ye forgot to type somethin', ye scallywag!";
+    if(callSrc === 'HTML' && srch.trim() === ''){
+        searchResult.innerHTML = "Arrr, ye forgot to type somethin', ye scallywag!";
+    }
+    else if(callSrc === 'debounce' && srch.trim() === ''){
+        searchResult.innerHTML = 'No mateys found...';
+        document.querySelector(".contactList").innerHTML = "";
     }
     else{
         let tmp = {search:srch,userId:userId};
@@ -32,7 +51,7 @@ function searchContact()
                     let results = jsonObject.result;
                     let contactList = "";
                     if(results.length > 0){
-                        document.getElementById("contactSearchResult").innerHTML = "Found yer mateys!";
+                        searchResult.innerHTML = "Found yer mateys!";
                         for( let i=0; i < results.length; i++ )
                         {
                             contactList += getContactHTML(
@@ -45,7 +64,7 @@ function searchContact()
                         }
                     }
                     else{
-                        document.getElementById("contactSearchResult").innerHTML = "No scallywags found...";
+                        searchResult.innerHTML = "No mateys found...";
                     }
                     document.querySelector(".contactList").innerHTML = contactList;				
                 }
@@ -57,25 +76,6 @@ function searchContact()
             document.getElementById("contactSearchResult").innerHTML = err.message;
         }
     }
-}
-
-function searchContactWrapper()
-{
-	let contactBlock = document.querySelector(".contactBlock");
-	let createContactBlock = document.querySelector(".createContactBlock");
-
-
-	if (contactBlock.style["display"] === "none")
-	{
-		contactBlock.style = "display:block";
-		createContactBlock.style = "display:none";
-		searchContact();
-	}
-	else
-	{
-		searchContact();
-	}
-		
 }
 
 function createContact()

@@ -48,8 +48,8 @@
           Oy, who're we lookin' fer?
         </h1>
         <div class="searchInput">
-          <input type="text" id="searchText" placeholder="Contact to search" onkeydown="if(event.key=='Enter') searchContact();"/>
-          <img id="searchContactIcon" src="imgs/search_contact_spyglass.png" alt="Search" onclick="searchContact()">
+          <input type="text" id="searchText" placeholder="Contact to search" onkeydown="if(event.key=='Enter') searchContact(); else responsiveSearch();"/>
+          <!-- <img id="searchContactIcon" src="imgs/search_contact_spyglass.png" alt="Search" onclick="searchContact()"> -->
         </div>
         <span id="contactSearchResult"></span>
         <div class="contactList"></div>
