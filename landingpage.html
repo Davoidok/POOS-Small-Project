@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
     <head>
         <title>The Cap'n's Logs</title>
         <meta charset="UTF-8">
@@ -16,8 +16,8 @@
       <!-- html for nav bar -->
       <div class="navbar">
         <div class="left">
-          <a >Home</a>
-          <a >About</a>
+          <a onclick="switchContext('homeContainer')">Home</a>
+          <a onclick="switchContext('aboutContainer')">About</a>
         </div>
 
         <div class="center"> 
@@ -72,12 +72,12 @@
             </div>
             <div class="newContactGroup">
               <label for="newPhoneNumber">Phone Number</label>
-              <input type="text" id="newPhoneNumber" class="inputField" placeholder="Phone Number" onkeydown="if(event.key=='Enter') createContact();"/><br />
-              <span class="inputError phoneNumberError"></span>
+              <input type="text" id="newPhoneNumber" class="inputField" placeholder="XXX-XXX-XXXX" onkeydown="if(event.key=='Enter') createContact();"/><br />
+              <span class="inputError phoneError"></span>
             </div>
             <div class="newContactGroup">
               <label for="newEmail">Email</label>
-              <input type="text" id="newEmail" class="inputField" placeholder="Email" onkeydown="if(event.key=='Enter') createContact();"/><br />
+              <input type="text" id="newEmail" class="inputField" placeholder="user@gmail.com" onkeydown="if(event.key=='Enter') createContact();"/><br />
               <span class="inputError emailError"></span>
             </div>
           </form>

@@ -121,9 +121,9 @@ body
     padding-right: 10px;
     cursor: pointer;
 }
-.contactList .contactName::-webkit-details-marker {   
+/* .contactList .contactName::-webkit-details-marker {   
     display: none;
-}
+} */
 .contactDropdown {
     padding: 5px;
     padding-top: 20px;

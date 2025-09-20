@@ -32,7 +32,7 @@ function searchContact()
                     let results = jsonObject.result;
                     let contactList = "";
                     if(results.length > 0){
-                        document.getElementById("contactSearchResult").innerHTML = "Contact(s) has been retrieved";
+                        document.getElementById("contactSearchResult").innerHTML = "Found yer mateys!";
                         for( let i=0; i < results.length; i++ )
                         {
                             contactList += getContactHTML(
@@ -45,9 +45,8 @@ function searchContact()
                         }
                     }
                     else{
-                        document.getElementById("contactSearchResult").innerHTML = "No contacts found";
+                        document.getElementById("contactSearchResult").innerHTML = "No scallywags found...";
                     }
-                    // console.log(contactList);
                     document.querySelector(".contactList").innerHTML = contactList;				
                 }
             };
@@ -80,73 +79,60 @@ function searchContactWrapper()
 }
 
 function createContact()
-{
-	let newFirstName = document.getElementById("newFirstName").value;
-	let newLastName = document.getElementById("newLastName").value;
-	let newPhoneNum = document.getElementById("newPhoneNumber").value;
-	let newEmail = document.getElementById("newEmail").value;
-	let err = false;
-	
-	let tmp = {
-		firstName:newFirstName,
-		lastName:newLastName,
-		phone:newPhoneNum,
-		email:newEmail,
-		userId:userId
-	};
-	
-	let jsonPayload = JSON.stringify(tmp);
-	
-	let url = urlBase + '/CreateContact.' + extension; 
-	
-	let xhr = new XMLHttpRequest();
-	xhr.open("POST", url, true);
-	xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
-	try
-	{
-		xhr.onreadystatechange = function() 
-		{
-			if (this.readyState == 4 && this.status == 200) 
-			{
-				let jsonObject = JSON.parse( xhr.responseText );
-				let databaseUserId = jsonObject.ID;
-            
+{	
+    let newFirstName = document.getElementById("newFirstName");
+	let newLastName = document.getElementById("newLastName");
+	let newPhoneNum = document.getElementById("newPhoneNumber");
+	let newEmail = document.getElementById("newEmail");
+
+    let result = validateContact(newFirstName.value, newLastName.value, newPhoneNum.value, newEmail.value);
+    
+    result.errors.forEach(err => {
+        document.querySelector(`.newContactGroup .${err.field}Error`).innerHTML = err.err;
+    });
+
+    if(!result.hasError){
+        let tmp = {
+            firstName:newFirstName.value,
+            lastName:newLastName.value,
+            phone:stripPhoneNumber(newPhoneNum.value),
+            email:newEmail.value,
+            userId:userId
+        };
+        
+        let jsonPayload = JSON.stringify(tmp);
+        
+        let url = urlBase + '/CreateContact.' + extension; 
+        
+        let xhr = new XMLHttpRequest();
+        xhr.open("POST", url, true);
+        xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+        try
+        {
+            xhr.onreadystatechange = function() 
+            {
+                if (this.readyState == 4 && this.status == 200) 
+                {
+                    let jsonObject = JSON.parse( xhr.responseText );
                     if(!jsonObject.success)
-                    {		
-                       // document.getElementById(".newContactGroup .inputError").innerHTML = err.message;
+                    {	
+                        console.log(jsonObject.error);
                         return;
                     }
-				
-
-			}
-		};
-		xhr.send(jsonPayload);
-		alert("yep");
-	}
-	catch(err)
-	{
-		document.getElementById(".newContactGroup .inputError").innerHTML = err.message;
-	}
+                    newFirstName.value = '';
+                    newLastName.value = '';
+                    newPhoneNum.value = '';
+                    newEmail.value = '';
+                }
+            };
+            xhr.send(jsonPayload);
+        }
+        catch(err)
+        {
+            document.getElementById(".newContactGroup .inputError").innerHTML = err.message;
+        }
+    }
 	
-}
-
-function toggleCreateContact()
-{
-	// let contactBlock = document.querySelector(".contactBlock");
-	// let createContactBlock = document.querySelector(".createContactBlock");
-
-	
-	// if (contactBlock.style["display"] === "none")
-	// {
-	// 	contactBlock.style = "display:block";
-	// 	createContactBlock.style = "display:none";
-	// }
-	// else
-	// {
-	// 	contactBlock.style = "display:none";
-	// 	createContactBlock.style = "display:block";
-	// }
-
 }
 
 function updateContact(dbId){
@@ -156,99 +142,55 @@ function updateContact(dbId){
     })
     update['userId'] = userId;
 
-    // TODO: add HTML for this so it works
-    // let fnameError = document.querySelector('.updateError.firstNameError');
-    // let lnameError = document.querySelector(".updateError.passwordError");
-    // let phoneError = document.querySelector('.updateError.phoneError');
-    // let emailError = document.querySelector('.updateError.emailError');
-    // let err = false;
+    // Set the errors for each part of the update. Is blank if no errors for a field
+    let result = validateContact(update['firstName'], update['lastName'], update['phone'], update['email']);
+    result.errors.forEach(err => {
+        document.querySelector(`.updateContactGroup .${err.field}Error`).innerHTML = err.err;
+    });
 
-    // if(update['fname'].trim() === ''){
-    //     fnameError.innerHTML = 'First name cannot be blank';
-    //     err = true;
-    // }
-    // else{
-    //     fnameError.innerHTML = '';
-    // }
+    if(!result.hasError){
+        update.phone = stripPhoneNumber(update.phone);
 
-    // if(update['lname'].trim() === ''){
-    //     lnameError.innerHTML = 'Last name cannot be blank';
-    //     err = true;
-    // }
-    // else{
-    //     lnameError.innerHTML = '';
-    // }
+        let jsonPayload = JSON.stringify(update);
+        let url = urlBase + '/UpdateContact.' + extension;
 
-    // if(update['phone'].trim() === ''){
-    //     phoneError.innerHTML = 'Phone number cannot be blank';
-    //     err = true;
-    // }
-    // else if(!validPhone(update['phone'])){
-    //     phoneError.innerHTML = 'Invalid phone number format.';
-    //     /* Try:
-    //        e.g. 1002003000 or
-    //        e.g. 100-200-3000    or
-    //        e.g. (100)-200-3000
-    //     */
-    //    err = true;
-    // }
-    // else{
-    //     phoneError.innerHTML = '';
-    // }
+        let xhr = new XMLHttpRequest();
+        xhr.open("POST", url, true);
+        xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+        try
+        {
+            xhr.onreadystatechange = function()
+            {
+                if (this.readyState == 4 && this.status == 200)
+                {
+                    let jsonObject = JSON.parse( xhr.responseText );
+                    if(jsonObject.success){
+                        document.getElementById("contactSearchResult").innerHTML = "Contact updated successfully!";
+                        
+                        // Update the contact entry with the updated details
+                        if(update['firstName'] !== '')
+                            document.querySelector(`.contact[data-id="${dbId}"] #contactFirstName`).innerHTML = update['firstName']; 
+                        if(update['lastName'] !== '')
+                            document.querySelector(`.contact[data-id="${dbId}"] #contactLastName`).innerHTML = update['lastName'];
+                        if(update['phone'] !== '')
+                            document.querySelector(`.contact[data-id="${dbId}"] #contactPhoneNumber`).innerHTML = formatPhoneNumber(update['phone']);
+                        if(update['email'] !== '')
+                            document.querySelector(`.contact[data-id="${dbId}"] #contactEmail`).innerHTML = update['email'];
 
-    // if(update['email'].trim() === ''){
-    //     emailError.innerHTML = 'Email cannot be blank';
-    //     err = true;
-    // }
-    // else if(!validEmail(update['email'])){
-    //     emailError.innerHTML = 'Email'
-    //     err = true;
-    // }
-    // else{
-    //     emailError.innerHTML = '';
-    // }
-
-    // if(!err){
-    //     Put backend stuff here
-    // }
-
-    let jsonPayload = JSON.stringify(update);
-    let url = urlBase + '/UpdateContact.' + extension;
-
-    let xhr = new XMLHttpRequest();
-	xhr.open("POST", url, true);
-	xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
-    try
-	{
-		xhr.onreadystatechange = function()
-		{
-			if (this.readyState == 4 && this.status == 200)
-			{
-				let jsonObject = JSON.parse( xhr.responseText );
-                if(jsonObject.success){
-                    document.getElementById("contactSearchResult").innerHTML = "Contact updated successfully!";
-                    if(update['firstName'] !== '')
-                        document.querySelector(`.contact[data-id="${dbId}"] #contactFirstName`).innerHTML = update['firstName']; 
-                    if(update['lastName'] !== '')
-                        document.querySelector(`.contact[data-id="${dbId}"] #contactLastName`).innerHTML = update['lastName'];
-                    if(update['phone'] !== '')
-                        document.querySelector(`.contact[data-id="${dbId}"] #contactPhoneNumber`).innerHTML = formatPhoneNumber(update['phone']);
-                    if(update['email'] !== '')
-                        document.querySelector(`.contact[data-id="${dbId}"] #contactEmail`).innerHTML = update['email'];
-
-                    document.querySelector(`.contact[data-id="${dbId}"] .updateContactBlock`).innerHTML = '';
+                        document.querySelector(`.contact[data-id="${dbId}"] .updateContactBlock`).innerHTML = '';
+                    }
+                    else{
+                        document.getElementById("contactSearchResult").innerHTML = jsonObject.error;
+                    }
                 }
-				else{
-					document.getElementById("contactSearchResult").innerHTML = jsonObject.error;
-                }
-			}
-		};
-		xhr.send(jsonPayload);
-	}
-	catch(err)
-	{
-		document.getElementById("contactSearchResult").innerHTML = err.message;
-	}
+            };
+            xhr.send(jsonPayload);
+        }
+        catch(err)
+        {
+            document.getElementById("contactSearchResult").innerHTML = err.message;
+        }
+    }
 }
 
 
@@ -291,6 +233,55 @@ function doDeleteContact(dbId)
 			document.getElementById("contactSearchResult").innerHTML = err.message;
 		}
 	}
+}
+
+function validateContact(firstName, lastName, phone, email){
+    let errors = [
+        {field:'firstName', err:''},
+        {field:'lastName', err:''},
+        {field:'phone', err:''},
+        {field:'email', err:''},
+    ];
+    
+    firstName = firstName.trim();
+    lastName = lastName.trim();
+    phone = phone.trim();
+    email = email.trim();
+
+    let hasError = false;
+
+    if(!firstName){
+        errors[0].err = 'First name cannot be blank';
+        hasError = true;
+    }
+    if(!lastName){
+        errors[1].err = 'Last name cannot be blank';
+        hasError = true;
+    }
+    if(!phone){
+        errors[2].err = 'Phone number cannot be blank';
+        hasError = true;
+    }
+    else if(!validPhone(phone)){
+        errors[2].err = 'Invalid phone number format.';
+        /* Try:
+           e.g. 1002003000 or
+           e.g. 100-200-3000    or
+           e.g. (100)-200-3000
+        */
+       hasError = true;
+    }
+    if(!email){
+        errors[3].err = 'Email cannot be blank';
+        hasError = true;
+    }
+    else if(!validEmail(email)){
+        errors[3].err = 'Invalid email';
+        hasError = true;
+    }
+
+
+    return {errors, hasError};
 }
 
 /**

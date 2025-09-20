@@ -97,15 +97,29 @@ function getContactHTML(dbId, firstName, lastName, phone, email)
 }
 
 /**
- * Returns a 10-digit phone number in the format (XXX)-XXX-XXXX
+ * Returns a 10-digit phone number in the format (XXX) XXX-XXXX
  * @param {string} phone 
  */
 function formatPhoneNumber(phone)
 {
+    phone = phone.replace(/\D/g, "");
+
+    if(phone.length < 10)
+        return '(xxx) xxx-xxxx'
+
     let areaCode = phone.slice(0,3);
     let exchange = phone.slice(3,6);
     let subscriber = phone.slice(6, 10);
-    return `(${areaCode})-${exchange}-${subscriber}`; 
+    return `(${areaCode}) ${exchange}-${subscriber}`; 
+}
+
+function stripPhoneNumber(phone){
+    phone = phone.replace(/\D/g, "");
+
+    if(phone.length < 10)
+        return 'XXXXXXXXXX';
+
+    return phone;
 }
 
 function validEmail(email) {
@@ -114,7 +128,7 @@ function validEmail(email) {
 }
 
 function validPhone(phone) {
-    const regex = /^(\d{10}|\d{3}-\d{3}-\d{4}|\(\d{3}\)-\d{3}-\d{4})$/;
+    const regex = /^(\d{10}|\d{3}-\d{3}-\d{4}|\(\d{3}\)-\d{3}-\d{4}|\(\d{3}\) \d{3}-\d{4})$/;
     return regex.test(phone);
 }
 
