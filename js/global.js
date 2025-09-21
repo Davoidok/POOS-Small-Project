@@ -1,5 +1,5 @@
-const urlBase = 'http://4lokofridays.com/LAMPAPI';
-// const urlBase = 'http://localhost:8000/LAMPAPI'
+// const urlBase = 'http://4lokofridays.com/LAMPAPI';
+const urlBase = 'http://localhost:8000/LAMPAPI'
 const extension = 'php';
 
 let userId = 0;
@@ -102,7 +102,7 @@ function getContactHTML(dbId, firstName, lastName, phone, email, matches = [], s
     }
 
     return `
-        <details class="contact" data-id=${dbId}>
+        <details class="contact pirate-scrawl" data-id=${dbId}>
             <summary class="contactHeader">
                 <h3 id="firstLastName">
                     <span id="contactFirstName">${firstName}</span> 
@@ -199,7 +199,7 @@ function stripPhoneNumber(phone){
 }
 
 function validEmail(email) {
-    const regex = /^(([\w]+\.)+|[\w]+)+[\w]@([\w\-]+\.)+[A-z]{2,}$/;
+    const regex = /^[a-zA-Z0-9.]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/;
     return regex.test(email);
 }
 

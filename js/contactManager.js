@@ -3,6 +3,10 @@ function switchContext(containerName){
         container.style.display = (container.id === containerName) ? "" : "none";
     });
 
+    if(containerName === 'listPageContainer'){
+        showContacts();
+    }
+
     localStorage.setItem('lastPage', containerName);
 }
 
@@ -30,7 +34,7 @@ function searchContact(callSrc = "HTML")
     }
     else if(callSrc === 'debounce' && srch.trim() === ''){
         searchResult.innerHTML = '';
-        document.querySelector(".contactList").innerHTML = "";
+        document.querySelector("#searchContactContainer .contactList").innerHTML = "";
     }
     else{
         let tmp = {search:srch,userId:userId};
@@ -74,7 +78,7 @@ function searchContact(callSrc = "HTML")
                     else{
                         searchResult.innerHTML = "No mateys found...";
                     }
-                    document.querySelector(".contactList").innerHTML = contactList;				
+                    document.querySelector("#searchContactContainer .contactList").innerHTML = contactList;				
                 }
             };
             xhr.send(jsonPayload);
@@ -83,6 +87,50 @@ function searchContact(callSrc = "HTML")
         {
             document.getElementById("contactSearchResult").innerHTML = err.message;
         }
+    }
+}
+
+function showContacts() {
+    let tmp = {search:"",userId:userId};
+    let jsonPayload = JSON.stringify( tmp );
+
+    let url = urlBase + '/SearchContacts.' + extension;
+
+    let xhr = new XMLHttpRequest();
+    xhr.open("POST", url, true);
+    xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+    try
+    {
+        xhr.onreadystatechange = function()
+        {
+            if (this.readyState == 4 && this.status == 200)
+            {
+                let jsonObject = JSON.parse( xhr.responseText );
+                // let results = jsonObject.result.sort((a,b) =>
+                //     a.firstName.toLowerCase().localeCompare(b.firstName.toLowerCase())
+                // );
+                let results = jsonObject.result
+                let contactList = "";
+                if(results.length > 0){
+                    for( let i= 0; i < results.length; i++ )
+                    {
+                        contactList += getContactHTML(
+                            results[i]['ID'],
+                            results[i]['firstName'],                     
+                            results[i]['lastName'],
+                            results[i]['phone'],
+                            results[i]['email'],
+                        );
+                    }
+                }
+                document.querySelector("#listPageContainer .contactList").innerHTML = contactList;				
+            }
+        };
+        xhr.send(jsonPayload);
+    }
+    catch(err)
+    {
+        document.getElementById("contactSearchResult").innerHTML = err.message;
     }
 }
 
@@ -275,8 +323,16 @@ function validateContact(firstName, lastName, phone, email){
         errors[0].err = 'First name cannot be blank';
         hasError = true;
     }
+    else if(firstName.length > 50){
+        errors[0].err = 'First name too long (Max 50 characters)';
+        hasError = true;
+    }
     if(!lastName){
         errors[1].err = 'Last name cannot be blank';
+        hasError = true;
+    }
+    else if(lastName.length > 50){
+        errors[1].err = 'Last name too long (Max 50 characters)';
         hasError = true;
     }
     if(!phone){
@@ -296,10 +352,15 @@ function validateContact(firstName, lastName, phone, email){
         errors[3].err = 'Email cannot be blank';
         hasError = true;
     }
-    else if(!validEmail(email)){
-        errors[3].err = 'Invalid email';
+    else if(email.length > 50){
+        errors[3].err = 'Email too long (Max 50 characters)';
         hasError = true;
     }
+    else if(!validEmail(email)){
+        errors[3].err = 'Invalid email format';
+        hasError = true;
+    }
+    
 
 
     return {errors, hasError};

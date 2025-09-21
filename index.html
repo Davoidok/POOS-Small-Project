@@ -15,27 +15,27 @@
 
     <body class="loginBody">
       <div class="loginContainer">
-        <div class="headerContainer loginContainerHeader">
+        <div class="headerContainer loginContainerHeader trade-winds">
           <span id="upperLoginHead">Plunder the</span>
           <span id="lowerLoginHead">Cap'n's Log</span>
         </div>
         <form>
           <div class="loginGroup">
-            <label for="loginName">Yer Username</label>
-            <input type="text" id="loginName" class="inputField" placeholder="Username" onkeydown="if(event.key=='Enter') doLogin();"/><br />
-            <div class="errorContainer usernameError"></div>
+            <label for="loginName" class="pirata-one">Yer Username</label>
+            <input type="text" id="loginName" class="inputField typewriter-text" placeholder="Username" onkeydown="if(event.key=='Enter') doLogin();"/><br />
+            <div class="errorContainer usernameError pirata-one"></div>
           </div>
 
           <div class="loginGroup">
-            <label for="loginPassword">Yer Secret Key</label>
-            <input type="password" id="loginPassword" class="inputField" placeholder="Password" onkeydown="if(event.key=='Enter') doLogin();"/><br/>
-            <div class="errorContainer passwordError"></div>
+            <label for="loginPassword" class="pirata-one">Yer Secret Key</label>
+            <input type="password" id="loginPassword" class="inputField typewriter-text" placeholder="Password" onkeydown="if(event.key=='Enter') doLogin();"/><br/>
+            <div class="errorContainer passwordError pirata-one"></div>
           </div>
 
-          <div class="errorContainer invalidLoginError"></div>
-          <button type="button" id="loginButton" class="buttons" onclick="doLogin();"> Login </button>
+          <div class="errorContainer invalidLoginError pirata-one"></div>
+          <button type="button" id="loginButton" class="buttons pirata-one" onclick="doLogin();"> Login </button>
           
-          <div class="createAccountLink">
+          <div class="createAccountLink pirata-one">
             <span>New to our crew?</span><span id="createAccountPrompt" onclick="goToCreateAccount()">Registarr here →</span>
           </div>
         </form>

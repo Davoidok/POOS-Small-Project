@@ -1,32 +1,20 @@
-function showWelcomeMessage() {
-    readCookie();
-
-    // Get the title element
-    const title = document.getElementById("welcome-title");
-
-    if (title) {
-        if (firstName && lastName) {
-            title.textContent = `Welcome ${firstName} ${lastName}`;
-        } else {
-            title.textContent = "Welcome";
-        }
-    }
-}
-
 document.addEventListener("DOMContentLoaded", () => {
+    readCookie();
+    
     const lastPage = localStorage.getItem('lastPage');
     const loggedIn = sessionStorage.getItem('loggedIn');
 
     let pageToStart;
     if(loggedIn) {
-        pageToStart = 'homeContainer';
+        pageToStart = 'listPageContainer';
         sessionStorage.removeItem('loggedIn');
     }
-    else {
+    else{
+        if(lastPage === 'listPageContainer'){
+            showContacts();
+        }
         pageToStart = lastPage;
     }
 
     switchContext(pageToStart);
 });
-
-window.addEventListener("DOMContentLoaded", showWelcomeMessage);

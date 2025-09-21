@@ -19,14 +19,13 @@
     <body class="landingPageBody">
 
       <!-- html for nav bar -->
-      <div class="navbar">
+      <div class="navbar typewriter-text-capital">
         <div class="left">
-          <a onclick="switchContext('homeContainer')">Home</a>
           <a onclick="switchContext('aboutContainer')">About</a>
         </div>
 
         <div class="center"> 
-          <a onclick="switchContext('contactListContainer')">List</a>
+          <a onclick="switchContext('listPageContainer')">List</a>
           <a onclick="switchContext('searchContactContainer')">Search</a>
           <a onclick="switchContext('createContactContainer')">Add</a>
         </div>
@@ -36,56 +35,54 @@
         </div>
       </div>
 
-      <div class="frontpageContainer" id="homeContainer">
-        <span id="welcome-title">WELCOME</span>
-      </div>
-
-      <!-- Don't forget to undo style here -->
-      <div class="frontpageContainer" id="contactListContainer">
-        <h1 class="listHeader">
+      <div class="frontpageContainer" id="listPageContainer" style="display: flex">
+        <h1 class="listPageHeader pirata-one">
           Don't let me Cap'n know I'm lettin' ye in on his secrets...
-        </h1>
-        <!-- <div class="contactList"></div> -->
+        </h1>        
+        <div class="contactListContainer">
+          <h1 class="typewriter-text-capital">Me Log o' This Scallywag Crew</h1>
+          <div class="contactList pirate-scrawl"></div>
+        </div>
       </div>
 
       <div class="frontpageContainer" id="searchContactContainer">
-        <h1 class="searchHeader">
+        <h1 class="searchHeader pirata-one" id="contactSearchResult">
           Oy, who're we lookin' fer?
         </h1>
         <div class="contactListContainer">
           <div class="searchInputContainer">
-            <span id="contactSearchResult"></span>
-            <input type="text" id="searchText" class="inputField" placeholder="Contact to search" onkeydown="if(event.key=='Enter') searchContact(); else responsiveSearch();"/>
+            <!-- <span id="contactSearchResult"></span> -->
+            <input type="text" id="searchText" class="inputField typewriter-text" placeholder="Contact to search" onkeydown="if(event.key=='Enter') searchContact(); else responsiveSearch();"/>
           </div>
-          <div class="contactList"></div>
+          <div class="contactList typewriter-text"></div>
         </div>
       </div>
       
       <div class="frontpageContainer" id="createContactContainer">
         <div class="createContactBlock contactListContainer">
-          <h2>Arrr sailor, yer trying to add a new scallywag to our crew?</h2>
+          <h2 class="pirata-one">Arrr sailor, yer tryin' to add a new scallywag to our crew?</h2>
           <form>
-            <div class="newContactGroup">
+            <div class="newContactGroup pirata-one">
               <label for="newFirstName">First Name</label>
-              <input type="text" id="newFirstName" class="inputField addContactText" placeholder="First Name" onkeydown="if(event.key=='Enter') createContact();"/><br />
+              <input type="text" id="newFirstName" class="inputField addContactText typewriter-text" placeholder="First Name" onkeydown="if(event.key=='Enter') createContact();"/><br />
               <div class="errorContainer firstNameError"></div>
             </div>
-            <div class="newContactGroup">
+            <div class="newContactGroup pirata-one">
               <label for="newLastName">Last Name</label>
-              <input type="text" id="newLastName" class="inputField addContactText" placeholder="Last Name" onkeydown="if(event.key=='Enter') createContact();"/><br />
+              <input type="text" id="newLastName" class="inputField addContactText typewriter-text" placeholder="Last Name" onkeydown="if(event.key=='Enter') createContact();"/><br />
               <div class="errorContainer lastNameError"></div>
             </div>
-            <div class="newContactGroup">
+            <div class="newContactGroup pirata-one">
               <label for="newPhoneNumber">Phone Number</label>
-              <input type="text" id="newPhoneNumber" class="inputField addContactText" placeholder="XXX-XXX-XXXX" onkeydown="if(event.key=='Enter') createContact();"/><br />
+              <input type="text" id="newPhoneNumber" class="inputField addContactText typewriter-text" placeholder="XXX-XXX-XXXX" onkeydown="if(event.key=='Enter') createContact();"/><br />
               <div class="errorContainer phoneError"></div>
             </div>
-            <div class="newContactGroup">
+            <div class="newContactGroup pirata-one">
               <label for="newEmail">Email</label>
-              <input type="text" id="newEmail" class="inputField addContactText" placeholder="user@gmail.com" onkeydown="if(event.key=='Enter') createContact();"/><br />
+              <input type="text" id="newEmail" class="inputField addContactText typewriter-text" placeholder="user@gmail.com" onkeydown="if(event.key=='Enter') createContact();"/><br />
               <div class="errorContainer emailError"></div>
             </div>
-            <button type="button" id="addContactButton" class="buttons" onclick="createContact();"> Add Yer Matey </button>
+            <button type="button" id="addContactButton" class="buttons pirata-one" onclick="createContact();"> Add Yer Matey </button>
           </form>
         </div>
       </div>

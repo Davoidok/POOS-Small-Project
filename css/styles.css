@@ -2,11 +2,36 @@
     box-sizing: border-box;
 }
 
+@font-face {
+    font-family: 'Blackadder ITC Std Regular';
+    src: url("../fonts/blackadder-itc/Blackadder\ ITC\ Std\ Regular.otf");
+}
+
+.pirate-scrawl {
+    font-family: 'Blackadder ITC Std Regular', sans-serif !important;
+}
+.typewriter-text {
+    font-family: 'IM Fell DW Pica', sans-serif !important;
+}
+.typewriter-text-capital {
+    font-family: 'IM FELL English SC', sans-serif !important;
+}
+.pirata-one {
+    font-family: 'Pirata One', sans-serif !important;
+    letter-spacing: 1px;
+}
+.trade-winds{
+    font-family: 'Trade Winds', sans-serif !important;
+}
+
 body 
 {
-    /* background: none; */
     background-image: url('../imgs/pirate_ship_background.jpg');
+    /* background-size: cover; */
     background-size: cover;
+    background-repeat: no-repeat;
+    /* background-position: top center; */
+    background-color:#212524;
 }
 
 .buttons
@@ -16,7 +41,7 @@ body
     border-radius: 25px;
     width: auto;
     margin: 0 auto;
-    font-family: 'Pirata One', sans-serif;
+    /* font-family: 'Pirata One', sans-serif; */
     background-color: #36241a;
     color:#ffceb2;
     border-color: #ffceb2; 
@@ -28,17 +53,7 @@ body
     opacity: 80%;
 }
 
-#welcome-title{
-    display: inline-block;
-    font-size: 2.4em;
-    width: 90%;
-    text-align: center;
-    margin-left: 5%;
-    margin-bottom: 2%;
-    font-family: 'Ubuntu', sans-serif;
-    color: #212524;
-}
-
+#listPageContainer,
 #searchContactContainer,
 #createContactContainer,
 .contactListContainer {
@@ -47,34 +62,77 @@ body
     justify-content: center;
     align-items: center;
 }
+#listPageContainer .contactListContainer {
+    padding-top: 40px;
+}
+#listPageContainer .contactList {
+    margin-top: 20px;
+    border-top: 2px solid #212524;
+    border-bottom: 2px solid #212524;
+    border-radius: 6px;
+}
+#listPageContainer h1.typewriter-text-capital{
+    margin: 0 auto;
+    font-size: 36px;
+    width: 600px;   
+    padding-bottom: 10px;
+    text-align: center;
+    border-bottom: 1px solid #212524;
+    word-spacing: 4px;
+    
+}
+
+/* #listPageContainer .contactHeader {
+    font-size: 18pt;
+}
+#listPageContainer .contactInfo {
+    font-size: 20pt;
+} */
+
+.contactListContainer .contactHeader {
+    font-size: 18pt;
+}
+.contactListContainer .contactInfo {
+    font-size: 20pt;
+}
+
 .contactListContainer {
     max-width: 700px;
     width: 100%;
     max-height: 700px;
     height: 100%;
-    min-height:600px;
+    min-height:700px;
     justify-content: flex-start;
     padding: 10px;
+    padding-top: 40px;
     padding-bottom: 50px;
 
     background-image:
         repeating-linear-gradient(0deg, rgba(0,0,0,.03) 0 1px, transparent 1px 5px),
-        radial-gradient(120% 100% at 50% 10%, transparent 55%, rgba(0,0,0,.08) 100%);
+        radial-gradient(120% 100% at 50% 10%, transparent 55%, rgba(0,0,0,.08) 100%),
+        url('../imgs/list_background.png');
     background-blend-mode: multiply, normal;
 
     background-color: #ffceb2;
     border-radius: 8px;
+    word-break: break-word;
+    box-shadow: 0 6px 10px rgba(0,0,0, 0.6);
 }
+
+.contactListContainer .contactHeader h3 {
+    max-width: 50%;
+}
+/* .searchHeader {
+    font-size: 
+} */
 .searchInputContainer {
-    width: 90%;
-    padding-top: 40px;
-    padding-bottom: 20px;
-    margin-bottom: 20px;
+    max-width: 600px;
+    width: 100%;
+    /* padding-top: 30px; */
+    padding-bottom: 17px;
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 10px;
-    font-family: 'IM Fell DW Pica'; 
     border-bottom: 1pt solid #212524;
 }
 #searchText
@@ -97,7 +155,7 @@ body
 }
 .newContactGroup .errorContainer{
     color: #ff2600;
-    font-family: 'Pirata One';
+    /* font-family: 'Pirata One'; */
     letter-spacing: 1px;
 }
 .newContactGroup .errorContainer #errorIcon {
@@ -107,7 +165,7 @@ body
 }
 .newContactGroup label{
     letter-spacing: 1px;
-    font-family: 'Pirata One';
+    /* font-family: 'Pirata One'; */
     font-size: 14pt;
 }
 .createContactBlock.contactListContainer{
@@ -118,7 +176,7 @@ body
 .createContactBlock h2{
     letter-spacing: 2px;
     text-align: center;
-    font-family: 'Pirata One';
+    /* font-family: 'Pirata One'; */
     color: #212524;
 }
 .createContactBlock form{
@@ -148,11 +206,11 @@ body
     cursor: pointer;
 }
 #contactSearchResult {
+    min-height: 42px;
     display: block;
     text-align: center;
-    font-family: 'Ubuntu', sans-serif;
+    /* font-family: 'Ubuntu', sans-serif; */
     color: #212524;
-    font-size: 1.6em;
 }
 .contactList {
     flex: 1;
@@ -166,10 +224,15 @@ body
     width: 100%;
     margin-right: 40px; 
     margin-left: 40px;
-    padding: 20px; 
+    margin-bottom: 0px;
+    padding: 0 20px 0 20px; 
 
     font-size: 1.2em;
-    font-family: 'IM Fell DW Pica', sans-serif;
+    /* font-family: 'IM Fell DW Pica', sans-serif; */
+     margin-top: 20px;
+    border-top: 2px solid #212524;
+    border-bottom: 2px solid #212524;
+    border-radius: 6px;
     color: #212524;
 }
 .contactHeader {
@@ -182,7 +245,7 @@ body
 .contactHeader #searchMatches{
     display: flex;
     flex-direction: column;
-    color: #c47a50;
+    color: #a75f35;
 }
 .contactDropdown {
     /* max-height: 0;
@@ -218,7 +281,7 @@ body
 
 
 .headerContainer {
-    font-family: 'Trade Winds', cursive;
+    /* font-family: 'Trade Winds', cursive; */
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -253,7 +316,7 @@ body
     color: #2b2c2b;
     width: 100%;
     text-align: left;
-    font-family: 'IM Fell DW Pica';
+    /* font-family: 'IM Fell DW Pica'; */
     letter-spacing: 1px;
     font-weight: 700;
     font-size: 14pt;
@@ -265,7 +328,7 @@ body
     outline: 2pt solid #FFF001FF;
 }
 .loginBody {
-    font-family: 'Pirata One', cursive;
+    /* font-family: 'Pirata One', cursive; */
     letter-spacing: 1px;
     display: flex;
     justify-content: center;
@@ -349,7 +412,7 @@ body
     display: flex;
     min-height: 100vh;
     margin: 0 auto;
-    font-family:'Pirata One', sans-serif;
+    /* font-family:'Pirata One', sans-serif; */
     letter-spacing: 1px;
 }
 .headerContainer.registerHeaderContainer {
@@ -437,12 +500,12 @@ body
 }
 
 .landingPageBody  {
-    background-image: url('../imgs/pirate_ship_background.jpg');
+    /* background-image: url('../imgs/pirate_ship_background.jpg');
     background-size: cover;
     background-repeat: no-repeat;
     background-position: top center;
-    background-size: 100% auto;
-    background-color:#212524;
+    background-color:#212524; */
+    height: 100vh;
 
     margin: 0 auto;
 }
@@ -451,7 +514,7 @@ body
 
 
 .navbar{
-    font-family: 'IM Fell English SC', serif;
+    /* font-family: 'IM Fell English SC', serif; */
     display: flex;
     align-items: center;
     background: #523829EE;

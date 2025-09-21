@@ -13,61 +13,60 @@
       <script type="text/javascript" src="js/frontpage.js"></script>
     </head>
 
-    
     <body class="registerBody">
-      <div class="headerContainer registerHeaderContainer">
+      <div class="headerContainer registerHeaderContainer trade-winds">
         <span id="upperRegisterHead">Are ya' ready ta plunder the</span>
         <span id="lowerRegisterHead">Cap'n's Log?</span>
       </div>
       <div class="registerInputContainer">
 
-        <div class="registerInputTitle">
+        <div class="registerInputTitle pirata-one">
           <h2>
             Ahoy, matey! Sign up here ta join the crew!
           </h2>
         </div>
 
-        <div class="registerInputBlock">
+        <div class="registerInputBlock pirata-one">
           <label class="registerLabel" id="registerFirstNameLabel">
             <sup class="requiredNotice requiredSymbol">*</sup>Yer Mate Name
           </label>
-          <input type="text" id="registerFirstName" class="inputField" placeholder="First Name" onkeydown="if(event.key=='Enter') doRegister();"/><br />
+          <input type="text" id="registerFirstName" class="inputField typewriter-text" placeholder="First Name" onkeydown="if(event.key=='Enter') doRegister();"/><br />
           <div class="errorContainer firstNameError"></div>
         </div>
         
-        <div class="registerInputBlock">
+        <div class="registerInputBlock pirata-one">
           <label class="registerLabel" id="registerLastNameLabel">
             <sup class="requiredNotice requiredSymbol">*</sup>Yer Last Name
           </label>
-          <input type="text" id="registerLastName" class="inputField" placeholder="Last Name" onkeydown="if(event.key=='Enter') doRegister();"/><br />
+          <input type="text" id="registerLastName" class="inputField typewriter-text" placeholder="Last Name" onkeydown="if(event.key=='Enter') doRegister();"/><br />
           <div class="errorContainer lastNameError"></div>
         </div>
 
-        <div class="registerInputBlock">
+        <div class="registerInputBlock pirata-one">
           <label class="registerLabel" id="registerUsernameLabel">
             <sup class="requiredNotice requiredSymbol">*</sup>Yer Username
           </label>
-          <input type="text" id="registerUsername" class="inputField" placeholder="Username" onkeydown="if(event.key=='Enter') doRegister();"/><br />
+          <input type="text" id="registerUsername" class="inputField typewriter-text" placeholder="Username" onkeydown="if(event.key=='Enter') doRegister();"/><br />
           <div class="errorContainer usernameError"></div>
         </div>
 
-        <div class="registerInputBlock">
+        <div class="registerInputBlock pirata-one">
           <label class="registerLabel" id="registerPasswordLabel">
             <sup class="requiredNotice requiredSymbol">*</sup>Yer Secret Key
           </label>
-          <input type="password" id="registerPassword" class="inputField" placeholder="Password" onkeydown="if(event.key=='Enter') doRegister();"/><br />
+          <input type="password" id="registerPassword" class="inputField typewriter-text" placeholder="Password" onkeydown="if(event.key=='Enter') doRegister();"/><br />
           <div class="errorContainer passwordError"></div>
         </div>
 
-        <div class="registerInputBlock requiredNotice">
+        <div class="registerInputBlock requiredNotice pirata-one">
           <sup>*</sup>= required
         </div>
 
         <div class="registerInputBlock registerAccount">
-          <button type="button" id="registerAccountButton" class="buttons" onclick="doRegister();"> Create Account </button>
+          <button type="button" id="registerAccountButton" class="buttons pirata-one" onclick="doRegister();"> Create Account </button>
         </div>
 
-        <div class="registerInputBlock loginReturn">
+        <div class="registerInputBlock loginReturn pirata-one">
           <span>Already have an account?</span><span id="loginReturn" onclick="goToLogin()">Sign in →</span>
         </div>
         
