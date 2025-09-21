@@ -23,6 +23,11 @@
 .trade-winds{
     font-family: 'Trade Winds', sans-serif !important;
 }
+.hidden{
+    display: none  !important;
+}
+
+
 
 body 
 {
@@ -79,27 +84,25 @@ body
     text-align: center;
     border-bottom: 1px solid #212524;
     word-spacing: 4px;
-    
+    color: #212524;
 }
-
-/* #listPageContainer .contactHeader {
-    font-size: 18pt;
+.listPageHeader {
+    color: #212524;
+    text-align: center;
+    max-width: 700px;
 }
-#listPageContainer .contactInfo {
-    font-size: 20pt;
-} */
 
 .contactListContainer .contactHeader {
     font-size: 18pt;
 }
-.contactListContainer .contactInfo {
+.contactListContainer .contactInfoGroup {
     font-size: 20pt;
 }
 
 .contactListContainer {
     max-width: 700px;
     width: 100%;
-    max-height: 700px;
+    max-height: 750px;
     height: 100%;
     min-height:700px;
     justify-content: flex-start;
@@ -188,16 +191,6 @@ body
 .inputField.addContactText:focus {
     outline: 2pt inset #f0c4a9;
 }
-#addContactIcon {
-    background-image: url('../imgs/add_contact_placeholder.png');
-    pointer-events: none;
-    width: 40px;
-    height: auto;
-    object-fit: contain;
-    justify-self: center;
-    pointer-events: auto;
-    cursor: pointer;
-}
 #searchContactIcon {
     width: 40px;
     height: auto;
@@ -222,6 +215,7 @@ body
 
     max-width: 600px;
     width: 100%;
+    margin-top: 20px;
     margin-right: 40px; 
     margin-left: 40px;
     margin-bottom: 0px;
@@ -229,7 +223,7 @@ body
 
     font-size: 1.2em;
     /* font-family: 'IM Fell DW Pica', sans-serif; */
-     margin-top: 20px;
+    
     border-top: 2px solid #212524;
     border-bottom: 2px solid #212524;
     border-radius: 6px;
@@ -241,25 +235,16 @@ body
     padding-left: 10px;
     padding-right: 10px;
     cursor: pointer;
+    height: 80px;
 }
-.contactHeader #searchMatches{
+
+.contactHeader .searchMatches{
     display: flex;
     flex-direction: column;
     color: #a75f35;
 }
-.contactDropdown {
-    /* max-height: 0;
-    opacity: 0;
-    overflow: hidden; */
-    transition:
-        max-height 220ms ease,
-        opacity 180ms ease;
-    will-change: max-height, opacity;
-}
 .contact{
     border-bottom: 1px solid #212524;
-    margin-bottom: 10px;
-    /* background-color: #ffceb2; */
 }
 .contactList .contact:last-child{
     border: none;
@@ -268,15 +253,84 @@ body
     border-bottom-width: 2px;
     border-bottom-style:dashed;
 }
-.contactInfo {
+.contactDropdown {
     display: flex;
-    margin: -10px 0px 10px 0px;
-    color: #212524;
     justify-content: space-between;
-    align-items: center;
+    padding-left:10px;
+    padding-bottom:10px;
 }
-.updateContactInput {
-    display: inline-block;
+.contact:hover {
+    background-color: #a75f3544;
+}
+.contactInfoGroup {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    color: #212524;
+    padding-left: 10px;
+}
+.contactActions {
+    display: flex;
+    justify-content: flex-end;
+}
+.contact .updateInput {
+    font-weight: 100;
+}
+.contact .updateInput:focus {
+    outline: 2pt inset #f0c4a9;
+}
+.contact .updateNameGroup {
+    display:flex;
+    width: 100%;
+    justify-content:space-between;
+    align-items: center;
+    gap: 10px;
+    padding-left: 10px;
+    padding-right: 10px;
+    height: 80px;
+}
+.contact .updateInfoGroup {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    width: 50%;
+}
+.contact .errorContainer {
+    color: #ff2600;
+    font-size: 11.5pt;
+}
+.contact #errorIcon {
+    filter: brightness(0) saturate(100%) invert(18%) sepia(92%) saturate(7484%) hue-rotate(2deg) brightness(103%) contrast(102%);
+
+}
+.firstNameGroup,
+.lastNameGroup {
+    display: flex;
+    flex-direction: column;
+    
+}
+#firstNameUpdate,
+#lastNameUpdate {    
+    font-size: 18pt;
+    padding-left: 0px;
+    padding-top: 10px;
+    text-indent: 10px;
+    height: 40px;
+}
+
+
+#phoneUpdate {
+    font-size: 16pt;
+    padding-top: 6px;
+    padding-left: 0;
+    text-indent: 10px;
+    height: 30px;
+}
+#emailUpdate {
+    font-size: 16pt;
+    padding-left: 0;
+    text-indent: 10px;
+    height: 30px;
 }
 
 

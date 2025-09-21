@@ -103,26 +103,45 @@ function getContactHTML(dbId, firstName, lastName, phone, email, matches = [], s
 
     return `
         <details class="contact pirate-scrawl" data-id=${dbId}>
-            <summary class="contactHeader">
-                <h3 id="firstLastName">
+            <div class="updateNameGroup hidden">
+                <div class="firstNameGroup">
+                    <input placeholder="First Name" id="firstNameUpdate" class="inputField pirate-scrawl updateInput" onkeydown="if(event.key=='Enter') updateContact(${dbId})">
+                    <div class="errorContainer firstNameError pirata-one"></div>
+                </div>    
+                <div class="lastNameGroup">
+                    <input placeholder="Last Name" id="lastNameUpdate" class="inputField pirate-scrawl updateInput" onkeydown="if(event.key=='Enter') updateContact(${dbId})">
+                    <div class="errorContainer lastNameError pirata-one"></div>
+                </div>
+            </div>
+            <summary class="contactHeader" onclick="checkToggleUpdateContact(${dbId})">
+                <h3 class="contactNameGroup">
                     <span id="contactFirstName">${firstName}</span> 
                     <span id="contactLastName">${lastName}</span>
                 </h3>
-                <h5 id="searchMatches">
+                <h5 class="searchMatches">
                     ${contactInfoMatch}
                 </h5>
             </summary>
             <div class="contactDropdown">
-                <div class="contactInfo">
+                <div class="contactInfoGroup">
                     <span id="contactPhoneNumber">${formatPhoneNumber(phone)}</span>
                     <span id="contactEmail">${email}</span>
+                </div>
+                <div class="updateInfoGroup hidden">
+                    <div class="phoneGroup">
+                        <input placeholder="(000) 000-0000" id="phoneUpdate" class="inputField pirate-scrawl updateInput" onkeydown="if(event.key=='Enter') updateContact(${dbId})">
+                        <div class="errorContainer phoneError pirata-one"></div>
+                    </div>
+                    <div class="emailGroup">
+                        <input placeholder="user@gmail.com" id="emailUpdate" class="inputField pirate-scrawl updateInput" onkeydown="if(event.key=='Enter') updateContact(${dbId})">
+                        <div class="errorContainer emailError pirata-one"></div>
+                    </div>
                 </div>
                 <div class="contactActions">
                     <button id="updateContactButton" onclick="toggleUpdateContactFields(${dbId})">Update</button>
                     <button id="deleteContactButton" onclick="doDeleteContact(${dbId})">Delete</button>
                 </div>
             </div>
-            <span class="updateContactBlock"></span>
         </details>
     `
 }
@@ -204,7 +223,7 @@ function validEmail(email) {
 }
 
 function validPhone(phone) {
-    const regex = /^(\d{10}|\d{3}-\d{3}-\d{4}|\(\d{3}\)-\d{3}-\d{4}|\(\d{3}\) \d{3}-\d{4})$/;
+    const regex = /^(\d{10}|\d{3}[- ]\d{3}[- ]\d{4}|\(\d{3}\)[- ]?\d{3}[- ]?\d{4})$/;
     return regex.test(phone);
 }
 

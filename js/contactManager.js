@@ -30,7 +30,7 @@ function searchContact(callSrc = "HTML")
     let searchResult = document.getElementById("contactSearchResult"); 
 
     if(callSrc === 'HTML' && srch.trim() === ''){
-        searchResult.innerHTML = "Arrr, ye forgot to type somethin', ye scallywag!";
+        searchResult.innerHTML = "Arrr! Ye forgot to type somethin', ye scallywag!";
     }
     else if(callSrc === 'debounce' && srch.trim() === ''){
         searchResult.innerHTML = '';
@@ -106,10 +106,8 @@ function showContacts() {
             if (this.readyState == 4 && this.status == 200)
             {
                 let jsonObject = JSON.parse( xhr.responseText );
-                // let results = jsonObject.result.sort((a,b) =>
-                //     a.firstName.toLowerCase().localeCompare(b.firstName.toLowerCase())
-                // );
-                let results = jsonObject.result
+
+                let results = jsonObject.result.reverse();
                 let contactList = "";
                 if(results.length > 0){
                     for( let i= 0; i < results.length; i++ )
@@ -146,18 +144,18 @@ function createContact()
         <span class="inputError" >${msg}</span>
     `
     
-	let firstNameError = document.querySelector(".errorContainer.firstNameError");
-    let lastNameError = document.querySelector(".errorContainer.lastNameError");
-    let phoneNumError = document.querySelector(".errorContainer.phoneError");
-	let emailError = document.querySelector(".errorContainer.emailError");
+	let firstNameError = document.querySelector(".createError.firstNameError");
+    let lastNameError = document.querySelector(".createError.lastNameError");
+    let phoneNumError = document.querySelector(".createError.phoneError");
+	let emailError = document.querySelector(".createError.emailError");
 
     let result = validateContact(newFirstName.value, newLastName.value, newPhoneNum.value, newEmail.value);
     
     result.errors.forEach(err => {
         if(err.err !== '')
-            document.querySelector(`.errorContainer.${err.field}Error`).innerHTML = errHTML(err.err);
+            document.querySelector(`.createError.${err.field}Error`).innerHTML = errHTML(err.err);
         else
-            document.querySelector(`.errorContainer.${err.field}Error`).innerHTML = "";
+            document.querySelector(`.createError.${err.field}Error`).innerHTML = "";
     });
 
     if(!result.hasError){
@@ -205,21 +203,66 @@ function createContact()
 }
 
 function updateContact(dbId){
-    let update = {'ID': dbId}
-    document.querySelectorAll(`.contact[data-id="${dbId}"] .updateContactInput[data-field]`).forEach(input => {
-        update[input.dataset.field] = input.value;
-    })
-    update['userId'] = userId;
+    const listContainer = [...document.querySelectorAll(
+        '.frontpageContainer'
+    )].find(c => getComputedStyle(c).display !== 'none');
+   
 
+    let firstName = listContainer.querySelector(`.contact[data-id="${dbId}"] #firstNameUpdate`).value;
+    let lastName = listContainer.querySelector(`.contact[data-id="${dbId}"] #lastNameUpdate`).value;
+    let phone = listContainer.querySelector(`.contact[data-id="${dbId}"] #phoneUpdate`).value;
+    let email = listContainer.querySelector(`.contact[data-id="${dbId}"] #emailUpdate`).value;
+
+    let update = {
+        'ID': dbId,
+        'firstName': firstName,
+        'lastName': lastName,
+        'phone': phone,
+        'email': email,    
+        'userId': userId      
+    }
+    
     // Set the errors for each part of the update. Is blank if no errors for a field
-    let result = validateContact(update['firstName'], update['lastName'], update['phone'], update['email']);
-    result.errors.forEach(err => {
-        document.querySelector(`.updateContactGroup .${err.field}Error`).innerHTML = err.err;
-    });
+    let result = validateContact(update['firstName'], update['lastName'], update['phone'], update['email'], true);
+    
+    const errHTML = (msg) => `
+        <img src="imgs/caution.png" id="errorIcon">
+        <span class="errorMessage typewriter-text-capital">${msg}</span>
+    `
+
+    if(firstName === '' || !result.errors[0].err){
+        listContainer.querySelector(`.firstNameError`).innerHTML = '';
+    }
+    else{
+        listContainer.querySelector(`.firstNameError`).innerHTML = errHTML(result.errors[0].err);
+    }
+    
+    if(lastName === '' || !result.errors[1].err){
+        listContainer.querySelector(`.lastNameError`).innerHTML = '';
+    }
+    else{
+        listContainer.querySelector(`.lastNameError`).innerHTML = errHTML(result.errors[1].err);
+    }
+
+    if(phone === '' || !result.errors[2].err){
+        listContainer.querySelector(`.phoneError`).innerHTML = '';
+    }
+    else{
+        listContainer.querySelector(`.phoneError`).innerHTML = errHTML(result.errors[2].err);
+    }
+
+    if(email === '' || !result.errors[3].err){
+        listContainer.querySelector(`.emailError`).innerHTML = '';
+    }
+    else if(result.errors[3].err){
+        listContainer.querySelector(`.emailError`).innerHTML = errHTML(result.errors[3].err);
+    }
+
 
     if(!result.hasError){
-        update.phone = stripPhoneNumber(update.phone);
-
+        if(update.phone)
+            update.phone = stripPhoneNumber(update.phone);
+        
         let jsonPayload = JSON.stringify(update);
         let url = urlBase + '/UpdateContact.' + extension;
 
@@ -234,22 +277,18 @@ function updateContact(dbId){
                 {
                     let jsonObject = JSON.parse( xhr.responseText );
                     if(jsonObject.success){
-                        document.getElementById("contactSearchResult").innerHTML = "Contact updated successfully!";
-                        
                         // Update the contact entry with the updated details
                         if(update['firstName'] !== '')
-                            document.querySelector(`.contact[data-id="${dbId}"] #contactFirstName`).innerHTML = update['firstName']; 
+                            listContainer.querySelector(`.contact[data-id="${dbId}"] #contactFirstName`).innerHTML = update['firstName']; 
                         if(update['lastName'] !== '')
-                            document.querySelector(`.contact[data-id="${dbId}"] #contactLastName`).innerHTML = update['lastName'];
+                            listContainer.querySelector(`.contact[data-id="${dbId}"] #contactLastName`).innerHTML = update['lastName'];
                         if(update['phone'] !== '')
-                            document.querySelector(`.contact[data-id="${dbId}"] #contactPhoneNumber`).innerHTML = formatPhoneNumber(update['phone']);
+                            listContainer.querySelector(`.contact[data-id="${dbId}"] #contactPhoneNumber`).innerHTML = formatPhoneNumber(update['phone']);
                         if(update['email'] !== '')
-                            document.querySelector(`.contact[data-id="${dbId}"] #contactEmail`).innerHTML = update['email'];
+                            listContainer.querySelector(`.contact[data-id="${dbId}"] #contactEmail`).innerHTML = update['email'];
 
-                        document.querySelector(`.contact[data-id="${dbId}"] .updateContactBlock`).innerHTML = '';
-                    }
-                    else{
-                        document.getElementById("contactSearchResult").innerHTML = jsonObject.error;
+                        clearUpdateContactFields(dbId);
+                        toggleUpdateContactFields(dbId);
                     }
                 }
             };
@@ -257,7 +296,7 @@ function updateContact(dbId){
         }
         catch(err)
         {
-            document.getElementById("contactSearchResult").innerHTML = err.message;
+            listContainer.getElementById("contactSearchResult").innerHTML = err.message;
         }
     }
 }
@@ -265,12 +304,16 @@ function updateContact(dbId){
 
 function doDeleteContact(dbId)
 {
+    const listContainer = [...document.querySelectorAll(
+        '.frontpageContainer'
+    )].find(c => getComputedStyle(c).display !== 'none');
+
 	let contactToDelete = {'ID': dbId}
 
-	let contactFirstName = document.querySelector(`.contact[data-id="${dbId}"] #contactFirstName`).innerHTML;
-	let contactLastName = document.querySelector(`.contact[data-id="${dbId}"] #contactLastName`).innerHTML;
-	let contactPhoneNum = document.querySelector(`.contact[data-id="${dbId}"] #contactPhoneNumber`).innerHTML;
-	let contactEmail = document.querySelector(`.contact[data-id="${dbId}"] #contactEmail`).innerHTML;
+	let contactFirstName = listContainer.querySelector(`.contact[data-id="${dbId}"] #contactFirstName`).innerHTML;
+	let contactLastName = listContainer.querySelector(`.contact[data-id="${dbId}"] #contactLastName`).innerHTML;
+	let contactPhoneNum = listContainer.querySelector(`.contact[data-id="${dbId}"] #contactPhoneNumber`).innerHTML;
+	let contactEmail = listContainer.querySelector(`.contact[data-id="${dbId}"] #contactEmail`).innerHTML;
 
 	if(confirm("Warning! You are about to delete:\n" + contactFirstName + " " + contactLastName + "\nPhone: " + contactPhoneNum + "\nEmail: " + contactEmail + "\nAre you sure you want to do this? This cannot be undone!"))
 	{
@@ -288,7 +331,9 @@ function doDeleteContact(dbId)
 				{
 					let jsonObject = JSON.parse( xhr.responseText );
 					if(jsonObject.success){
-						document.querySelector(`.contactList .contact[data-id="${dbId}"]`).remove();
+						document.querySelectorAll(`.contactList .contact[data-id="${dbId}"]`).forEach(contact => {
+                            contact.remove();
+                        });
 					}
 					else{
 						console.log("delete failed");
@@ -299,12 +344,12 @@ function doDeleteContact(dbId)
 		}
 		catch(err)
 		{
-			document.getElementById("contactSearchResult").innerHTML = err.message;
+			listContainer.getElementById("contactSearchResult").innerHTML = err.message;
 		}
 	}
 }
 
-function validateContact(firstName, lastName, phone, email){
+function validateContact(firstName, lastName, phone, email, isUpdate=false){
     let errors = [
         {field:'firstName', err:''},
         {field:'lastName', err:''},
@@ -319,7 +364,7 @@ function validateContact(firstName, lastName, phone, email){
 
     let hasError = false;
 
-    if(!firstName){
+    if(!firstName && !isUpdate){
         errors[0].err = 'First name cannot be blank';
         hasError = true;
     }
@@ -327,7 +372,7 @@ function validateContact(firstName, lastName, phone, email){
         errors[0].err = 'First name too long (Max 50 characters)';
         hasError = true;
     }
-    if(!lastName){
+    if(!lastName  && !isUpdate){
         errors[1].err = 'Last name cannot be blank';
         hasError = true;
     }
@@ -335,20 +380,23 @@ function validateContact(firstName, lastName, phone, email){
         errors[1].err = 'Last name too long (Max 50 characters)';
         hasError = true;
     }
-    if(!phone){
+    if(!phone  && !isUpdate){
         errors[2].err = 'Phone number cannot be blank';
         hasError = true;
     }
-    else if(!validPhone(phone)){
-        errors[2].err = 'Invalid phone number format.';
-        /* Try:
-           e.g. 1002003000 or
-           e.g. 100-200-3000    or
-           e.g. (100)-200-3000
-        */
-       hasError = true;
+    else if(isUpdate){
+        if(phone && !validPhone(phone)){
+            errors[2].err = 'Invalid phone number format';       
+            hasError = true;
+        }
     }
-    if(!email){
+    else{
+        if(!validPhone(phone)){
+            errors[2].err = 'Invalid phone number format';       
+            hasError = true;
+        }
+    }
+    if(!email && !isUpdate){
         errors[3].err = 'Email cannot be blank';
         hasError = true;
     }
@@ -356,9 +404,17 @@ function validateContact(firstName, lastName, phone, email){
         errors[3].err = 'Email too long (Max 50 characters)';
         hasError = true;
     }
-    else if(!validEmail(email)){
-        errors[3].err = 'Invalid email format';
-        hasError = true;
+    else if(isUpdate){
+        if(email && !validEmail(email)){
+            errors[3].err = 'Invalid email format';
+            hasError = true;
+        }
+    }
+    else{
+        if(!validEmail(email)){
+            errors[3].err = 'Invalid email format';
+            hasError = true;
+        }
     }
     
 
@@ -366,21 +422,68 @@ function validateContact(firstName, lastName, phone, email){
     return {errors, hasError};
 }
 
+function checkToggleUpdateContact(dbId) {
+    const listContainer = [...document.querySelectorAll(
+        '.frontpageContainer'
+    )].find(c => getComputedStyle(c).display !== 'none');
+
+    const contact = listContainer.querySelector(`.contact[data-id="${dbId}"]`);
+    if(!contact.querySelector('.updateNameGroup').classList.contains('hidden') && 
+       !contact.querySelector('.updateInfoGroup').classList.contains('hidden'))
+    {
+        toggleUpdateContactFields(dbId);
+    }
+}
+
+function clearUpdateContactFields(dbId) {
+    const listContainer = [...document.querySelectorAll(
+        '.frontpageContainer'
+    )].find(c => getComputedStyle(c).display !== 'none');
+
+    const contact = listContainer.querySelector(`.contact[data-id="${dbId}"]`);
+
+    contact.querySelector('#firstNameUpdate').value = '';
+    contact.querySelector('#lastNameUpdate').value = '';
+    contact.querySelector('#phoneUpdate').value = '';
+    contact.querySelector('#emailUpdate').value = '';
+}
+
 /**
  * 
  * @param {integer} dbId  The unique id of the contact from the database. 
  */
 function toggleUpdateContactFields(dbId){
-    const updateBlock = document.querySelector(`.contact[data-id="${dbId}"] .updateContactBlock`);
-    if(updateBlock.innerHTML.trim() === ''){
-        updateBlock.innerHTML = `
-            <input class="updateContactInput" data-field="firstName" placeholder="First Name" onkeydown="if(event.key=='Enter') updateContact(${dbId});"/>
-            <input class="updateContactInput" data-field="lastName" placeholder="Last Name" onkeydown="if(event.key=='Enter') updateContact(${dbId});"/>
-            <input class="updateContactInput" data-field="phone" placeholder="Phone Number" onkeydown="if(event.key=='Enter') updateContact(${dbId});"/>
-            <input class="updateContactInput" data-field="email" placeholder="Email" onkeydown="if(event.key=='Enter') updateContact(${dbId});"/>
-        `;
-    }else{
-        updateBlock.innerHTML = '';
+    const listContainer = [...document.querySelectorAll(
+        '.frontpageContainer'
+    )].find(c => getComputedStyle(c).display !== 'none');
+
+    const contact = listContainer.querySelector(`.contact[data-id="${dbId}"]`);
+
+    let firstName = contact.querySelector('#contactFirstName').innerHTML;
+    let lastName = contact.querySelector('#contactLastName').innerHTML;
+    let phone = contact.querySelector('#contactPhoneNumber').innerHTML;
+    let email = contact.querySelector('#contactEmail').innerHTML;
+
+    
+    contact.querySelector('.contactHeader').classList.toggle('hidden');
+    contact.querySelector('.updateNameGroup').classList.toggle('hidden');
+    contact.querySelector('.updateInfoGroup').classList.toggle('hidden');
+    contact.querySelector('.contactNameGroup').classList.toggle('hidden');
+    contact.querySelector('.contactInfoGroup').classList.toggle('hidden');
+    if(contact.querySelector('.searchMatches'))
+        contact.querySelector('.searchMatches').classList.toggle('hidden');
+
+    if(contact.querySelector('.contactHeader').classList.contains('hidden')){
+        contact.querySelector('#firstNameUpdate').value = firstName;
+        contact.querySelector('#lastNameUpdate').value = lastName;
+        contact.querySelector('#phoneUpdate').value = phone;
+        contact.querySelector('#emailUpdate').value = email;
     }
+    contact.querySelector('.firstNameError').innerHTML = "";
+    contact.querySelector('.lastNameError').innerHTML = "";
+    contact.querySelector('.phoneError').innerHTML = "";
+    contact.querySelector('.emailError').innerHTML = "";
 }
+
+
 
