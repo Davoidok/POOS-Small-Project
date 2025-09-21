@@ -519,6 +519,9 @@ body
     cursor: pointer;
     padding: 15px 10px;
     text-decoration: none;
+    display: inline-block;
+    width: 150px;
+    text-align: center;
 }
 
 .navbar .center {
@@ -579,4 +582,8 @@ body
 
 .navbar .right a:hover #logoutIcon{
     content: url("../imgs/logout_palm_hover.png");
+}
+
+.navbar .center a + a {
+    border-left: 2px solid #ffceb2;
 }
