@@ -1,5 +1,5 @@
-const urlBase = 'http://4lokofridays.com/LAMPAPI';
-//const urlBase = 'http://localhost:8000/LAMPAPI'
+// const urlBase = 'http://4lokofridays.com/LAMPAPI';
+const urlBase = 'http://localhost:8000/LAMPAPI'
 const extension = 'php';
 
 let userId = 0;
@@ -208,11 +208,14 @@ function formatPhoneNumber(phone)
     return `(${areaCode}) ${exchange}-${subscriber}`; 
 }
 
-function stripPhoneNumber(phone){
+function stripPhoneNumber(phone, partial=false){
     phone = phone.replace(/\D/g, "");
 
-    if(phone.length < 10)
+    if(partial && phone.length <= 10)
+        return phone;
+    else if(phone.length < 10)
         return 'XXXXXXXXXX';
+
 
     return phone;
 }
@@ -224,6 +227,10 @@ function validEmail(email) {
 
 function validPhone(phone) {
     const regex = /^(\d{10}|\d{3}[- ]\d{3}[- ]\d{4}|\(\d{3}\)[- ]?\d{3}[- ]?\d{4})$/;
+    return regex.test(phone);
+}
+function validPartialPhone(phone) {
+    const regex = /^(?:\(\d{1,3}(?!.)|(?:\(\d{3}\)|\d{1,3}\)?))(?:\s*-?\s*\d{0,3})(?:\s*-?\s*\d{0,4})$/;
     return regex.test(phone);
 }
 

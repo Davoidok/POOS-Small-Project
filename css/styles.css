@@ -145,13 +145,13 @@ body
     font-size: 30px;
     text-align: center;
     background-color: #f0c4a9;
-    border-color: #f0c4a9;
+    border-color: #ffceb2;
 }
 .inputField.addContactText
 {
     text-align: left;
     background-color: #f0c4a9;
-    border-color: #f0c4a9;
+    border-color: #ffceb2;
 }
 .newContactGroup{
     margin-bottom: 40px;
@@ -275,6 +275,7 @@ body
 }
 .contact .updateInput {
     font-weight: 100;
+    background-color: #f0c4a9;
 }
 .contact .updateInput:focus {
     outline: 2pt inset #f0c4a9;

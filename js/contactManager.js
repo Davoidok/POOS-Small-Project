@@ -27,6 +27,9 @@ function debouncedSearch(searchFunc, delay){
 function searchContact(callSrc = "HTML")
 {
 	let srch = document.getElementById("searchText").value;
+    if(validPartialPhone(srch)){
+        srch = stripPhoneNumber(srch, partial=true);
+    }
     let searchResult = document.getElementById("contactSearchResult"); 
 
     if(callSrc === 'HTML' && srch.trim() === ''){
