@@ -21,17 +21,32 @@
       <!-- html for nav bar -->
       <div class="navbar typewriter-text-capital">
         <div class="left">
-          <a onclick="switchContext('aboutContainer')">About</a>
+          <a onclick="switchContext('aboutContainer')">
+            <img src="imgs/about_pirate.png" alt="" class="icon" id="aboutIcon">
+            About
+          </a>
         </div>
 
         <div class="center"> 
-          <a onclick="switchContext('listPageContainer')">List</a>
-          <a onclick="switchContext('searchContactContainer')">Search</a>
-          <a onclick="switchContext('createContactContainer')">Add</a>
+          <a onclick="switchContext('listPageContainer')">
+            <img src="imgs/contact_list_chest.png" alt="" class="icon" id="contactListIcon">
+            List
+          </a>
+          <a onclick="switchContext('searchContactContainer')">
+            <img src="imgs/search_contact_spyglass.png" alt="" class="icon" id="searchIcon">
+            Search
+          </a>
+          <a onclick="switchContext('createContactContainer')">
+            <img src="imgs/add_contact.png" alt="" class="icon" id="addContactIcon">
+            Add
+          </a>
         </div>
 
         <div class="right">
-          <a class="logout" onclick="doLogout()">Logout</a>
+          <a class="logout" onclick="doLogout()">
+            <img src="imgs/logout_palm.png" alt="" class="icon" id="logoutIcon">
+            Logout
+          </a>
         </div>
       </div>
 
