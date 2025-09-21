@@ -555,9 +555,11 @@ body
 
 
 .navbar .left a:hover, .navbar .center a:hover {
-    background-color: gray;
+    background-color: #ffd700;
+    color: #212524;
 }
 
 .navbar .right a.logout:hover {
-    background-color: #c0392b;
+    background-color: #d1671f;
+    color: #212524;
 }
