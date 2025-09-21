@@ -188,16 +188,6 @@ body
 .inputField.addContactText:focus {
     outline: 2pt inset #f0c4a9;
 }
-#addContactIcon {
-    background-image: url('../imgs/add_contact_placeholder.png');
-    pointer-events: none;
-    width: 40px;
-    height: auto;
-    object-fit: contain;
-    justify-self: center;
-    pointer-events: auto;
-    cursor: pointer;
-}
 #searchContactIcon {
     width: 40px;
     height: auto;
@@ -562,4 +552,31 @@ body
 .navbar .right a.logout:hover {
     background-color: #d1671f;
     color: #212524;
+}
+
+.navbar .left a .icon,
+.navbar .center a .icon,
+.navbar .right a .icon{
+    width:32px; 
+    height: 32px;
+    margin-right:2px;
+    vertical-align:middle;
+}
+
+.navbar .left a:hover #aboutIcon{
+    content: url("../imgs/about_pirate_hover.png");
+}
+
+.navbar .center a:hover #contactListIcon{
+    content: url("../imgs/contact_list_chest_hover.png");
+}
+.navbar .center a:hover #searchIcon{
+    content: url("../imgs/search_contact_spyglass_hover.png");
+}
+.navbar .center a:hover #addContactIcon{
+    content: url("../imgs/add_contact_hover.png");
+}
+
+.navbar .right a:hover #logoutIcon{
+    content: url("../imgs/logout_palm_hover.png");
 }
