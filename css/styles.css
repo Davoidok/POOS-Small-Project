@@ -154,9 +154,13 @@ body
     padding-bottom:2px;
     white-space: nowrap;
 }
+.contactList .contactNameGroup span {
+    padding-top: 8px;
+}
 #searchContactContainer .contactList .searchMatches {
     color: #a75f35;
     max-width: 40%;
+    padding-left: 4px;
 }
 #searchContactContainer .contactList .contactNameGroup {
     max-width: 60%;
