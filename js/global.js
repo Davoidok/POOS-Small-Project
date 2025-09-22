@@ -1,5 +1,5 @@
-// const urlBase = 'http://4lokofridays.com/LAMPAPI';
-const urlBase = 'http://localhost:8000/LAMPAPI'
+const urlBase = 'http://4lokofridays.com/LAMPAPI';
+//const urlBase = 'http://localhost:8000/LAMPAPI'
 const extension = 'php';
 
 let userId = 0;
@@ -117,6 +117,7 @@ function getContactHTML(dbId, firstName, lastName, phone, email, matches = [], s
             </div>
             <summary class="contactHeader" onclick="checkToggleUpdateContact(${dbId})">
                 <h3 class="contactNameGroup">
+                    <span class="chevron">&#9662;</span>
                     <span id="contactFirstName">${firstName}</span> 
                     <span id="contactLastName">${lastName}</span>
                 </h3>

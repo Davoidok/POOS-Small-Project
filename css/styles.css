@@ -272,7 +272,7 @@ body
 .contactDropdown {
     display: flex;
     justify-content: space-between;
-    padding-left:10px;
+    padding-left:22px;
     padding-bottom:10px;
 }
 .contact:hover {
@@ -283,7 +283,7 @@ body
     flex-direction: column;
     justify-content: center;
     color: #212524;
-    padding-left: 10px;
+    align-items: flex-start;
 }
 .contactActions {
     display: flex;
@@ -708,4 +708,29 @@ body
 
 .navbar .center a + a {
     border-left: 2px solid #ffceb2;
+}
+
+.frontpageContainer #the4pirates {
+  display:inline-block;
+  margin:auto;
+}
+
+.frontpageContainer a {
+  display: inline-block; 
+  margin:auto;
+}
+
+.frontpageContainer {
+  text-align: center; /* centers inline content inside it */
+}
+
+.chevron {
+    display: inline-block;
+    font-size: 14pt;
+    color: #212524;
+    vertical-align: middle;
+    transform: rotate(-90deg);
+}
+.contact[open] .chevron {
+    transform: rotate(0deg);
 }
