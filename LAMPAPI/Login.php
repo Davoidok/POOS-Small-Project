@@ -9,7 +9,7 @@ try{
     $conn = new PDO("mysql:host=localhost;dbname=$dbname", $dbuser, $dbpassword);
     $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-    $stmt = $conn->prepare("SELECT `ID`, `FirstName`, `LastName` FROM Users WHERE `Login`=? AND `Password`=?");
+    $stmt = $conn->prepare("SELECT `ID`, `FirstName`, `LastName` FROM Users WHERE BINARY `Login`=? AND BINARY `Password`=?");
     
     $login = $input['login'];
     $passw = $input['password'];

@@ -102,14 +102,16 @@ function getContactHTML(dbId, firstName, lastName, phone, email, matches = [], s
     }
 
     return `
-        <details class="contact pirate-scrawl" data-id=${dbId}>
+        <details class="contact" data-id=${dbId}>
             <div class="updateNameGroup hidden">
                 <div class="firstNameGroup">
-                    <input placeholder="First Name" id="firstNameUpdate" class="inputField pirate-scrawl updateInput" onkeydown="if(event.key=='Enter') updateContact(${dbId})">
+                    <input placeholder="First Name" id="firstNameUpdate" class="inputField pirate-scrawl updateInput" onkeydown="if(event.key=='Enter') updateContact(${dbId})
+                                                                                                                                 else if(event.key=='Escape') toggleUpdateContactFields(${dbId})">
                     <div class="errorContainer firstNameError pirata-one"></div>
                 </div>    
                 <div class="lastNameGroup">
-                    <input placeholder="Last Name" id="lastNameUpdate" class="inputField pirate-scrawl updateInput" onkeydown="if(event.key=='Enter') updateContact(${dbId})">
+                    <input placeholder="Last Name" id="lastNameUpdate" class="inputField pirate-scrawl updateInput" onkeydown="if(event.key=='Enter') updateContact(${dbId})
+                                                                                                                               else if(event.key=='Escape') toggleUpdateContactFields(${dbId})">
                     <div class="errorContainer lastNameError pirata-one"></div>
                 </div>
             </div>
@@ -129,17 +131,25 @@ function getContactHTML(dbId, firstName, lastName, phone, email, matches = [], s
                 </div>
                 <div class="updateInfoGroup hidden">
                     <div class="phoneGroup">
-                        <input placeholder="(000) 000-0000" id="phoneUpdate" class="inputField pirate-scrawl updateInput" onkeydown="if(event.key=='Enter') updateContact(${dbId})">
+                        <input placeholder="(000) 000-0000" id="phoneUpdate" class="inputField pirate-scrawl updateInput" onkeydown="if(event.key=='Enter') updateContact(${dbId})
+                                                                                                                                     else if(event.key=='Escape') toggleUpdateContactFields(${dbId})">
                         <div class="errorContainer phoneError pirata-one"></div>
                     </div>
                     <div class="emailGroup">
-                        <input placeholder="user@gmail.com" id="emailUpdate" class="inputField pirate-scrawl updateInput" onkeydown="if(event.key=='Enter') updateContact(${dbId})">
+                        <input placeholder="user@gmail.com" id="emailUpdate" class="inputField pirate-scrawl updateInput" onkeydown="if(event.key=='Enter') updateContact(${dbId})
+                                                                                                                                     else if(event.key=='Escape') toggleUpdateContactFields(${dbId})">
                         <div class="errorContainer emailError pirata-one"></div>
                     </div>
                 </div>
                 <div class="contactActions">
-                    <button id="updateContactButton" onclick="toggleUpdateContactFields(${dbId})">Update</button>
-                    <button id="deleteContactButton" onclick="doDeleteContact(${dbId})">Delete</button>
+                    <div class="updateDeleteButtons">
+                        <button id="updateContactButton" title="Update Contact" onclick="toggleUpdateContactFields(${dbId})"></button>
+                        <button id="deleteContactButton" title="Delete Contact" onclick="doDeleteContact(${dbId})"></button>
+                    </div>
+                    <div class="confirmCancelButtons hidden">
+                        <button id="confirmUpdateButton" title="Confirm Update" onclick="updateContact(${dbId})"></button>
+                        <button id="cancelUpdateButton" title="Cancel Update" onclick="toggleUpdateContactFields(${dbId})"></button>
+                    </div>
                 </div>
             </div>
         </details>

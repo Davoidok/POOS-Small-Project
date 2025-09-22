@@ -13,8 +13,16 @@
 .typewriter-text {
     font-family: 'IM Fell DW Pica', sans-serif !important;
 }
+.contactListContainer .typewriter-text {
+    font-family: 'IM Fell DW Pica', sans-serif !important;
+}
+.contactListContainer
+
 .typewriter-text-capital {
     font-family: 'IM FELL English SC', sans-serif !important;
+}
+.typewriter-small {
+    font-size: 14pt;
 }
 .pirata-one {
     font-family: 'Pirata One', sans-serif !important;
@@ -25,6 +33,13 @@
 }
 .hidden{
     display: none  !important;
+}
+.underline {
+    text-decoration: underline;
+}
+.no-hover:hover {
+    pointer-events: none !important;
+    background: none;
 }
 
 
@@ -79,7 +94,8 @@ body
 #listPageContainer h1.typewriter-text-capital{
     margin: 0 auto;
     font-size: 36px;
-    width: 600px;   
+    max-width: 600px;   
+    width: 100%;
     padding-bottom: 10px;
     text-align: center;
     border-bottom: 1px solid #212524;
@@ -272,6 +288,44 @@ body
 .contactActions {
     display: flex;
     justify-content: flex-end;
+    align-items: center;
+    flex-wrap:wrap;
+    gap: 16px;
+    margin-right: 10px;
+}
+.contactDropdown .contactActions button{
+    background-color: transparent;
+    background-size: 36px 36px; 
+    background-repeat: no-repeat;
+    background-position: center;
+    border-radius: 50%;
+    border-color: transparent;
+    width: 54px;
+    height: 54px;
+}
+#updateContactButton {
+    background-image: url('../imgs/quill2.png');
+}
+#updateContactButton:hover {
+    background-color: #80675866;
+}
+#deleteContactButton {
+    background-image: url('../imgs/delete_contact3.png');
+}
+#deleteContactButton:hover {
+    background-color: #f0101066;
+}
+#confirmUpdateButton {
+    background-image: url('../imgs/confirm_update.png');
+}
+#confirmUpdateButton:hover {
+    background-color: #3bf26f66;
+}
+#cancelUpdateButton {
+    background-image: url('../imgs/cancel_update1.png');
+}
+#cancelUpdateButton:hover {
+    background-color: #f0101066;
 }
 .contact .updateInput {
     font-weight: 100;
@@ -433,6 +487,8 @@ body
     margin-bottom: 10px;
     letter-spacing: 1px;
 }
+
+
 .createAccountLink {
     margin-top: 10px;
     text-align: center;

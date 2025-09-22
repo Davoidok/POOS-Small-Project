@@ -15,7 +15,7 @@ try{
     $login = $input['login'];
     $passw = $input['password'];
 
-    $stmt = $conn->prepare("SELECT `ID` FROM Users WHERE `Login`=?");
+    $stmt = $conn->prepare("SELECT `ID` FROM Users WHERE BINARY `Login`=?");
     $stmt->execute([$login]);
 
     $isInDatabase = $stmt->fetch();

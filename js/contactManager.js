@@ -467,7 +467,10 @@ function toggleUpdateContactFields(dbId){
     let phone = contact.querySelector('#contactPhoneNumber').innerHTML;
     let email = contact.querySelector('#contactEmail').innerHTML;
 
+    // contact.classList.toggle('no-hover');
+
     
+
     contact.querySelector('.contactHeader').classList.toggle('hidden');
     contact.querySelector('.updateNameGroup').classList.toggle('hidden');
     contact.querySelector('.updateInfoGroup').classList.toggle('hidden');
@@ -482,6 +485,11 @@ function toggleUpdateContactFields(dbId){
         contact.querySelector('#phoneUpdate').value = phone;
         contact.querySelector('#emailUpdate').value = email;
     }
+    
+    // These two swap being hidden
+    contact.querySelector('.confirmCancelButtons').classList.toggle('hidden');
+    contact.querySelector('.updateDeleteButtons').classList.toggle('hidden');
+    
     contact.querySelector('.firstNameError').innerHTML = "";
     contact.querySelector('.lastNameError').innerHTML = "";
     contact.querySelector('.phoneError').innerHTML = "";
