@@ -653,3 +653,17 @@ body
 .navbar .center a + a {
     border-left: 2px solid #ffceb2;
 }
+
+.frontpageContainer #the4pirates {
+  display:inline-block;
+  margin:auto;
+}
+
+.frontpageContainer a {
+  display: inline-block; 
+  margin:auto;
+}
+
+.frontpageContainer {
+  text-align: center; /* centers inline content inside it */
+}
