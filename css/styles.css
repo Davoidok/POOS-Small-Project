@@ -734,8 +734,13 @@ sup {
 .frontpageContainer #the4pirates {
   display:inline-block;
   margin:auto;
+  transition: filter 250ms ease;
+  filter: grayscale(0%);
 }
 
+.frontpageContainer #the4pirates:hover {
+   filter: hue-rotate(-20deg) saturate(0.9) brightness(0.8);
+}
 .frontpageContainer a {
   display: inline-block; 
   margin:auto;
