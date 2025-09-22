@@ -131,6 +131,7 @@ body
     border-radius: 8px;
     word-break: break-word;
     box-shadow: 0 6px 10px rgba(0,0,0, 0.6);
+    margin-bottom: 50px;
 }
 
 .contactList .contactNameGroup,
@@ -759,4 +760,15 @@ sup {
 }
 .contact[open] .chevron {
     transform: rotate(0deg);
+}
+
+#aboutContainer{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+#aboutContainer h1{
+    max-width: 700px;
+    color: #212524;
 }

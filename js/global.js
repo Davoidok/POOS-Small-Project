@@ -1,5 +1,5 @@
-// const urlBase = 'http://4lokofridays.com/LAMPAPI';
-const urlBase = 'http://localhost:8000/LAMPAPI'
+const urlBase = 'http://4lokofridays.com/LAMPAPI';
+// const urlBase = 'http://localhost:8000/LAMPAPI'
 const extension = 'php';
 
 let userId = 0;
@@ -232,7 +232,7 @@ function stripPhoneNumber(phone, partial=false){
 }
 
 function validEmail(email) {
-    const regex = /^[a-zA-Z0-9.]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/;
+    const regex = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/;
     return regex.test(email);
 }
 
