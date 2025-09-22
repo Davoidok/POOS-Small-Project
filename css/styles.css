@@ -267,7 +267,8 @@ body
     flex-direction: column;
     justify-content: center;
     color: #212524;
-    padding-left: 10px;
+    /* padding-left: 10px; */
+    align-items: flex-start;
 }
 .contactActions {
     display: flex;
@@ -666,4 +667,17 @@ body
 
 .frontpageContainer {
   text-align: center; /* centers inline content inside it */
+}
+
+.chevron {
+    display: inline-block;
+    margin-right: 8px;
+    font-size: 14pt;
+    color: #212524;
+    /* transition: transform 0.3s ease; */
+    vertical-align: middle;
+    transform: rotate(-90deg);
+}
+.contact[open] .chevron {
+    transform: rotate(0deg);
 }
