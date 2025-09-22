@@ -349,6 +349,7 @@ body
     flex-direction: column;
     gap: 5px;
     width: 50%;
+    margin-left: -12px;
 }
 .contact .errorContainer {
     color: #ff2600;
