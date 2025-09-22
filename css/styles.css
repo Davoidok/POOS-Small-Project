@@ -8,21 +8,16 @@
 }
 
 .pirate-scrawl {
-    font-family: 'Blackadder ITC Std Regular', sans-serif !important;
+    font-family: 'Blackadder ITC Std Regular', serif !important;
 }
 .typewriter-text {
-    font-family: 'IM Fell DW Pica', sans-serif !important;
+    font-family: 'IM Fell DW Pica', serif !important;
 }
 .contactListContainer .typewriter-text {
-    font-family: 'IM Fell DW Pica', sans-serif !important;
+    font-family: 'IM Fell DW Pica', serif !important;
 }
-.contactListContainer
-
 .typewriter-text-capital {
-    font-family: 'IM FELL English SC', sans-serif !important;
-}
-.typewriter-small {
-    font-size: 14pt;
+    font-family: 'IM FELL English SC', serif !important;
 }
 .pirata-one {
     font-family: 'Pirata One', sans-serif !important;
@@ -138,12 +133,35 @@ body
     box-shadow: 0 6px 10px rgba(0,0,0, 0.6);
 }
 
-.contactListContainer .contactHeader h3 {
-    max-width: 50%;
+.contactList .contactNameGroup,
+#searchContactContainer .contactList .searchMatches{
+    overflow-x: auto;
+    overflow-y: hidden;
+    padding-right: 5px;
+    white-space: nowrap;
+    display: block;
 }
-/* .searchHeader {
-    font-size: 
-} */
+.contactList .contactInfoGroup {
+    max-width: 60%;
+}
+.contactList .contactInfoGroup span {
+    max-width: 100%;
+    overflow-x: auto;
+    overflow-y: hidden;
+    padding-right: 5px;
+    padding-top: 5px;
+    padding-left: 5px;
+    padding-bottom:2px;
+    white-space: nowrap;
+}
+#searchContactContainer .contactList .searchMatches {
+    color: #a75f35;
+    max-width: 40%;
+}
+#searchContactContainer .contactList .contactNameGroup {
+    max-width: 60%;
+}
+
 .searchInputContainer {
     max-width: 600px;
     width: 100%;
@@ -171,10 +189,10 @@ body
 }
 .newContactGroup{
     margin-bottom: 40px;
+    text-align: left;
 }
 .newContactGroup .errorContainer{
     color: #ff2600;
-    /* font-family: 'Pirata One'; */
     letter-spacing: 1px;
 }
 .newContactGroup .errorContainer #errorIcon {
@@ -184,23 +202,29 @@ body
 }
 .newContactGroup label{
     letter-spacing: 1px;
-    /* font-family: 'Pirata One'; */
     font-size: 14pt;
 }
 .createContactBlock.contactListContainer{
-    margin-top: 80px;
     padding-left: 100px;
     padding-right: 100px;
 }
-.createContactBlock h2{
-    letter-spacing: 2px;
+#createContactContainer h1{
     text-align: center;
-    /* font-family: 'Pirata One'; */
     color: #212524;
+    min-height: 42px;
+    max-width: 700px;
 }
 .createContactBlock form{
     margin-top: 20px;
 }
+.createContactBlock .requiredNotice {
+    color: #ff2600;
+}
+sup.requiredNotice,
+sup {
+    font-size: 14pt;
+}
+
 #searchText:focus {
     outline: 3pt inset #f0c4a9;
 }
@@ -218,7 +242,6 @@ body
     min-height: 42px;
     display: block;
     text-align: center;
-    /* font-family: 'Ubuntu', sans-serif; */
     color: #212524;
 }
 .contactList {
@@ -251,13 +274,7 @@ body
     padding-left: 10px;
     padding-right: 10px;
     cursor: pointer;
-    height: 80px;
-}
-
-.contactHeader .searchMatches{
-    display: flex;
-    flex-direction: column;
-    color: #a75f35;
+    height: 100%;
 }
 .contact{
     border-bottom: 1px solid #212524;
@@ -272,7 +289,7 @@ body
 .contactDropdown {
     display: flex;
     justify-content: space-between;
-    padding-left:22px;
+    padding-left:17px;
     padding-bottom:10px;
 }
 .contact:hover {
@@ -378,13 +395,11 @@ body
 #phoneUpdate {
     font-size: 16pt;
     padding-top: 6px;
-    padding-left: 0;
     text-indent: 10px;
     height: 30px;
 }
 #emailUpdate {
     font-size: 16pt;
-    padding-left: 0;
     text-indent: 10px;
     height: 30px;
 }
@@ -432,7 +447,8 @@ body
     font-size: 14pt;
     border-radius: 8px;
     height: 38px;
-    padding-left: 10px;
+    padding-left: 5px;
+    text-indent: 5px;
 }
 .inputField:focus {
     outline: 2pt solid #FFF001FF;

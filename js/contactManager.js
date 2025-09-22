@@ -146,11 +146,6 @@ function createContact()
         <img src="imgs/caution.png" id="errorIcon">
         <span class="inputError" >${msg}</span>
     `
-    
-	let firstNameError = document.querySelector(".createError.firstNameError");
-    let lastNameError = document.querySelector(".createError.lastNameError");
-    let phoneNumError = document.querySelector(".createError.phoneError");
-	let emailError = document.querySelector(".createError.emailError");
 
     let result = validateContact(newFirstName.value, newLastName.value, newPhoneNum.value, newEmail.value);
     
@@ -193,6 +188,7 @@ function createContact()
                     newLastName.value = '';
                     newPhoneNum.value = '';
                     newEmail.value = '';
+                    document.querySelector('.createContactHeader').innerHTML = 'Aye aye, lad! Glad t\'see ye bring fresh meat for the crew!';
                 }
             };
             xhr.send(jsonPayload);
@@ -201,6 +197,8 @@ function createContact()
         {
             document.getElementById(".newContactGroup .inputError").innerHTML = err.message;
         }
+    } else {
+        document.querySelector('.createContactHeader').innerHTML = 'Great Neptune! I can\'t let \'em aboard!';
     }
 	
 }
@@ -234,31 +232,31 @@ function updateContact(dbId){
     `
 
     if(firstName === '' || !result.errors[0].err){
-        listContainer.querySelector(`.firstNameError`).innerHTML = '';
+        listContainer.querySelector(`.contact[data-id="${dbId}"] .firstNameError`).innerHTML = '';
     }
     else{
-        listContainer.querySelector(`.firstNameError`).innerHTML = errHTML(result.errors[0].err);
+        listContainer.querySelector(`.contact[data-id="${dbId}"] .firstNameError`).innerHTML = errHTML(result.errors[0].err);
     }
     
     if(lastName === '' || !result.errors[1].err){
-        listContainer.querySelector(`.lastNameError`).innerHTML = '';
+        listContainer.querySelector(`.contact[data-id="${dbId}"] .lastNameError`).innerHTML = '';
     }
     else{
-        listContainer.querySelector(`.lastNameError`).innerHTML = errHTML(result.errors[1].err);
+        listContainer.querySelector(`.contact[data-id="${dbId}"] .lastNameError`).innerHTML = errHTML(result.errors[1].err);
     }
 
     if(phone === '' || !result.errors[2].err){
-        listContainer.querySelector(`.phoneError`).innerHTML = '';
+        listContainer.querySelector(`.contact[data-id="${dbId}"] .phoneError`).innerHTML = '';
     }
     else{
-        listContainer.querySelector(`.phoneError`).innerHTML = errHTML(result.errors[2].err);
+        listContainer.querySelector(`.contact[data-id="${dbId}"] .phoneError`).innerHTML = errHTML(result.errors[2].err);
     }
 
     if(email === '' || !result.errors[3].err){
-        listContainer.querySelector(`.emailError`).innerHTML = '';
+        listContainer.querySelector(`.contact[data-id="${dbId}"] .emailError`).innerHTML = '';
     }
     else if(result.errors[3].err){
-        listContainer.querySelector(`.emailError`).innerHTML = errHTML(result.errors[3].err);
+        listContainer.querySelector(`.contact[data-id="${dbId}"] .emailError`).innerHTML = errHTML(result.errors[3].err);
     }
 
 
